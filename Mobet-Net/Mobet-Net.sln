@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet", "Mobet\Mobet.csproj", "{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Application", "Mobet.Application\Mobet.Application.csproj", "{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Authorization", "Mobet.Authorization\Mobet.Authorization.csproj", "{22BA7C34-3346-4342-8416-3778A767FF48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Domain", "Mobet.Domain\Mobet.Domain.csproj", "{A965169D-7BA1-4C55-B0ED-F113224E3F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Infrastructure", "Mobet.Infrastructure\Mobet.Infrastructure.csproj", "{B5E2AD05-4ABF-480A-8036-F870A33EC621}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22BA7C34-3346-4342-8416-3778A767FF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22BA7C34-3346-4342-8416-3778A767FF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22BA7C34-3346-4342-8416-3778A767FF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22BA7C34-3346-4342-8416-3778A767FF48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A965169D-7BA1-4C55-B0ED-F113224E3F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A965169D-7BA1-4C55-B0ED-F113224E3F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A965169D-7BA1-4C55-B0ED-F113224E3F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A965169D-7BA1-4C55-B0ED-F113224E3F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

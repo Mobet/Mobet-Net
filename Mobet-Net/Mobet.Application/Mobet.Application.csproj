@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DABDCA43-BA92-4E8F-A1AB-7B6654C919CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mobet.Application</RootNamespace>
+    <AssemblyName>Mobet.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LogService.cs" />
+    <Compile Include="Services\ILogService.cs" />
+    <Compile Include="SettingProviders\EmailSettingProvider.cs" />
+    <Compile Include="UserAccountService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IUserAccountService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mobet.Domain\Mobet.Domain.csproj">
+      <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
+      <Name>Mobet.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.Infrastructure\Mobet.Infrastructure.csproj">
+      <Project>{b5e2ad05-4abf-480a-8036-f870a33ec621}</Project>
+      <Name>Mobet.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.SoftwareDevelopmentKit\Mobet.SoftwareDevelopmentKit.csproj">
+      <Project>{6c922eb3-824d-4d7f-9a5e-c343f72182d8}</Project>
+      <Name>Mobet.SoftwareDevelopmentKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet\Mobet.csproj">
+      <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
+      <Name>Mobet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
