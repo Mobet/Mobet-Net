@@ -13,15 +13,15 @@ namespace Mobet.Caching
     {
         private IDatabase client;
         private ConnectionMultiplexer Connection;
-        public RedisCache(string Configuration)
+        public RedisCache(string configuration)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Configuration))
+                if (string.IsNullOrWhiteSpace(configuration))
                 {
                     throw new ArgumentNullException("Configuration can't be null.");
                 }
-                Connection = ConnectionMultiplexer.Connect(Configuration);
+                Connection = ConnectionMultiplexer.Connect(configuration);
                 client = Connection.GetDatabase();
             }
             catch (Exception e)

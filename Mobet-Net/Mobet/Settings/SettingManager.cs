@@ -67,7 +67,7 @@ namespace Mobet.Settings
         public async Task<string> GetSettingValueAsync(string name, SettingScopes scope = SettingScopes.Application)
         {
             var setting = await GetSettingAsync(name);
-            if (setting == null)
+            if (setting != null)
             {
                 _settings[name] = await _settingStore.GetSettingAsync(name);
             }

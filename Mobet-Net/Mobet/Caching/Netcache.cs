@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mobet.Dependency;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,7 @@ using System.Web.Caching;
 
 namespace Mobet.Caching
 {
-    /// <summary>
-    /// Netcache
-    /// </summary>
-    public class Netcache : ICache
+    public class Netcache : ICache, ISingletonDependency
     {
 
         System.Web.Caching.Cache provider = null;

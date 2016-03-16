@@ -241,7 +241,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Scripts\Controllers\" />
+    <Folder Include="Scripts\Directives\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Authorization\" />
     <Folder Include="Views\Clients\" />
@@ -253,8 +254,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configuration\Certificate.cs" />
+    <Compile Include="Configuration\ResourcesSettingProvider.cs" />
     <Compile Include="Configuration\Clients.cs" />
     <Compile Include="Configuration\Factory.cs" />
+    <Compile Include="Configuration\ResourcesConsts.cs" />
     <Compile Include="Configuration\Scopes.cs" />
     <Compile Include="Configuration\Users.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -263,23 +266,34 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ScopeController.cs" />
+    <Compile Include="Controllers\Shared\AuthorizationWebViewPage.cs" />
+    <Compile Include="Controllers\Shared\LayoutController.cs" />
+    <Compile Include="Controllers\Shared\LocalController.cs" />
+    <Compile Include="Controllers\Shared\AbstractWebViewPage.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extensions\HtmlHelperResourceExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AccountViewService.cs" />
+    <Compile Include="Configuration\Services\AccountViewService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\JavaScript1.js" />
+    <Content Include="Content\account.js" />
+    <Content Include="Content\images\icons_type.png" />
+    <Content Include="Content\images\sprite_login.gif" />
     <Content Include="Content\jquery.min.js" />
-    <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\account.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <EmbeddedResource Include="Localization\XmlSources\Demo.xml" />
-    <Content Include="Scripts\_references.js" />
+    <EmbeddedResource Include="Configuration\Localization\XmlSources\Authorization.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Scripts\Services\LayoutService.js" />
+    <Content Include="Scripts\Shared\Layout.js" />
+    <Content Include="Scripts\Modules\AuthorizationApp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -314,7 +328,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="log4net.config">
+    <Content Include="Configuration\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -331,6 +345,24 @@
     <Content Include="Views\Account\Logout.cshtml" />
     <Content Include="Views\Account\Permissions.cshtml" />
     <Content Include="Views\Account\_RenderAngularModel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Chat.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Settings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Main.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layout\Navbar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

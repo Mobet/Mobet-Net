@@ -15,17 +15,17 @@ namespace Mobet.Authorization.Configuration
         {
             var users = new List<InMemoryUser>
             {
-                new InMemoryUser{Subject = "10001", Username = "Mobet", Password = "Mobet", 
+                new InMemoryUser{Subject = "10001", Username = "Mobet", Password = "123312", 
                     Claims = new Claim[]
                     {
                         new Claim(Constants.ClaimTypes.Name, "Mobet"),
-                        new Claim(Constants.ClaimTypes.GivenName, "Mobet"),
-                        new Claim(Constants.ClaimTypes.FamilyName, "Mobet"),
+                        new Claim(Constants.ClaimTypes.GivenName, "松超"),
+                        new Claim(Constants.ClaimTypes.FamilyName, "许"),
                         new Claim(Constants.ClaimTypes.Email, "mobet_net@163.com"),
                         new Claim(Constants.ClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
                         new Claim(Constants.ClaimTypes.Role, "Admin"),
                         new Claim(Constants.ClaimTypes.Role, "Geek"),
-                        new Claim(Constants.ClaimTypes.WebSite, "http://mobet.cn"),
+                        new Claim(Constants.ClaimTypes.WebSite, "http://www.mobet.cn"),
                         new Claim(Constants.ClaimTypes.Address, @"{ ""详细地址"": ""黄浦区蒙自路207号"", ""Locality"": ""上海"", ""PostalCode"": 200000, ""Country"": ""中国"" }", Constants.ClaimValueTypes.Json)
                     }
                 }

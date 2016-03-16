@@ -1,6 +1,6 @@
 ﻿@model IdentityServer3.Core.ViewModels.LoginViewModel
 @{
-    ViewBag.Title = "帐号登陆";
+    ViewBag.Title = L("账号登录");
     Layout = null;
     List<IdentityServer3.Core.Configuration.LoginPageLink> AdditionalLinks = Model.AdditionalLinks == null ? new List<IdentityServer3.Core.Configuration.LoginPageLink>() : Model.AdditionalLinks.ToList();
     if (string.IsNullOrWhiteSpace(Model.LoginUrl)) { return; }
@@ -16,9 +16,10 @@
     <meta name="keywords" content="小米帐号，小米账号，小米注册，注册，Mi Account，Sign in，小米，帐号，账号，小米帐户，登录，登陆，安全令牌，动态口令，小米注册，找回密码" />
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
 
-    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+
+    <link href="~/Content/account.css" rel="stylesheet" />
     <script src="~/Content/jquery.min.js"></script>
-    <script src="~/Content/JavaScript1.js"></script>
+    <script src="~/Content/account.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -29,7 +30,7 @@
                     <div class="lgnheader">
                         <div class="header_tit t_c">
                             <h4 class="header_tit_txt" id="login-title">@ViewBag.Title</h4>
-                            <div class=" site_info"></div>
+                            <div class="site_info"></div>
                         </div>
                     </div>
                     <div id="login_box">
@@ -96,6 +97,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="ercode_area" id="login-qrcode">
                     <a class="code_close" href="javascript:void(0);" title="关闭" id="qrcode-close"><span class="icon_code_close"></span></a>
                     <div class="ercode_box">
@@ -112,6 +114,8 @@
             </div>
         </div>
     </div>
+    @* The list of languages should be dynamically loaded. *@
+
     <div class="n-footer">
         <div class="nf-link-area clearfix">
             <ul class="lang-select-list">
@@ -123,5 +127,8 @@
         </div>
         <p class="nf-intro"><span>版权所有-京ICP备10046444-<a class="beian-record-link" target="_blank" href="#"><span></span>京公网安备11010802020134号</a>-京ICP证110507号</span></p>
     </div>
+
+    @Html.RenderScript("resources/plugins/jquery-2.1.1/jquery.2.1.1.min.js")
+
 </body>
 </html>

@@ -13,6 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Domain", "Mobet.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Infrastructure", "Mobet.Infrastructure\Mobet.Infrastructure.csproj", "{B5E2AD05-4ABF-480A-8036-F870A33EC621}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "测试", "测试", "{755FB146-43A1-4CC9-A61B-A434C453B31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.Localization", "Mobet.Demo.Localization\Mobet.Demo.Localization.csproj", "{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.Settings", "Mobet.Demo.Settings\Mobet.Demo.Settings.csproj", "{E6CDA5C5-4970-4383-8906-3F947D296936}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Resources", "Mobet.Resources\Mobet.Resources.csproj", "{D38118B8-C45D-4141-ACCF-ABC682B152D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.Events", "Mobet.Demo.Events\Mobet.Demo.Events.csproj", "{EEE0D9F7-01C9-4331-9215-B3B1230ADC16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +49,29 @@ Global
 		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5E2AD05-4ABF-480A-8036-F870A33EC621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CDA5C5-4970-4383-8906-3F947D296936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CDA5C5-4970-4383-8906-3F947D296936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CDA5C5-4970-4383-8906-3F947D296936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CDA5C5-4970-4383-8906-3F947D296936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D38118B8-C45D-4141-ACCF-ABC682B152D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38118B8-C45D-4141-ACCF-ABC682B152D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D38118B8-C45D-4141-ACCF-ABC682B152D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38118B8-C45D-4141-ACCF-ABC682B152D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE0D9F7-01C9-4331-9215-B3B1230ADC16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE0D9F7-01C9-4331-9215-B3B1230ADC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE0D9F7-01C9-4331-9215-B3B1230ADC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE0D9F7-01C9-4331-9215-B3B1230ADC16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B4762A3-AE1F-48DE-87ED-9DC051B0E25C} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
+		{E6CDA5C5-4970-4383-8906-3F947D296936} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
+		{EEE0D9F7-01C9-4331-9215-B3B1230ADC16} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
 	EndGlobalSection
 EndGlobal

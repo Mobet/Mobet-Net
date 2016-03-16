@@ -21,7 +21,7 @@ namespace Mobet.Localization
             LogHelper.Logger.Warn(exceptionMessage);
 
             return configuration.WrapGivenTextIfNotFound
-                ? string.Format("[{0}]", name)
+                ? string.Format("{0}", name)
                 : name;
         }
     }
