@@ -77,10 +77,6 @@
       <Project>{b5e2ad05-4abf-480a-8036-f870a33ec621}</Project>
       <Name>Mobet.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mobet.SoftwareDevelopmentKit\Mobet.SoftwareDevelopmentKit.csproj">
-      <Project>{6c922eb3-824d-4d7f-9a5e-c343f72182d8}</Project>
-      <Name>Mobet.SoftwareDevelopmentKit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>
