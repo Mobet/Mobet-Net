@@ -113,9 +113,6 @@ namespace System.Web.Mvc.Html
                "resources/plugins/angular-dialog/ui.bootstrap.js",
                "resources/plugins/angular-dialog/angular-dialog.js",
 
-
-               "resources/plugins/inspinia.js",
-
             };
             StringBuilder sb = new StringBuilder();
 

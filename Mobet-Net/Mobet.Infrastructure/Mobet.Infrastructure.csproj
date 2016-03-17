@@ -53,12 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorizationDbContext.cs" />
-    <Compile Include="AuditDbContext.cs" />
+    <Compile Include="ModelsContainer.cs" />
+    <Compile Include="Mappings\RoleMenusMapping.cs" />
+    <Compile Include="Mappings\UserRolesMapping.cs" />
+    <Compile Include="Migrations\201603171038031_01.cs" />
+    <Compile Include="Migrations\201603171038031_01.Designer.cs">
+      <DependentUpon>201603171038031_01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\LogRepository.cs" />
-    <Compile Include="Repositories\UserAccountRepository.cs" />
+    <Compile Include="Repositories\MenuRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201603171038031_01.resx">
+      <DependentUpon>201603171038031_01.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,14 +25,15 @@ namespace Mobet.Authorization
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Bootstrapper cfg = new Bootstrapper();
             cfg.RegisterWebMvcApplication();
 
 
             cfg.StartupConfiguration.LocalizationConfiguration.Sources.Add(
-             new DictionaryBasedLocalizationSource("Authorization",
-                        new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), "Mobet.Authorization.Localization.XmlSources")
+             new DictionaryBasedLocalizationSource("AccountService",
+                        new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), "Mobet.Configuration.Authorization.Localization.AccountService")
                  )
             );
 
@@ -49,8 +50,6 @@ namespace Mobet.Authorization
                .UseAuditing()
                .UseAutoMapper()
                .UseAppSession();
-
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
         }
     }

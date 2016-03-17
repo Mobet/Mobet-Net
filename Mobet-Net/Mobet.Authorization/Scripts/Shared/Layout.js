@@ -5,9 +5,20 @@
         return {
             templateUrl: "/Layout/Header",
             link: function (scope, element, attr) {
-                //app.handleToggle();
-                //app.handleSlimScroll();
-                //app.handlePulsate();
+
+                // Minimalize menu when screen is less than 768px
+                $(window).bind("resize", function () {
+                    if ($(this).width() < 769) {
+                        $('body').addClass('body-small')
+                    } else {
+                        $('body').removeClass('body-small')
+                    }
+                });
+
+                // Minimalize menu
+                $('.navbar-menu-button').click(function () {
+                    MinimalizeMenu();
+                });
             }
         };
     });
@@ -40,12 +51,13 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutChat', function () {
+    angular.module('AuthorizationApp').directive('layoutIntercom', function () {
         return {
-            templateUrl:  "/Layout/Chat",
+            templateUrl:  "/Layout/Intercom",
             link: function (scope, el, attr) {
-                //app.handleBootstrapSwitch(el);
-                //app.handleFormChat(scope);
+                $('.intercom-sheet-header-close-button,.intercom-launcher-button').click(function () {
+                    $('.intercom-messenger').toggle();
+                });
             }
         };
     });
@@ -56,7 +68,33 @@
             link: function (scope, el, attr) {
                 //app.handleBootstrapSwitch(el);
                 //app.handleFormChat(scope);
+
+                $('#side-menu').metisMenu();
             }
         };
     });
+
+    var MinimalizeMenu = function () {
+        $('.navbar-menu').toggleClass('navbar-menu-mini');
+        $("body").toggleClass("mini-navbar");
+
+        if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
+            // Hide menu in order to smoothly turn on when maximize menu
+            $('#side-menu').hide();
+            // For smoothly turn on menu
+            setTimeout(
+                function () {
+                    $('#side-menu').fadeIn(500);
+                }, 100);
+        } else if ($('body').hasClass('fixed-sidebar')) {
+            $('#side-menu').hide();
+            setTimeout(
+                function () {
+                    $('#side-menu').fadeIn(500);
+                }, 300);
+        } else {
+            // Remove all inline style from jquery fadeIn function to reset menu state
+            $('#side-menu').removeAttr('style');
+        }
+    }
 })();

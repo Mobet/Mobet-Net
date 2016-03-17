@@ -13,9 +13,9 @@ namespace Mobet.Domain.Models
     /// <summary>
     /// Defines interface for base IAggregateRoot type. All AggregateRoot in the system must implement this interface.
     /// </summary>
-    public interface IAggregateRoot :  IEntity
+    public interface IAggregateRoot : IEntity
     {
-
+        byte[] Version { get; set; }
     }
 
     /// <summary>
@@ -24,6 +24,6 @@ namespace Mobet.Domain.Models
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     public interface IAggregateRoot<TPrimaryKey> : IEntity<TPrimaryKey>
     {
-
+        byte[] Version { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Mobet.Domain.Models;
 
 namespace Mobet.Domain.Repositories
 {
-    public interface IUserAccountRepository : IRepository<UserAccount>
+    public interface IRoleRepository : IRepository<Role>
     {
 
     }

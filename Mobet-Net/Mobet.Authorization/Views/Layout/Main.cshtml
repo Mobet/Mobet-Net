@@ -1,5 +1,8 @@
 ﻿@{
     Layout = null;
 }
-
-<h3>MAIN</h3>
+<div class="row main-content">
+    <div class="animated fadeInRight" ui-view>
+    </div>
+</div>
+<toaster-container toaster-options="{'time-out': 2000}"></toaster-container>

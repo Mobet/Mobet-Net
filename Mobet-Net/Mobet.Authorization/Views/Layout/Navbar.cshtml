@@ -1,5 +1,91 @@
 ﻿@{
     Layout = null;
 }
-
-<h3>NAVBAR</h3>
+<nav class="navbar-default navbar-static-side navbar-top" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p01ipyFBOr98/GOF2ZyTtU5ejqs_320.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">夸客金融</strong>
+                            </span><span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="#">个人资料</a></li>
+                        <li><a href="#" ng-click="avatar()">更换头像</a></li>
+                        <li><a href="#">重置密码</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/Account/Logout">注销</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    M+
+                </div>
+            </li>
+            <li class="active">
+                <a href="#"><i class="fa fa-dashboard"></i><span class="nav-label">个人中心</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/UserAccount-Password">修改密码</a></li>
+                    <li><a href="#/Avatar">更换头像</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#/PreAppCustomer"><i class="fa fa-credit-card"></i><span class="nav-label">客户管理</span></a>
+            </li>
+            <li>
+                <a href="#/Pre-Apply"><i class="fa fa-magic"></i><span class="nav-label">预申请管理</span></a>
+            </li>
+            <li>
+                <a href="#/Product"><i class="fa fa-reorder"></i><span class="nav-label">产品管理</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-bar-chart-o"></i><span class="nav-label">绩效管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/Performance">绩效查询</a></li>
+                    <li><a href="#/PerformanceMeasures">绩效指标</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i><span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/User">用户管理</a></li>
+                    <li> <a href="#/HrmUser">HRM用户管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-flask"></i><span class="nav-label">通用管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/AD">广告管理</a></li>
+                    <li><a href="#/WorkCommunity">工作圈管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-edit"></i><span class="nav-label">权限控制</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/Operator">用户管理</a></li>
+                    <li><a href="#/Role">角色管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-cog"></i><span class="nav-label">系统配置</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#/Department">部门管理</a></li>
+                    <li><a href="#/CobraAppStatusMapping">申请状态映射</a></li>
+                    <li><a href="#/Calendar">工作日历</a></li>
+                </ul>
+            </li>
+            <li class="landing_link">
+                <a href="#/GlobalSettings"><i class="fa fa-star"></i><span class="nav-label">全局配置</span></a>
+            </li>
+            <li class="special_link">
+                <a href="" target="_blank"><i class="fa fa-database"></i><span class="nav-label">接口文档中心</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

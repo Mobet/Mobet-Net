@@ -11,9 +11,9 @@ using Mobet.EntityFramework;
 
 namespace Mobet.Infrastructure.Repositories
 {
-    public class UserAccountRepository : Repository<UserAccount>, IUserAccountRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        public UserAccountRepository(IEntityFrameworkDbContextProvider<AuthorizationDbContext> dbContextProvider)
+        public UserRepository(IEntityFrameworkDbContextProvider<ModelsContainer> dbContextProvider)
             : base(dbContextProvider)
         {
             

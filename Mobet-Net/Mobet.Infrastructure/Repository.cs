@@ -9,18 +9,10 @@ using Mobet.EntityFramework;
 
 namespace Mobet.Infrastructure
 {
-    public class Repository<TEntity> : Repository<AuthorizationDbContext, TEntity>
+    public class Repository<TEntity> : Repository<ModelsContainer, TEntity>
         where TEntity : class,IEntity
     {
-        public Repository(IEntityFrameworkDbContextProvider<AuthorizationDbContext> dbContextProvider)
-            : base(dbContextProvider)
-        {
-        }
-    }
-    public class Repository2<TEntity> : Repository<AuditDbContext, TEntity>
-    where TEntity : class,IEntity
-    {
-        public Repository2(IEntityFrameworkDbContextProvider<AuditDbContext> dbContextProvider)
+        public Repository(IEntityFrameworkDbContextProvider<ModelsContainer> dbContextProvider)
             : base(dbContextProvider)
         {
         }

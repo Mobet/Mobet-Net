@@ -6,13 +6,38 @@ using System.Threading.Tasks;
 
 using Mobet.Dependency;
 using Mobet.Domain.Services;
-using Mobet.SoftwareDevelopmentKit.UserAccount;
+using Mobet.Application.Requests.User;
 
 namespace Mobet.Application.Services
 {
-    public interface IUserAccountService : IApplicationService
+    /// <summary>
+    /// 用户服务
+    /// </summary>
+    public interface IUserService : IApplicationService
     {
-        UserAccountGetPagingResponse GetPaging(UserAccountGetPagingRequest request);
-        void Create();
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserGetPagingResponse GetPaging(UserGetPagingRequest request);
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserCreateResponse Create(UserCreateRequest request);
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserChangeResponse Change(UserCreateRequest request);
+        /// <summary>
+        /// 使用手机号码注册
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserRegisterByMobilephoneResponse RegisterByMobilephone(UserRegisterByMobilephoneRequest request);
     }
 }

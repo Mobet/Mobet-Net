@@ -5,14 +5,15 @@ namespace Mobet.Infrastructure.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Mobet.Infrastructure.AuthorizationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Mobet.Infrastructure.ModelsContainer>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
-        protected override void Seed(Mobet.Infrastructure.AuthorizationDbContext context)
+        protected override void Seed(Mobet.Infrastructure.ModelsContainer context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -8,7 +8,7 @@ namespace Mobet.Authorization.Controllers.Shared
 {
     public class LayoutController : Controller
     {
-        public ActionResult Chat()
+        public ActionResult Intercom()
         {
             return View();
         }

@@ -197,6 +197,9 @@
     <Compile Include="Configuration\Startup\IStartupConfiguration.cs" />
     <Compile Include="Configuration\Startup\Bootstrapper.cs" />
     <Compile Include="Configuration\Startup\StartupConfiguration.cs" />
+    <Compile Include="Domain\Services\IRequest.cs" />
+    <Compile Include="Domain\Services\IResponse.cs" />
+    <Compile Include="Domain\Services\PagingRequest.cs" />
     <Compile Include="Events\Configuration\EventBusConfiguration.cs" />
     <Compile Include="Events\Configuration\IEventBusConfiguration.cs" />
     <Compile Include="Events\ConventionalRegistras\EventBusConventionalRegistras.cs" />
