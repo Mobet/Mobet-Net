@@ -9,7 +9,7 @@ using IdentityServer3.Core.Extensions;
 
 namespace Mobet.Authorization.Controllers
 {
-    public class AccountController : AuthorizationController
+    public class AccountController : Controller
     {
         public AccountController()
         {

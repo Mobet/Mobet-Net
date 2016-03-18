@@ -9,7 +9,7 @@ namespace Mobet.Events.Configuration
     /// <summary>
     /// Used to configure <see cref="IEventBus"/>.
     /// </summary>
-    public interface IEventBusConfiguration : ISingletonDependency
+    public interface IEventBusConfiguration
     {
         /// <summary>
         /// True, to use <see cref="EventBus.Default"/>.

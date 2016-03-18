@@ -72,6 +72,7 @@ namespace Mobet.Configuration.Startup
 
         public StartupConfiguration()
         {
+
             AuditingConfiguration = IocManager.Instance.Resolve<IAuditingConfiguration>();
             UnitOfWorkDefaultOptionsConfiguration = IocManager.Instance.Resolve<IUnitOfWorkDefaultOptionsConfiguration>();
             EntityFrameworkConfiguration = IocManager.Instance.Resolve<IEntityFrameworkConfiguration>();

@@ -19,7 +19,7 @@ namespace Mobet.Localization
             }
 
             var localizableString = (ILocalizableString) value;
-            writer.WriteValue(localizableString.Localize(new LocalizationContext(LocalizationHelper.Manager)));
+            writer.WriteValue(localizableString.Localize(new LocalizationContext(LocalizationHelper.LocalizationManager)));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 using Mobet.Dependency;
 using Mobet.Domain.Services;
-using Mobet.Application.Requests.User;
+using Mobet.Services.Requests.User;
 
-namespace Mobet.Application.Services
+namespace Mobet.Services.Services
 {
     /// <summary>
     /// 用户服务
     /// </summary>
-    public interface IUserService : IApplicationService
+    public interface IUserService : IdentityServer3.Core.Services.IUserService, IApplicationService
     {
         /// <summary>
         /// 分页查询

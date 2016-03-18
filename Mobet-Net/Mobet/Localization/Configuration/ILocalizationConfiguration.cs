@@ -8,7 +8,7 @@ namespace Mobet.Localization.Configuration
     /// <summary>
     /// Used for localization configurations.
     /// </summary>
-    public interface ILocalizationConfiguration : ISingletonDependency
+    public interface ILocalizationConfiguration
     {
         /// <summary>
         /// Used to set languages available for this application.

@@ -12,7 +12,7 @@ namespace Mobet.Domain.UnitOfWork.ConventionalRegistras
     /// <summary>
     /// This interceptor is used to manage database connection and transactions.
     /// </summary>
-    internal class UnitOfWorkInterceptor : IInterceptor
+    public class UnitOfWorkInterceptor : IInterceptor
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
 

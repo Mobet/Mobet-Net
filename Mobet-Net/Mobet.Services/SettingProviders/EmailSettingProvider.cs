@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Mobet.Settings;
 using Mobet.Settings.Provider;
 
-namespace Mobet.Application.SettingProviders
+namespace Mobet.Services.SettingProviders
 {
     public class EmailSettingProvider : SettingProvider
     {

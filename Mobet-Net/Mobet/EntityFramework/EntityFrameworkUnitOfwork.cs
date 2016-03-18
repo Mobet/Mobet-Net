@@ -22,8 +22,6 @@ namespace Mobet.EntityFramework
     {
         protected readonly IDictionary<Type, DbContext> ActiveDbContexts;
 
-        private IIocManager _iocManager { get; set; }
-
         protected TransactionScope CurrentTransaction;
 
         /// <summary>
@@ -32,7 +30,6 @@ namespace Mobet.EntityFramework
         public EntityFrameworkUnitOfWork(IUnitOfWorkDefaultOptionsConfiguration defaultOptions)
             : base(defaultOptions)
         {
-            _iocManager = IocManager.Instance;
             ActiveDbContexts = new Dictionary<Type, DbContext>();
         }
 
@@ -126,7 +123,7 @@ namespace Mobet.EntityFramework
             DbContext dbContext;
             if (!ActiveDbContexts.TryGetValue(typeof(TDbContext), out dbContext))
             {
-                dbContext = Resolve<TDbContext>();
+                dbContext = (TDbContext)IocManager.Instance.Resolve(typeof(TDbContext));
 
                 foreach (var filter in Filters)
                 {
@@ -178,15 +175,9 @@ namespace Mobet.EntityFramework
             await dbContext.SaveChangesAsync();
         }
 
-        protected virtual TDbContext Resolve<TDbContext>()
-        {
-            return _iocManager.Resolve<TDbContext>();
-        }
-
         protected virtual void Release(DbContext dbContext)
         {
             dbContext.Dispose();
-            //IocResolver.Release(dbContext);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Mobet.Demo.Settings
             boot.StartupConfiguration.SettingsConfiguration.Providers.Add<EmailSettingProvider>();
 
             boot.UseLoggingLog4net()
-                .UseCacheProviderInMemory()
+                .UseCacheProviderNetCache()
                 ;
 
             var settingConfiguration = IocManager.Instance.Resolve<ISettingsConfiguration>();

@@ -4,7 +4,7 @@ namespace Mobet.EntityFramework.Configuration
     /// <summary>
     /// Used to configure EntityFramework.
     /// </summary>
-    public interface IEntityFrameworkConfiguration : ISingletonDependency
+    public interface IEntityFrameworkConfiguration
     {
         /// <summary>
         /// Gets/sets default connection string used by ORM module.

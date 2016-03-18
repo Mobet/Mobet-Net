@@ -15,9 +15,9 @@ namespace Mobet.Domain.UnitOfWork
 
         }
 
-        public async override Task SaveChangesAsync()
+        public override Task SaveChangesAsync()
         {
-
+            return Task.FromResult(0);
         }
 
         protected override void BeginUow()
@@ -30,9 +30,9 @@ namespace Mobet.Domain.UnitOfWork
 
         }
 
-        protected async override Task CompleteUowAsync()
+        protected  override Task CompleteUowAsync()
         {
-
+            return Task.FromResult(0);
         }
 
         protected override void DisposeUow()

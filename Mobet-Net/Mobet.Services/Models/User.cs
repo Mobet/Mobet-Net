@@ -1,70 +1,60 @@
-﻿using Mobet.AutoMapper;
-using Mobet.Domain.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobet.Application.Requests.User
+using Mobet.AutoMapper;
+using System.Security.Claims;
+
+namespace Mobet.Services.Models
 {
-    [AutoMap(typeof(Domain.Models.User))]
-    public class UserChangeRequest : IRequest
+    [AutoMapTo(typeof(Domain.Models.User))]
+    public class User
     {
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public virtual int Id { get; set; }
         /// <summary>
         /// 第三方登录提供程序Open Connect ID
         /// </summary>
-        [StringLength(50)]
         public virtual string OpenId { get; set; }
         /// <summary>
         /// 真实姓名
         /// </summary>
-        [StringLength(50)]
         public virtual string Name { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        [StringLength(50)]
         public virtual string NickName { get; set; }
         /// <summary>
         /// 生日
         /// </summary>
         public DateTime? Birthday { get; set; }
         /// <summary>
-        /// 移动号码
+        /// 手机号码
         /// </summary>
-        [StringLength(50)]
-        public virtual string Mobilephone { get; set; }
-        /// <summary>
-        /// 电话号码
-        /// </summary>
-        [StringLength(50)]
         public virtual string Telphone { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
-        [StringLength(50)]
         public virtual string Email { get; set; }
         /// <summary>
         /// 街道地址
         /// </summary>
-        [StringLength(250)]
         public virtual string Street { get; set; }
         /// <summary>
         /// 所在城市
         /// </summary>
-        [StringLength(50)]
         public virtual string City { get; set; }
         /// <summary>
         /// 所在省
         /// </summary>
-        [StringLength(50)]
         public virtual string Province { get; set; }
         /// <summary>
         /// 所在国家
         /// </summary>
-        [StringLength(50)]
         public virtual string Country { get; set; }
         /// <summary>
         /// 性别
@@ -73,26 +63,23 @@ namespace Mobet.Application.Requests.User
         /// <summary>
         /// 头像地址
         /// </summary>
-        [StringLength(2000)]
         public virtual string Headimageurl { get; set; }
         /// <summary>
         /// 身份证号
         /// </summary>
-        [StringLength(50)]
         public virtual string IdentityNo { get; set; }
-
-    }
-
-    public class UserChangeResponse : IResponse
-    {
         /// <summary>
-        /// 结果
+        /// Subject
         /// </summary>
-        public bool Result { get; set; }
+        public virtual string Subject { get; set; }
         /// <summary>
-        /// 附加消息
+        /// 创建时间
         /// </summary>
-        public string Message { get; set; }
+        public virtual DateTime? CreateTime { get; set; }
 
+        /// <summary>
+        /// 声明
+        /// </summary>
+        public IList<Claim> Claims { get; set; }
     }
 }

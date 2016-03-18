@@ -43,12 +43,7 @@ namespace Mobet.Domain.Models
         /// </summary>
         public DateTime? Birthday { get; set; }
         /// <summary>
-        /// 移动号码
-        /// </summary>
-        [StringLength(50)]
-        public virtual string Mobilephone { get; set; }
-        /// <summary>
-        /// 电话号码
+        /// 手机号码
         /// </summary>
         [StringLength(50)]
         public virtual string Telphone { get; set; }
@@ -101,6 +96,10 @@ namespace Mobet.Domain.Models
         /// </summary>
         [StringLength(50)]
         public virtual string Salt { get; set; }
+        /// <summary>
+        /// Subject
+        /// </summary>
+        public virtual string Subject { get; set; }
 
         /// <summary>
         /// 数据版本

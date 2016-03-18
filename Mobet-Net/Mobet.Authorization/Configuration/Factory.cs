@@ -9,6 +9,7 @@ using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
 using Mobet.Authorization.Services;
 using Mobet.Authorization.Controllers;
+using Mobet.Dependency;
 
 namespace Mobet.Authorization.Configuration
 {
@@ -30,11 +31,9 @@ namespace Mobet.Authorization.Configuration
             factory.RegisterConfigurationServices(efConfig);
             factory.RegisterOperationalServices(efConfig);
 
-            factory.UseInMemoryUsers(Users.Get());
 
             //自定义登录页面
-            //factory.UserService = new Registration<IUserService, LoginPageUserService>();
-
+            factory.UserService = new Registration<IUserService>(resolver => IocManager.Instance.Resolve<Mobet.Services.Services.IUserService>());
             // Use the Mvc View Service instead of the default
             factory.ViewService = new Registration<IViewService, AccountViewService<AccountController>>();
 

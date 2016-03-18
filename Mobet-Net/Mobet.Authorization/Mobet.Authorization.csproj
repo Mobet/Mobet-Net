@@ -318,9 +318,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobet.Application\Mobet.Application.csproj">
-      <Project>{dabdca43-ba92-4e8f-a1ab-7b6654c919cd}</Project>
-      <Name>Mobet.Application</Name>
+    <ProjectReference Include="..\Mobet.Domain\Mobet.Domain.csproj">
+      <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
+      <Name>Mobet.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.Infrastructure\Mobet.Infrastructure.csproj">
+      <Project>{b5e2ad05-4abf-480a-8036-f870a33ec621}</Project>
+      <Name>Mobet.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.Services\Mobet.Services.csproj">
+      <Project>{6ed56baf-3d71-4f6d-8d1f-a29bcf24c406}</Project>
+      <Name>Mobet.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>

@@ -22,9 +22,10 @@ namespace Mobet.Domain.UnitOfWork
             _isCompleteCalled = true;
         }
 
-        public async Task CompleteAsync()
+        public Task CompleteAsync()
         {
-            _isCompleteCalled = true;           
+            _isCompleteCalled = true;
+            return Task.FromResult(0);
         }
 
         public void Dispose()
@@ -46,7 +47,7 @@ namespace Mobet.Domain.UnitOfWork
                 throw new Exception(DidNotCallCompleteMethodExceptionMessage);
             }
         }
-        
+
         private static bool HasException()
         {
             try

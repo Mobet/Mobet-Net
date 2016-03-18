@@ -38,13 +38,9 @@ namespace Mobet.Localization
             _configuration = configuration;
             _sources = new Dictionary<string, ILocalizationSource>();
 
-            Initialize();
-        }
-
-        public void Initialize()
-        {
             InitializeSources();
         }
+
 
         [Obsolete("Inject ILanguageManager and use ILanguageManager.GetLanguages().")]
         public IReadOnlyList<LanguageInfo> GetAllLanguages()

@@ -14,7 +14,7 @@ using Mobet.Dependency;
 
 namespace Mobet.Configuration.Startup
 {
-    public interface IStartupConfiguration : ISingletonDependency
+    public interface IStartupConfiguration
     {
         /// <summary>
         /// Used to set localization configuration.

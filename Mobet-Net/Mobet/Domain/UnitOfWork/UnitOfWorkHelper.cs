@@ -2,13 +2,14 @@ using System;
 using System.Reflection;
 using Mobet.Domain.Repositories;
 using Mobet.Domain.Services;
+using Autofac.Extras.DynamicProxy2;
 
 namespace Mobet.Domain.UnitOfWork
 {
     /// <summary>
     /// A helper class to simplify unit of work process.
     /// </summary>
-    internal static class UnitOfWorkHelper
+    public static class UnitOfWorkHelper
     {
         /// <summary>
         /// Returns true if UOW must be used for given type as convention.

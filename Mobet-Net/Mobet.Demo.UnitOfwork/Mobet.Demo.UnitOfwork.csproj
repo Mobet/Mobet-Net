@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5E2AD05-4ABF-480A-8036-F870A33EC621}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{82E1C35A-68B6-469C-9B38-6F408E623D95}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mobet.Infrastructure</RootNamespace>
-    <AssemblyName>Mobet.Infrastructure</AssemblyName>
+    <RootNamespace>Mobet.Demo.UnitOfwork</RootNamespace>
+    <AssemblyName>Mobet.Demo.UnitOfwork</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -30,7 +30,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Extras.DynamicProxy2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.DynamicProxy2.3.0.7\lib\net40\Autofac.Extras.DynamicProxy2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
@@ -50,49 +61,31 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201603180256356_02.cs" />
-    <Compile Include="Migrations\201603180256356_02.Designer.cs">
-      <DependentUpon>201603180256356_02.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModelsContainer.cs" />
-    <Compile Include="Mappings\RoleMenusMapping.cs" />
-    <Compile Include="Mappings\UserRolesMapping.cs" />
-    <Compile Include="Migrations\201603171038031_01.cs" />
-    <Compile Include="Migrations\201603171038031_01.Designer.cs">
-      <DependentUpon>201603171038031_01.cs</DependentUpon>
+    <Compile Include="Migrations\201603180422035_01.cs" />
+    <Compile Include="Migrations\201603180422035_01.Designer.cs">
+      <DependentUpon>201603180422035_01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\MenuRepository.cs" />
-    <Compile Include="Repositories\RoleRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobet.Domain\Mobet.Domain.csproj">
-      <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
-      <Name>Mobet.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603171038031_01.resx">
-      <DependentUpon>201603171038031_01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603180256356_02.resx">
-      <DependentUpon>201603180256356_02.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603180422035_01.resx">
+      <DependentUpon>201603180422035_01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

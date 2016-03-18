@@ -60,8 +60,6 @@ namespace Mobet.Dependency
             }
 
             builder.Update(IocContainer);
-
-            _conventionalRegistrars = new List<IConventionalDependencyRegistrar>();
         }
         public void Register(Type type, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
         {
@@ -79,7 +77,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void Register<TType>(DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient) where TType : class
+        public void Register<TType>(DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton) where TType : class
         {
             var builder = new ContainerBuilder();
             switch (lifeStyle)
@@ -111,7 +109,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void Register<TType, TImpl>(DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+        public void Register<TType, TImpl>(DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
             where TType : class
             where TImpl : class, TType
         {
@@ -129,7 +127,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void RegisterWithParameters<TType>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient) where TType : class
+        public void RegisterWithParameters<TType>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton) where TType : class
         {
             var builder = new ContainerBuilder();
             switch (lifeStyle)
@@ -145,7 +143,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void RegisterWithParameters<TType, TImpl>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+        public void RegisterWithParameters<TType, TImpl>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
             where TType : class
             where TImpl : class, TType
         {

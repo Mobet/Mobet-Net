@@ -18,21 +18,20 @@ namespace Mobet.Demo.Auditing
     {
         static void Main(string[] args)
         {
-            Bootstrapper boot = new Bootstrapper();
-            boot.RegisterConsoleApplication();
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.Configuration(s =>
+                {
+                    s.AuditingConfiguration.IsEnabled = true;
+                    s.AuditingConfiguration.IsEnabledForAnonymousUsers = true;
+                });
 
-            boot.StartupConfiguration.AuditingConfiguration.IsEnabled = true;
-            boot.StartupConfiguration.AuditingConfiguration.IsEnabledForAnonymousUsers = true;
+                cfg.UseLoggingLog4net()
+                   .UseAuditing();
 
+                cfg.RegisterConsoleApplication();
+            });
 
-            boot
-                .UseDataAccessMicrosoftDataAccess()
-                .UseLoggingLog4net()
-                .UseAuditing();
-
-
-            //var config = IocManager.Instance.Resolve<IAuditingConfiguration>();
-            //Console.WriteLine(config.IsEnabledForAnonymousUsers);
             var service = IocManager.Instance.Resolve<IService>();
 
             service.Mothod();

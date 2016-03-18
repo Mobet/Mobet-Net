@@ -12,9 +12,12 @@ using System.Configuration;
 using Mobet.Localization.Dictionaries;
 using Mobet.Localization.Dictionaries.Xml;
 using System.Reflection;
-using Mobet.Application.SettingProviders;
+using Mobet.Services.SettingProviders;
 using Mobet.Localization.Settings;
 using Mobet.Authorization.Configuration;
+using Mobet.Infrastructure;
+using System.Web.Compilation;
+using System.Threading.Tasks;
 
 namespace Mobet.Authorization
 {
@@ -27,30 +30,38 @@ namespace Mobet.Authorization
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Bootstrapper cfg = new Bootstrapper();
-            cfg.RegisterWebMvcApplication();
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.Configuration(c =>
+                {
+                    c.EntityFrameworkConfiguration.DefaultNameOrConnectionString = "Mobet.Authorization";
+                    c.LocalizationConfiguration.Sources.Add(
+                        new DictionaryBasedLocalizationSource(
+                            "AccountService", 
+                            new XmlEmbeddedFileLocalizationDictionaryProvider(
+                                Assembly.GetExecutingAssembly(), 
+                                "Mobet.Configuration.Authorization.Localization.AccountService"
+                            )
+                        )
+                     );
+
+                    c.SettingsConfiguration.Providers.Add<EmailSettingProvider>();
+                    c.SettingsConfiguration.Providers.Add<LocalizationSettingProvider>();
+                    c.SettingsConfiguration.Providers.Add<ResourcesSettingProvider>();
+
+                });
+
+                cfg.UseDataAccessEntityFramework()
+                   .UseEventBus()
+                   .UseCacheProviderNetCache()
+                   .UseAuditing()
+                   .UseAutoMapper()
+                   .UseAppSession();
 
 
-            cfg.StartupConfiguration.LocalizationConfiguration.Sources.Add(
-             new DictionaryBasedLocalizationSource("AccountService",
-                        new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), "Mobet.Configuration.Authorization.Localization.AccountService")
-                 )
-            );
+                cfg.RegisterWebMvcApplication();
 
-            cfg.StartupConfiguration.SettingsConfiguration.Providers.Add<EmailSettingProvider>();
-            cfg.StartupConfiguration.SettingsConfiguration.Providers.Add<LocalizationSettingProvider>();
-            cfg.StartupConfiguration.SettingsConfiguration.Providers.Add<ResourcesSettingProvider>();
-
-
-
-            cfg.UseDataAccessEntityFramework()
-               .UseEventBus()
-               .UseCacheProviderInMemory()
-               //.UseCacheProviderRedis("172.30.30.190:6379,allowAdmin=true")
-               .UseAuditing()
-               .UseAutoMapper()
-               .UseAppSession();
-
+            });
         }
     }
 }

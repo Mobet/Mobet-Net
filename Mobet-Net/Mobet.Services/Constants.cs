@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobet.Application
+namespace Mobet.Services
 {
     public static class Constants
     {

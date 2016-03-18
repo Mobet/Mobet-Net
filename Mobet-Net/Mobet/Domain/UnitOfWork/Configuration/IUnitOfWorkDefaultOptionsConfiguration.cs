@@ -9,7 +9,7 @@ namespace Mobet.Domain.UnitOfWork.Configuration
     /// <summary>
     /// Used to configure unit of work default options.
     /// </summary>
-    public interface IUnitOfWorkDefaultOptionsConfiguration : ISingletonDependency
+    public interface IUnitOfWorkDefaultOptionsConfiguration
     {
         /// <summary>
         /// Scope option.

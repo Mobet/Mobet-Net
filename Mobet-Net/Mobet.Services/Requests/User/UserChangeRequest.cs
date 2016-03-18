@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Mobet.AutoMapper;
+using Mobet.Domain.Services;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mobet.Domain.Services;
-using System.ComponentModel.DataAnnotations;
-using Mobet.AutoMapper;
-
-namespace Mobet.Application.Requests.User
+namespace Mobet.Services.Requests.User
 {
     [AutoMap(typeof(Domain.Models.User))]
-    public class UserCreateRequest : IRequest
+    public class UserChangeRequest : IRequest
     {
         /// <summary>
         /// 第三方登录提供程序Open Connect ID
@@ -81,12 +80,18 @@ namespace Mobet.Application.Requests.User
         /// </summary>
         [StringLength(50)]
         public virtual string IdentityNo { get; set; }
+
     }
 
-    public class UserCreateResponse : IResponse
+    public class UserChangeResponse : IResponse
     {
+        /// <summary>
+        /// 结果
+        /// </summary>
         public bool Result { get; set; }
-
+        /// <summary>
+        /// 附加消息
+        /// </summary>
         public string Message { get; set; }
 
     }

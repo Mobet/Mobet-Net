@@ -7,7 +7,7 @@ namespace Mobet.Settings.Configuration
     /// <summary>
     /// Used to configure setting system.
     /// </summary>
-    public interface ISettingsConfiguration :ISingletonDependency
+    public interface ISettingsConfiguration
     {
         /// <summary>
         /// List of settings providers.

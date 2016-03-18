@@ -11,30 +11,21 @@ namespace Mobet.Localization
     /// </summary>
     public static class LocalizationHelper
     {
-        /// <summary>
-        /// Gets a reference to the localization manager.
-        /// Inject and use <see cref="ILocalizationManager"/>
-        /// wherever it's possible, instead of this shortcut.
-        /// </summary>
-        public static ILocalizationManager Manager { get { return LocalizationManager.Value; } }
 
-        private static readonly Lazy<ILocalizationManager> LocalizationManager;
+        public static ILocalizationManager LocalizationManager;
 
         static LocalizationHelper()
         {
-            LocalizationManager = new Lazy<ILocalizationManager>(
-                () => IocManager.Instance.IsRegistered<ILocalizationManager>()
+            LocalizationManager = IocManager.Instance.IsRegistered<ILocalizationManager>()
                     ? IocManager.Instance.Resolve<ILocalizationManager>()
-                    : NullLocalizationManager.Instance
-                );
+                    : NullLocalizationManager.Instance;
         }
-
         /// <summary>
         /// Gets a pre-registered localization source.
         /// </summary>
         public static ILocalizationSource GetSource(string name)
         {
-            return LocalizationManager.Value.GetSource(name);
+            return LocalizationManager.GetSource(name);
         }
 
         /// <summary>
@@ -45,7 +36,7 @@ namespace Mobet.Localization
         /// <returns>Localized string</returns>
         public static string GetString(string sourceName, string name)
         {
-            return LocalizationManager.Value.GetString(sourceName, name);
+            return LocalizationManager.GetString(sourceName, name);
         }
 
         /// <summary>
@@ -57,7 +48,7 @@ namespace Mobet.Localization
         /// <returns>Localized string</returns>
         public static string GetString(string sourceName, string name, CultureInfo culture)
         {
-            return LocalizationManager.Value.GetString(sourceName, name, culture);
+            return LocalizationManager.GetString(sourceName, name, culture);
         }
     }
 }

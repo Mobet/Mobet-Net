@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobet.Application.Enum
+namespace Mobet.Services.Enum
 {
     /// <summary>
     /// 短信验证码类型

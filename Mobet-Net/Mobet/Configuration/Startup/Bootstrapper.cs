@@ -35,71 +35,61 @@ using Mobet.Events.Modules;
 using Mobet.Events.ConventionalRegistras;
 using Mobet.Settings.Provider;
 using Mobet.EntityFramework.Configuration;
+using Mobet.Auditing.Configuration;
+using Mobet.Domain.UnitOfWork.Configuration;
+using Mobet.Settings.Configuration;
+using Mobet.Events.Configuration;
+using Mobet.Localization.Configuration;
 
 namespace Mobet.Configuration.Startup
 {
+
+    public static class StartupConfig
+    {
+        public static void RegisterDependency(Action<Bootstrapper> invoke)
+        {
+            invoke(new Bootstrapper());
+        }
+    }
     public class Bootstrapper
     {
-        private const string AssemblySkipLoadingPattern = "^System|^vshost32|^Nito.AsyncEx|^mscorlib|^Microsoft|^AjaxControlToolkit|^Antlr3|^Autofac|^NSubstitute|^AutoMapper|^Castle|^ComponentArt|^CppCodeProvider|^DotNetOpenAuth|^EntityFramework|^EPPlus|^FluentValidation|^ImageResizer|^itextsharp|^log4net|^MaxMind|^MbUnit|^MiniProfiler|^Mono.Math|^MvcContrib|^Newtonsoft|^NHibernate|^nunit|^Org.Mentalis|^PerlRegex|^QuickGraph|^Recaptcha|^Remotion|^RestSharp|^Telerik|^Iesi|^TestFu|^UserAgentStringLibrary|^VJSharpCodeProvider|^WebActivator|^WebDev|^WebGrease";
+        public Bootstrapper()
+        {
+            IocManager.Instance.AddConventionalRegistrar(new BasicConventionalRegistrar());
+
+            IocManager.Instance.RegisterIfNot<IStartupConfiguration, StartupConfiguration>();
+            IocManager.Instance.RegisterIfNot<IAuditingConfiguration, AuditingConfiguration>();
+            IocManager.Instance.RegisterIfNot<IUnitOfWorkDefaultOptionsConfiguration, UnitOfWorkDefaultOptionsConfiguration>();
+            IocManager.Instance.RegisterIfNot<IEntityFrameworkConfiguration, EntityFrameworkConfiguration>();
+            IocManager.Instance.RegisterIfNot<ISettingsConfiguration, SettingsConfiguration>();
+            IocManager.Instance.RegisterIfNot<IEventBusConfiguration, EventBusConfiguration>();
+            IocManager.Instance.RegisterIfNot<ILocalizationConfiguration, LocalizationConfiguration>();
+        }
 
         public IStartupConfiguration StartupConfiguration
         {
             get
             {
-                //IocManager.Instance.RegisterIfNot<IStartupConfiguration, StartupConfiguration>();
                 return IocManager.Instance.Resolve<IStartupConfiguration>();
             }
         }
 
-
-        public void RegisterWebMvcApplication(params IModule[] modules)
-        {
-            var assemblies = FilterSystemAssembly(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
-
-            IocManager.Instance.AddConventionalRegistrar(new BasicConventionalRegistrar());
-            IocManager.Instance.AddConventionalRegistrar(new ControllerConventionalRegistrar());
-
-            IocManager.Instance.RegisterAssemblyByConvention(assemblies, modules);
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(IocManager.Instance.IocContainer));
-        }
-        public void RegisterWebApiApplication(params IModule[] modules)
-        {
-            var assemblies = FilterSystemAssembly(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
-            HttpConfiguration configuration = GlobalConfiguration.Configuration;
-
-            IocManager.Instance.AddConventionalRegistrar(new BasicConventionalRegistrar());
-            IocManager.Instance.AddConventionalRegistrar(new ControllerConventionalRegistrar());
-            IocManager.Instance.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
-
-            IocManager.Instance.RegisterAssemblyByConvention(assemblies, modules);
-
-            configuration.DependencyResolver = new AutofacWebApiDependencyResolver(IocManager.Instance.IocContainer);
-        }
-        public void RegisterConsoleApplication(params IModule[] modules)
-        {
-            IocManager.Instance.AddConventionalRegistrar(new BasicConventionalRegistrar());
-            IocManager.Instance.RegisterAssemblyByConvention(AppDomain.CurrentDomain.GetAssemblies());
-        }
-
-        private static Assembly[] FilterSystemAssembly(IEnumerable<Assembly> assemblies)
-        {
-            return assemblies
-                .Where(assembly => !Regex.IsMatch(assembly.FullName, AssemblySkipLoadingPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled))
-                .ToArray();
-        }
     }
 
     public static class BootstrapperExtensions
     {
         private const string AssemblySkipLoadingPattern = "^System|^vshost32|^Nito.AsyncEx|^mscorlib|^Microsoft|^AjaxControlToolkit|^Antlr3|^Autofac|^NSubstitute|^AutoMapper|^Castle|^ComponentArt|^CppCodeProvider|^DotNetOpenAuth|^EntityFramework|^EPPlus|^FluentValidation|^ImageResizer|^itextsharp|^log4net|^MaxMind|^MbUnit|^MiniProfiler|^Mono.Math|^MvcContrib|^Newtonsoft|^NHibernate|^nunit|^Org.Mentalis|^PerlRegex|^QuickGraph|^Recaptcha|^Remotion|^RestSharp|^Telerik|^Iesi|^TestFu|^UserAgentStringLibrary|^VJSharpCodeProvider|^WebActivator|^WebDev|^WebGrease";
 
+        public static Bootstrapper Configuration(this Bootstrapper bootstrap, Action<IStartupConfiguration> invoke)
+        {
+            invoke(bootstrap.StartupConfiguration);
+
+            return bootstrap;
+        }
         public static Bootstrapper UseDataAccessEntityFramework(this Bootstrapper bootstrap)
         {
             IocManager.Instance.AddConventionalRegistrar(new UnitOfWorkConventionalRegistrar());
             IocManager.Instance.AddConventionalRegistrar(new EntityFrameworkConventionalRegistrar());
-            IocManager.Instance.RegisterAssemblyByConvention(GetAssemblies());
-
             return bootstrap;
         }
         public static Bootstrapper UseDataAccessNHibernet(this Bootstrapper bootstrap)
@@ -119,7 +109,7 @@ namespace Mobet.Configuration.Startup
             IocManager.Instance.RegisterWithParameters<ICache, RedisCache>("configuration", configuration);
             return bootstrap;
         }
-        public static Bootstrapper UseCacheProviderInMemory(this Bootstrapper bootstrap)
+        public static Bootstrapper UseCacheProviderNetCache(this Bootstrapper bootstrap)
         {
             IocManager.Instance.Register<ICache, Caching.Netcache>();
             return bootstrap;
@@ -136,8 +126,7 @@ namespace Mobet.Configuration.Startup
         }
         public static Bootstrapper UseAuditing(this Bootstrapper bootstrap)
         {
-            IocManager.Instance.AddConventionalRegistrar(new AuditingInterceptorRegistrar());
-            IocManager.Instance.RegisterAssemblyByConvention(GetAssemblies());
+            IocManager.Instance.AddConventionalRegistrar(new AuditingRegistrar());
             return bootstrap;
         }
         public static Bootstrapper UseAutoMapper(this Bootstrapper bootstrap)
@@ -153,8 +142,37 @@ namespace Mobet.Configuration.Startup
         public static Bootstrapper UseEventBus(this Bootstrapper bootstrap)
         {
             IocManager.Instance.AddConventionalRegistrar(new EventBusConventionalRegistras());
-            IocManager.Instance.RegisterAssemblyByConvention(GetAssemblies());
             IocManager.Instance.RegisterModule(new EventBusModule());
+            return bootstrap;
+        }
+
+
+        public static Bootstrapper RegisterWebMvcApplication(this Bootstrapper bootstrap, params IModule[] modules)
+        {
+            var assemblies = FilterSystemAssembly(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
+
+            IocManager.Instance.AddConventionalRegistrar(new ControllerConventionalRegistrar());
+            IocManager.Instance.RegisterAssemblyByConvention(assemblies, modules);
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(IocManager.Instance.IocContainer));
+
+            return bootstrap;
+        }
+        public static Bootstrapper RegisterWebApiApplication(this Bootstrapper bootstrap, params IModule[] modules)
+        {
+            var assemblies = FilterSystemAssembly(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
+            HttpConfiguration configuration = GlobalConfiguration.Configuration;
+
+            IocManager.Instance.AddConventionalRegistrar(new ControllerConventionalRegistrar());
+            IocManager.Instance.AddConventionalRegistrar(new ApiControllerConventionalRegistrar());
+            IocManager.Instance.RegisterAssemblyByConvention(assemblies, modules);
+
+            configuration.DependencyResolver = new AutofacWebApiDependencyResolver(IocManager.Instance.IocContainer);
+            return bootstrap;
+        }
+        public static Bootstrapper RegisterConsoleApplication(this Bootstrapper bootstrap, params IModule[] modules)
+        {
+            IocManager.Instance.RegisterAssemblyByConvention(AppDomain.CurrentDomain.GetAssemblies());
             return bootstrap;
         }
 

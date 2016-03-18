@@ -11,6 +11,7 @@ using Mobet.Configuration.Startup;
 using Mobet.Domain.UnitOfWork;
 using Mobet.Auditing.Configuration;
 using Mobet.EntityFramework.Configuration;
+using System.Data.Entity;
 
 namespace Mobet.EntityFramework.ConventionalRegistras
 {
@@ -28,6 +29,7 @@ namespace Mobet.EntityFramework.ConventionalRegistras
             builder.RegisterAssemblyTypes(context.Assembly)
                    .Where(t => typeof(EntityFrameworkDbContext).IsAssignableFrom(t) && t != typeof(EntityFrameworkDbContext) && !t.IsAbstract)
                    .WithParameter("nameOrConnectionString", _config.DefaultNameOrConnectionString)
+                   .AsSelf()
                    .InstancePerDependency();
 
             builder.RegisterGeneric(typeof(EntityFrameworkDbContextProvider<>))

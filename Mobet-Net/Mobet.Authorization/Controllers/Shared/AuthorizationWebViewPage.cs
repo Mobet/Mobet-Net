@@ -12,7 +12,7 @@ namespace Mobet.Authorization.Controllers.Shared
     {
         protected AuthorizationWebViewPage()
         {
-            LocalizationSourceName = "Authorization";
+            LocalizationSourceName = "AccountService";
         }
     }
 }

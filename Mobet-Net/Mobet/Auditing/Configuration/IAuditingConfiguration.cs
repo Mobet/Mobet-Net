@@ -4,7 +4,7 @@ namespace Mobet.Auditing.Configuration
     /// <summary>
     /// Used to configure auditing.
     /// </summary>
-    public interface IAuditingConfiguration : ISingletonDependency
+    public interface IAuditingConfiguration
     {
         /// <summary>
         /// Used to enable/disable auditing system.

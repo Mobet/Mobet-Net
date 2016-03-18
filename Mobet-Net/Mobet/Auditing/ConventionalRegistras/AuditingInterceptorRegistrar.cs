@@ -14,7 +14,7 @@ using Castle.Core.Logging;
 
 namespace Mobet.Auditing.ConventionalRegistras
 {
-    public class AuditingInterceptorRegistrar : IConventionalDependencyRegistrar
+    public class AuditingRegistrar : IConventionalDependencyRegistrar
     {
         private IAuditingConfiguration _config;
         public void RegisterAssembly(IConventionalRegistrationContext context)

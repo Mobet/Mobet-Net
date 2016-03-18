@@ -9,6 +9,7 @@ using Autofac.Extras.DynamicProxy2;
 using Mobet.Dependency;
 using Mobet.Domain.UnitOfWork;
 using Mobet.Domain.Services;
+using System.Reflection;
 
 namespace Mobet.Domain.UnitOfWork.ConventionalRegistras
 {
@@ -30,6 +31,15 @@ namespace Mobet.Domain.UnitOfWork.ConventionalRegistras
                    .EnableInterfaceInterceptors()
                    .InterceptedBy(typeof(UnitOfWorkInterceptor))
                    .InstancePerDependency();
+
+            builder.RegisterAssemblyTypes(context.Assembly)
+                   .Where(t => !t.IsAbstract && t.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Any(UnitOfWorkHelper.HasUnitOfWorkAttribute))
+                   .AsSelf()
+                   .AsImplementedInterfaces()
+                   .EnableClassInterceptors()
+                   .InterceptedBy(typeof(UnitOfWorkInterceptor))
+                   .InstancePerDependency();
+
 
             builder.RegisterType<UnitOfWorkInterceptor>();
 
