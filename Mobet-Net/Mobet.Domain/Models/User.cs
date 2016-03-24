@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mobet.Domain.Models
 {
-    public class User : IAggregateRoot, IAuditable, ISoftDelete
+    public class User : IAggregateRoot, IAudited, ISoftDelete
     {
         /// <summary>
         /// 构造函数

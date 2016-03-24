@@ -254,11 +254,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configuration\Certificate.cs" />
-    <Compile Include="Configuration\ResourcesSettingProvider.cs" />
     <Compile Include="Configuration\Clients.cs" />
-    <Compile Include="Configuration\Factory.cs" />
-    <Compile Include="Configuration\ResourcesConsts.cs" />
+    <Compile Include="Configuration\IdentityServerServiceFactoryHelper.cs" />
     <Compile Include="Configuration\Scopes.cs" />
+    <Compile Include="Configuration\Services\LocalizationService.cs" />
     <Compile Include="Configuration\Users.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -266,29 +265,51 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ScopeController.cs" />
-    <Compile Include="Controllers\Shared\AuthorizationWebViewPage.cs" />
+    <Compile Include="Models\AjaxResponse.cs" />
+    <Compile Include="Configuration\Services\AuthorizationWebViewPage.cs" />
+    <Compile Include="Controllers\Shared\LocalizationController.cs" />
     <Compile Include="Controllers\Shared\LayoutController.cs" />
-    <Compile Include="Controllers\Shared\LocalController.cs" />
-    <Compile Include="Controllers\Shared\AbstractWebViewPage.cs" />
+    <Compile Include="Controllers\Shared\BaseController.cs" />
+    <Compile Include="Configuration\Services\AbstractWebViewPage.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\HtmlHelperResourceExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LocalRegisterViewModel.cs" />
+    <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\NewtonJsonResult.cs" />
+    <Compile Include="Models\ValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\Services\AccountViewService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\account.js" />
-    <Content Include="Content\images\icons_type.png" />
-    <Content Include="Content\images\sprite_login.gif" />
-    <Content Include="Content\jquery.min.js" />
-    <Content Include="Content\account.css" />
+    <EmbeddedResource Include="Configuration\Localization\Views\Views-en.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Messages\Messages.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Events\Events.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopes.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Events\Events-en.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Messages\Messages-en.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopesen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Content\authorization.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <EmbeddedResource Include="Configuration\Localization\AccountService\AccountService.xml">
+    <EmbeddedResource Include="Configuration\Localization\Views\Views.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\Services\LayoutService.js" />
@@ -318,13 +339,33 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mobet.Auditing\Mobet.Auditing.csproj">
+      <Project>{b013c40e-1593-4760-b828-457fac3ce94f}</Project>
+      <Name>Mobet.Auditing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.AutoMapper\Mobet.AutoMapper.csproj">
+      <Project>{44065d5c-ba25-492f-a94b-ead4d50ac3ca}</Project>
+      <Name>Mobet.AutoMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet.Domain\Mobet.Domain.csproj">
       <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
       <Name>Mobet.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mobet.EntityFramework\Mobet.EntityFramework.csproj">
+      <Project>{a7935be0-cf6e-4fef-b17c-e35f60552ced}</Project>
+      <Name>Mobet.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.Events\Mobet.Events.csproj">
+      <Project>{15c2d6f2-c5f8-4aba-bbb3-9b2148097370}</Project>
+      <Name>Mobet.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet.Infrastructure\Mobet.Infrastructure.csproj">
       <Project>{b5e2ad05-4abf-480a-8036-f870a33ec621}</Project>
       <Name>Mobet.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mobet.Localization\Mobet.Localization.csproj">
+      <Project>{d3610282-0d18-45b6-b763-bc7a2f7bca85}</Project>
+      <Name>Mobet.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mobet.Services\Mobet.Services.csproj">
       <Project>{6ed56baf-3d71-4f6d-8d1f-a29bcf24c406}</Project>
@@ -371,6 +412,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layout\Intercom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout_Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Registration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

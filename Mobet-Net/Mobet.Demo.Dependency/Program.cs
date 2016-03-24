@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mobet.Auditing.Attributes;
 using Mobet.Domain.Services;
 using Mobet.Dependency;
-using Mobet.EntityFramework;
 using Autofac;
 using System.Reflection;
 
@@ -48,23 +46,6 @@ namespace Mobet.Demo.Auditing
             service.Mothod();
 
             Console.ReadKey();
-        }
-    }
-
-
-    public class DemoDbContext : EntityFrameworkDbContext
-    {
-        public string ConnectionString { get; set; }
-        public DemoDbContext()
-            : base("DemoDbContext")
-        {
-            ConnectionString = "DemoDbContext";
-        }
-
-        public DemoDbContext(string nameOrConnectionString)
-            : base(nameOrConnectionString)
-        {
-            ConnectionString = nameOrConnectionString;
         }
     }
 

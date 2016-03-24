@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Mobet.Auditing.Attributes;
 using Mobet.Domain.Services;
 using Mobet.Dependency;
-using Mobet.Auditing.Configuration;
-using Castle.Core.Logging;
-using Mobet.Auditing.Store;
 using Mobet.Configuration.Startup;
+using Mobet.Extensions;
+using Mobet.Auditing.Startup;
 
 namespace Mobet.Demo.Auditing
 {
@@ -20,14 +15,12 @@ namespace Mobet.Demo.Auditing
         {
             StartupConfig.RegisterDependency(cfg =>
             {
-                cfg.Configuration(s =>
-                {
-                    s.AuditingConfiguration.IsEnabled = true;
-                    s.AuditingConfiguration.IsEnabledForAnonymousUsers = true;
-                });
-
                 cfg.UseLoggingLog4net()
-                   .UseAuditing();
+                   .UseAuditing(s =>
+                   {
+                       s.IsEnabled = true;
+                       s.IsEnabledForAnonymousUsers = true;
+                   });
 
                 cfg.RegisterConsoleApplication();
             });

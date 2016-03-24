@@ -72,6 +72,10 @@
     <EmbeddedResource Include="Localization\XmlSources\Demo.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mobet.Localization\Mobet.Localization.csproj">
+      <Project>{d3610282-0d18-45b6-b763-bc7a2f7bca85}</Project>
+      <Name>Mobet.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>

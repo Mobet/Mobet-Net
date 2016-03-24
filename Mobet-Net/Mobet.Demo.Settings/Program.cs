@@ -11,6 +11,7 @@ using Mobet.Settings.Provider;
 using Mobet.Settings.Configuration;
 using Mobet.Domain.Services;
 using Mobet.Configuration.Startup;
+using Mobet.Settings.Store;
 
 namespace Mobet.Demo.Settings
 {
@@ -18,13 +19,15 @@ namespace Mobet.Demo.Settings
     {
         static void Main(string[] args)
         {
-            Bootstrapper boot = new Bootstrapper();
-            boot.RegisterConsoleApplication();
-            boot.StartupConfiguration.SettingsConfiguration.Providers.Add<EmailSettingProvider>();
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.UseSettings(config =>
+                {
+                    config.Providers.Add<EmailSettingProvider>();
+                });
 
-            boot.UseLoggingLog4net()
-                .UseCacheProviderNetCache()
-                ;
+                cfg.RegisterConsoleApplication();
+            });
 
             var settingConfiguration = IocManager.Instance.Resolve<ISettingsConfiguration>();
             var settingManager = IocManager.Instance.Resolve<ISettingManager>();
@@ -34,6 +37,10 @@ namespace Mobet.Demo.Settings
 
             var service = IocManager.Instance.Resolve<IService>();
             service.Mothed();
+
+            Console.ReadKey();
+            var service2 = IocManager.Instance.Resolve<IService>();
+            service2.Mothed();
 
             Console.ReadKey();
         }
@@ -69,6 +76,36 @@ namespace Mobet.Demo.Settings
         public void Mothed()
         {
             Console.WriteLine(string.Format("Service : Email smtp host is {0}", SettingManager.GetSettingValue("Email.Smtp.Host")));
+        }
+    }
+
+    public class Simple2SettingStore : ISettingStore, IDependency
+    {
+        private Dictionary<string, string> _dictionary = new Dictionary<string, string>() { };
+        public Simple2SettingStore()
+        {
+            _dictionary.Add("Email.Smtp.Host", "Simple2SettingStore");
+        }
+
+        public Task<Setting> GetSettingAsync(string name)
+        {
+            return Task.FromResult(new Setting(name, _dictionary[name]));
+        }
+        public Task<Setting> DeleteSettingAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Setting> AddOrUpdateSettingAsync(Setting setting)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Setting>> GetAllSettingsAsync()
+        {
+            return Task.FromResult(new List<Setting>() {
+                new Setting("Email.Smtp.Host","Simple2SettingStore")
+            });
         }
     }
 }

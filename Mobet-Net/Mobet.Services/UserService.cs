@@ -26,13 +26,15 @@ namespace Mobet.Services
 
         private ILocalizationManager _localizationManager { get; set; }
 
-        private ICache _cacheManager { get; set; }
+        private ICacheManager _cacheManager { get; set; }
 
         private IUnitOfWorkManager _unitOfWorkManager { get; set; }
 
+        public ILocalizationManager LocalizationManager { get; set; }
+
 
         [Description("构造函数")]
-        public UserService(IUserRepository userRepository, ICache cacheManager, IUnitOfWorkManager unitOfWorkManager)
+        public UserService(IUserRepository userRepository, ICacheManager cacheManager, IUnitOfWorkManager unitOfWorkManager)
         {
             _userRepository = userRepository;
             _cacheManager = cacheManager;
@@ -67,14 +69,14 @@ namespace Mobet.Services
         [Description("使用手机号注册")]
         public UserRegisterByMobilephoneResponse RegisterByMobilephone(UserRegisterByMobilephoneRequest request)
         {
-            var code = _cacheManager.Get<string>(string.Format(Constants.Cache.MessageAuthCode, MessageAuthCodeType.Register, request.Mobilephone, request.MessageAuthCode));
+            var code = _cacheManager.Get<string>(string.Format(Constants.Cache.MessageCode, MessageAuthCodeType.Register, request.Mobilephone, request.MessageAuthCode));
 
             if (!request.MessageAuthCode.Equals(code))
             {
                 return new UserRegisterByMobilephoneResponse
                 {
                     Result = false,
-                    Message = Constants.AccountService.RegisterByMobilephoneInvalidMessageAuthCode
+                    Message = LocalizationManager.GetSource(Constants.Localization.SourceName.Messages).GetString(Constants.Localization.MessageIds.InvalidMessageCode)
                 };
             }
 

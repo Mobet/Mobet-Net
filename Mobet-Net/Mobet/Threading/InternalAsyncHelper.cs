@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mobet.Threading
 {
-    internal static class InternalAsyncHelper
+    public static class InternalAsyncHelper
     {
         public static async Task AwaitTaskWithFinally(Task actualReturnValue, Action<Exception> finalAction)
         {

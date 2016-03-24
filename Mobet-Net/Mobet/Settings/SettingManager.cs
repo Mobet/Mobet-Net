@@ -23,24 +23,17 @@ namespace Mobet.Settings
         public const string ApplicationSettingsCacheKey = "SETTING:APPLICATION_SETTINGS";
 
         private ISettingStore _settingStore;
-        private ICache _settingCacheProvider;
+        private ICacheManager _settingCacheProvider;
         private Dictionary<string, ISetting> _settings;
         private ISettingsConfiguration _settingsConfiguration;
 
-        public SettingManager(ICache cacheProvider, ISettingsConfiguration settingsConfiguration, ISettingStore settingStore)
+        public SettingManager(ICacheManager cacheManager, ISettingsConfiguration settingsConfiguration, ISettingStore settingStore)
         {
             _settingsConfiguration = settingsConfiguration;
-            _settingCacheProvider = cacheProvider;
+            _settingCacheProvider = cacheManager;
             _settingStore = settingStore;
             _settings = new Dictionary<string, ISetting>();
 
-            Initialize();
-        }
-        /// <summary>
-        /// Load default settings.
-        /// </summary>
-        private void Initialize()
-        {
             var context = new SettingProviderContext();
             foreach (var providerType in _settingsConfiguration.Providers)
             {

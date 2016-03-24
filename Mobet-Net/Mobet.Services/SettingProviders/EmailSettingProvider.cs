@@ -14,7 +14,7 @@ namespace Mobet.Services.SettingProviders
         {
             return new[]
                    {
-                       new Setting("Email.Smtp.Host", "127.0.0.1", new SettingGroup("Email"), scopes: SettingScopes.Application),
+                       new Setting(Constants.Settings.Email.SMTP, "127.0.0.1", new SettingGroup("Email"), scopes: SettingScopes.Application),
                    };
         }
     }

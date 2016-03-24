@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="Resources\css\account.css" />
     <Content Include="Resources\css\animate.css" />
     <Content Include="Resources\css\inspinia.css" />
     <Content Include="Resources\css\override.css" />
@@ -143,6 +144,7 @@
     <Content Include="Resources\images\header-profile.png" />
     <Content Include="Resources\images\icon.png" />
     <Content Include="Resources\images\icons.png" />
+    <Content Include="Resources\images\icons_type.png" />
     <Content Include="Resources\images\image.png" />
     <Content Include="Resources\images\loading.gif" />
     <Content Include="Resources\images\profile_small_microp.jpg" />
@@ -150,6 +152,7 @@
     <Content Include="Resources\images\shattered.png" />
     <Content Include="Resources\images\sort_asc.png" />
     <Content Include="Resources\images\sort_desc.png" />
+    <Content Include="Resources\images\sprite_login.gif" />
     <Content Include="Resources\images\sprite_movie_list.png" />
     <Content Include="Resources\images\success.png" />
     <Content Include="Resources\plugins\angular-1.3.8\angular-animate.js" />

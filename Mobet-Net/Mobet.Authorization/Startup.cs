@@ -16,6 +16,7 @@ using IdentityModel.Client;
 using Microsoft.Owin.Security;
 using Microsoft.IdentityModel.Protocols;
 using System.Threading.Tasks;
+using Mobet.Localization;
 
 [assembly: OwinStartup(typeof(Mobet.Authorization.Startup))]
 namespace Mobet.Authorization
@@ -27,31 +28,48 @@ namespace Mobet.Authorization
             app.Map("/core", idsrvApp =>
             {
                 idsrvApp.UseIdentityServer(new IdentityServerOptions
-               {
-                   SiteName = "IdentityServer3 -  Identity",
-                   SigningCertificate = Certificate.Get(),
+                {
+                    IssuerUri = "https://localhost:44373/",                                             //令牌颁发者Uri
+                    SiteName = "IdentityServer3 -  Identity",                                           //站点名称
+                    SigningCertificate = Certificate.Get(),                                             //X.509证书（和相应的私钥签名的安全令牌）
+                    RequireSsl = true,                                                                  //必须为SSL,默认为True
+                    Endpoints = new EndpointOptions                                                     //允许启用或禁用特定的端点（默认的所有端点都是启用的）。
+                    {
+                        EnableCspReportEndpoint = false
+                    },
+                    Factory = IdentityServer3Factory.Configure("Mobet.Authorization"),                  //自定义配置
+                    PluginConfiguration = PluginConfiguration,                                          //插件配置,允许添加协议插件像WS联邦支持。
+                    ProtocolLogoutUrls = new List<string>                                               //配置回调URL，应该叫中登出（主要协议插件有用）。
+                    {
 
-                   Factory = Factory.Configure("Mobet.Authorization"),
+                    },
+                    LoggingOptions = new LoggingOptions                                                 //日志配置
+                    {
 
-                   AuthenticationOptions = new IdentityServer3.Core.Configuration.AuthenticationOptions
-                   {
-                       EnablePostSignOutAutoRedirect = true,
-                       IdentityProviders = ConfigureIdentityProviders,
-                       LoginPageLinks = new List<LoginPageLink> { 
-                            new LoginPageLink{ Text = "立即注册", Href = "/Account/Register"},
+                    },
+                    CspOptions = new CspOptions
+                    {
+                        Enabled = false,
+                    },
+                    EnableWelcomePage = true,                                                            //启用或禁用默认的欢迎页。默认为True
+                    AuthenticationOptions = new IdentityServer3.Core.Configuration.AuthenticationOptions //授权配置
+                    {
+                        EnablePostSignOutAutoRedirect = true,
+                        IdentityProviders = ConfigureIdentityProviders,
+                        LoginPageLinks = new List<LoginPageLink> {
+                            new LoginPageLink{ Text = "立即注册", Href = "/Account/Registration"},
                             new LoginPageLink{ Text = "忘记密码？", Href = "/Account/ForgotPassword"}
                        }
-                   }
-               ,
+                    },
 
-                   EventsOptions = new EventsOptions
-                   {
-                       RaiseSuccessEvents = true,
-                       RaiseErrorEvents = true,
-                       RaiseFailureEvents = true,
-                       RaiseInformationEvents = true
-                   }
-               });
+                    EventsOptions = new EventsOptions                                                   //事件配置
+                    {
+                        RaiseSuccessEvents = true,
+                        RaiseErrorEvents = true,
+                        RaiseFailureEvents = true,
+                        RaiseInformationEvents = true
+                    }
+                });
             });
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -62,12 +80,13 @@ namespace Mobet.Authorization
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
-                ClientId = "mvc.owin.hybrid", //客户端ID,客户端唯一标识
-                Authority = "https://localhost:44300/core",//权限验证地址
-                RedirectUri = "https://localhost:44300/",//验证成功后返回地址，此地址在申请客户端时填写
-                PostLogoutRedirectUri = "https://localhost:44300/",//登出后返回地址
-                ResponseType = "code id_token",//授权响应类型
-                Scope = "openid profile read write offline_access",//授权范围
+                ClientId = "mvc.owin.hybrid",                                   //客户端ID,客户端唯一标识
+                Authority = "https://localhost:44300/core",                     //权限验证地址
+                RedirectUri = "https://localhost:44300/",                       //验证成功后返回地址，此地址在申请客户端时填写
+                PostLogoutRedirectUri = "https://localhost:44300/",             //登出后返回地址
+                ResponseType = "code id_token",                                 //授权响应类型
+                Scope = "openid profile read write offline_access",             //授权范围
+
 
                 SignInAsAuthenticationType = "Cookies",
 
@@ -124,6 +143,12 @@ namespace Mobet.Authorization
                 }
             });
         }
+
+        private void PluginConfiguration(IAppBuilder app, IdentityServerOptions opts)
+        {
+            //throw new NotImplementedException();
+        }
+
         private void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)
         {
             app.UseQQConnectAuthentication(new QQConnectAuthenticationOptions

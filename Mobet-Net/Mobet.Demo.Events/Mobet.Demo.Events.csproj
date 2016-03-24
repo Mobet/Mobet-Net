@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mobet.Events\Mobet.Events.csproj">
+      <Project>{15c2d6f2-c5f8-4aba-bbb3-9b2148097370}</Project>
+      <Name>Mobet.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>

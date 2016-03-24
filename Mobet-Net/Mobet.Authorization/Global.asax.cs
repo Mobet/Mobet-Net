@@ -5,19 +5,31 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Compilation;
+using System.Configuration;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Globalization;
+using System.Threading;
+
 using Mobet;
+using Mobet.Infrastructure;
+using Mobet.Authorization.Configuration;
 using Mobet.Dependency;
 using Mobet.Configuration.Startup;
-using System.Configuration;
 using Mobet.Localization.Dictionaries;
 using Mobet.Localization.Dictionaries.Xml;
-using System.Reflection;
-using Mobet.Services.SettingProviders;
 using Mobet.Localization.Settings;
-using Mobet.Authorization.Configuration;
-using Mobet.Infrastructure;
-using System.Web.Compilation;
-using System.Threading.Tasks;
+using Mobet.Localization.Language;
+using Mobet.Localization.Startup;
+using Mobet.Extensions;
+
+using Mobet.EntityFramework.Startup;
+using Mobet.Events.Startup;
+using Mobet.Auditing.Startup;
+using Mobet.AutoMapper.Startup;
+using Mobet.Services.SettingProviders;
+using Mobet.Services;
 
 namespace Mobet.Authorization
 {
@@ -32,36 +44,60 @@ namespace Mobet.Authorization
 
             StartupConfig.RegisterDependency(cfg =>
             {
-                cfg.Configuration(c =>
+                //应用程序配置
+                cfg.UseSettings(config =>
                 {
-                    c.EntityFrameworkConfiguration.DefaultNameOrConnectionString = "Mobet.Authorization";
-                    c.LocalizationConfiguration.Sources.Add(
-                        new DictionaryBasedLocalizationSource(
-                            "AccountService", 
-                            new XmlEmbeddedFileLocalizationDictionaryProvider(
-                                Assembly.GetExecutingAssembly(), 
-                                "Mobet.Configuration.Authorization.Localization.AccountService"
-                            )
-                        )
-                     );
-
-                    c.SettingsConfiguration.Providers.Add<EmailSettingProvider>();
-                    c.SettingsConfiguration.Providers.Add<LocalizationSettingProvider>();
-                    c.SettingsConfiguration.Providers.Add<ResourcesSettingProvider>();
+                    config.Providers.Add<EmailSettingProvider>();
+                    config.Providers.Add<LocalizationSettingProvider>();
+                    config.Providers.Add<ResourcesSettingProvider>();
+                });
+                //本地化
+                cfg.UseLocalization(config =>
+                {
+                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Messages, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Messages)));
+                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Events, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Events)));
+                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Scopes, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Scopes)));
+                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Views, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Views)));
 
                 });
+                //EF 连接字符串
+                cfg.UseDataAccessEntityFramework(config =>
+                {
+                    config.DefaultNameOrConnectionString = "Mobet.Authorization";
+                });
 
-                cfg.UseDataAccessEntityFramework()
-                   .UseEventBus()
+                cfg.UseEventBus()
                    .UseCacheProviderNetCache()
+                   .UseAppSession()
                    .UseAuditing()
-                   .UseAutoMapper()
-                   .UseAppSession();
-
+                   .UseAutoMapper();
 
                 cfg.RegisterWebMvcApplication();
 
             });
+        }
+
+
+        protected virtual void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var langCookie = Request.Cookies["Mobet.Localization.CultureName"];
+            if (langCookie != null && GlobalizationHelper.IsValidCultureCode(langCookie.Value))
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(langCookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(langCookie.Value);
+            }
+            else if (!Request.UserLanguages.IsNullOrEmpty())
+            {
+                var firstValidLanguage = Request
+                    .UserLanguages
+                    .FirstOrDefault(GlobalizationHelper.IsValidCultureCode);
+
+                if (firstValidLanguage != null)
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo(firstValidLanguage);
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(firstValidLanguage);
+                }
+            }
         }
     }
 }

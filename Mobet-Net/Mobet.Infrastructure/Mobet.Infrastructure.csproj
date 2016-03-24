@@ -76,6 +76,10 @@
       <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
       <Name>Mobet.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mobet.EntityFramework\Mobet.EntityFramework.csproj">
+      <Project>{a7935be0-cf6e-4fef-b17c-e35f60552ced}</Project>
+      <Name>Mobet.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>

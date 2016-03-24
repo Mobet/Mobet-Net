@@ -9,11 +9,11 @@ using Mobet.Logging;
 
 namespace Mobet.Caching
 {
-    public class RedisCache : ICache
+    public class RedisCacheManager : ICacheManager
     {
         private IDatabase client;
         private ConnectionMultiplexer Connection;
-        public RedisCache(string configuration)
+        public RedisCacheManager(string configuration)
         {
             try
             {

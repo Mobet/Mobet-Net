@@ -7,7 +7,7 @@ namespace Mobet.Settings
     /// <summary>
     /// This is the main interface that must be implemented to be able to load/change values of settings.
     /// </summary>
-    public interface ISettingManager: ISingletonDependency
+    public interface ISettingManager
     {
         /// <summary>
         /// Gets the <see cref="Setting"/> object with given unique name.

@@ -27,6 +27,18 @@ namespace Mobet.Infrastructure.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Users.AddOrUpdate(x => x.Subject, new Domain.Models.User
+            {
+                Subject = "0F809FCE-D394-4907-8249-07BCA520A04A",
+                Name = "ÐíËÉ³¬",
+                NickName = "ÄÂÇáº®",
+                Sex = 1,
+                Email = "mobet_net@163.com",
+                Telphone = "15618275259",
+                Password = "mobet",
+                Birthday = DateTime.Parse("1991-06-09")
+            });
         }
     }
 }

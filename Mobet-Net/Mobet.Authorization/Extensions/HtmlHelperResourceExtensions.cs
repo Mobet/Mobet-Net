@@ -8,6 +8,8 @@ using Mobet.Settings;
 using Mobet.Dependency;
 using Mobet.Authorization.Configuration;
 using System.Text;
+using Mobet.Services;
+using System.Threading.Tasks;
 
 namespace System.Web.Mvc.Html
 {
@@ -26,7 +28,7 @@ namespace System.Web.Mvc.Html
 
         public static IHtmlString RenderPluginStyles(this HtmlHelper html)
         {
-            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(ResourcesConsts.ResourcesDomain).Result.ToString();
+            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
 
             var styles = new string[]
             {
@@ -61,7 +63,7 @@ namespace System.Web.Mvc.Html
 
         public static IHtmlString RenderPluginScripts(this HtmlHelper html)
         {
-            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(ResourcesConsts.ResourcesDomain).Result.ToString();
+            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
 
             var scripts = new string[]
             {
@@ -125,7 +127,7 @@ namespace System.Web.Mvc.Html
 
         private static string GetResourcesAbsolutePath(string virtualPath)
         {
-            return IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(ResourcesConsts.ResourcesDomain).ToString() + virtualPath;
+            return IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result + virtualPath;
         }
     }
 }

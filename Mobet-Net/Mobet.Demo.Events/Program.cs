@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mobet.Auditing.Attributes;
 using Mobet.Domain.Services;
 using Mobet.Dependency;
-using Mobet.EntityFramework;
 using Mobet.Events;
 using Mobet.Events.Handlers;
 using Mobet.Configuration.Startup;
+using Mobet.Events.Startup;
 
 namespace Mobet.Demo.Events
 {
@@ -18,12 +17,19 @@ namespace Mobet.Demo.Events
     {
         static void Main(string[] args)
         {
-            Bootstrapper boot = new Bootstrapper();
-            boot.RegisterConsoleApplication();
-            boot.StartupConfiguration.EventBusConfiguration.UseDefaultEventBus = true;
-            boot.UseLoggingLog4net();
-            boot.UseEventBus();
-            var data = new MySimpleEvent(200,"Simple");
+            StartupConfiguration boot = new StartupConfiguration();
+
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.UseEventBus(config =>
+                {
+                    config.UseDefaultEventBus = true;
+                });
+
+                cfg.RegisterConsoleApplication();
+            });
+
+            var data = new MySimpleEvent(200, "Simple");
 
             var eventBus = IocManager.Instance.Resolve<IEventBus>();
             try
@@ -39,7 +45,7 @@ namespace Mobet.Demo.Events
                 Console.WriteLine(string.Format("Envent data : Name:{0},value:{1}", e.Name, e.Value));
                 Console.WriteLine("sending mail ...");
             });
-            eventBus.Trigger(new MySimpleEvent(100,"simple2"));
+            eventBus.Trigger(new MySimpleEvent(100, "simple2"));
             Console.ReadKey();
         }
     }
@@ -50,7 +56,7 @@ namespace Mobet.Demo.Events
 
         public string Name { get; set; }
 
-        public MySimpleEvent(int value,string Name)
+        public MySimpleEvent(int value, string Name)
         {
             Value = value;
         }

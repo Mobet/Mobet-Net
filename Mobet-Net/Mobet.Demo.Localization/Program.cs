@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Reflection;
-using Mobet.Localization.Dictionaries.Xml;
-using Mobet.Dependency;
-using Mobet.Localization.Configuration;
-using Mobet.Localization.Dictionaries;
-using Mobet.Localization.Settings;
-using Mobet.Localization;
-using Mobet.Localization.Sources;
-
-using Mobet.Localization.Extensions;
-using Mobet.Localization.Dictionaries.Json;
 using System.Globalization;
 using System.Threading;
+using System.Reflection;
+
+using Mobet.Dependency;
+
+using Mobet.Localization.Dictionaries.Xml;
+using Mobet.Localization.Dictionaries;
+using Mobet.Localization;
+using Mobet.Localization.Sources;
+using Mobet.Localization.Dictionaries.Json;
 using Mobet.Localization.Sources.Resource;
+
 using Mobet.Demo.Localization.Localization.ResourceSerouces;
-using Mobet.Settings.Configuration;
+
 using Mobet.Configuration.Startup;
+using Mobet.Localization.Startup;
 
 namespace Mobet.Demo.Localization
 {
@@ -29,25 +24,31 @@ namespace Mobet.Demo.Localization
 
         static void Main(string[] args)
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
-            Bootstrapper boot = new Bootstrapper();
-            boot.RegisterConsoleApplication();
 
-            boot.StartupConfiguration.SettingsConfiguration.Providers.Add<LocalizationSettingProvider>();
-            boot.StartupConfiguration.LocalizationConfiguration.Sources.Add(
-                new DictionaryBasedLocalizationSource(
-                    "Demo",
-                    new XmlEmbeddedFileLocalizationDictionaryProvider(
-                        Assembly.GetExecutingAssembly(), "Mobet.Demo.Localization.Localization.XmlSources"
-                        )));
-            boot.StartupConfiguration.LocalizationConfiguration.Sources.Add(
-                new DictionaryBasedLocalizationSource(
-                    "Lang",
-                    new JsonEmbeddedFileLocalizationDictionaryProvider(
-                        Assembly.GetExecutingAssembly(),
-                         "Mobet.Demo.Localization.Localization.JsonSources"
-                        )));
-            boot.StartupConfiguration.LocalizationConfiguration.Sources.Add(new ResourceFileLocalizationSource("Res", Res.ResourceManager));
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.UseLocalization(config =>
+                {
+                    config.Sources.Add(
+                                new DictionaryBasedLocalizationSource(
+                                    "Demo",
+                                    new XmlEmbeddedFileLocalizationDictionaryProvider(
+                                        Assembly.GetExecutingAssembly(), "Mobet.Demo.Localization.Localization.XmlSources"
+                            )));
+                    config.Sources.Add(
+                                new DictionaryBasedLocalizationSource(
+                                    "Lang",
+                                    new JsonEmbeddedFileLocalizationDictionaryProvider(
+                                        Assembly.GetExecutingAssembly(),
+                                         "Mobet.Demo.Localization.Localization.JsonSources"
+                            )));
+
+                    config.Sources.Add(new ResourceFileLocalizationSource("Res", Res.ResourceManager));
+                });
+
+                cfg.RegisterConsoleApplication();
+            });
+
 
             ILocalizationManager localizationManager = IocManager.Instance.Resolve<ILocalizationManager>();
 
