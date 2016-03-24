@@ -8,6 +8,7 @@ using Mobet.Domain.Services;
 using Mobet.Domain.UnitOfWork;
 using Mobet.Domain.UnitOfWork.ConventionalRegistras;
 using Mobet.EntityFramework;
+using Mobet.EntityFramework.Startup;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,12 +24,16 @@ namespace Mobet.Demo.UnitOfwork
     {
         static void Main(string[] args)
         {
-            Bootstrapper boot = new Bootstrapper();
-            boot.RegisterConsoleApplication();
+            StartupConfig.RegisterDependency(config =>
+            {
+                config.UseDataAccessEntityFramework(cfg =>
+                {
+                    cfg.DefaultNameOrConnectionString = "Demo";
+                });
 
-            boot.StartupConfiguration.EntityFrameworkConfiguration.DefaultNameOrConnectionString = "Demo";
+                config.RegisterConsoleApplication();
+            });
 
-            boot.UseDataAccessEntityFramework();
 
 
             //var service = IocManager.Instance.Resolve<IService>();

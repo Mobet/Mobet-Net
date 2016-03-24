@@ -74,7 +74,6 @@
     <Compile Include="Dictionaries\Xml\XmlEmbeddedFileLocalizationDictionaryProvider.cs" />
     <Compile Include="Dictionaries\Xml\XmlFileLocalizationDictionaryProvider.cs" />
     <Compile Include="Dictionaries\Xml\XmlLocalizationDictionary.cs" />
-    <Compile Include="Startup\StartupConfigurationExtensions.cs" />
     <Compile Include="Extensions\LocalizableString.cs" />
     <Compile Include="Extensions\LocalizableStringToStringJsonConverter.cs" />
     <Compile Include="Extensions\LocalizationManagerExtensions.cs" />
@@ -103,6 +102,7 @@
     <Compile Include="Sources\NullLocalizationSource.cs" />
     <Compile Include="Sources\Resource\ResourceFileLocalizationSource.cs" />
     <Compile Include="Sources\Xml\XmlLocalizationSource.cs" />
+    <Compile Include="Startup\StartupConfigurationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\XmlSource\Abp-de.xml" />

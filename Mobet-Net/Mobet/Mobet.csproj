@@ -173,9 +173,9 @@
     <Compile Include="Domain\Models\AggregateRoot.cs" />
     <Compile Include="Domain\Models\Audited\AuditedEntity.cs" />
     <Compile Include="Domain\Models\Audited\ChangeAuditedEntity.cs" />
+    <Compile Include="Domain\Models\Audited\CreateAuditedEntity.cs" />
     <Compile Include="Domain\Models\Audited\IChangeAudited.cs" />
     <Compile Include="Domain\Models\Audited\ICreateAudited.cs" />
-    <Compile Include="Domain\Models\Audited\CreateAuditedEntity.cs" />
     <Compile Include="Domain\Models\Audited\PassivableEntity.cs" />
     <Compile Include="Domain\Models\Audited\SoftDeleteEntity.cs" />
     <Compile Include="Domain\Services\IRequest.cs" />

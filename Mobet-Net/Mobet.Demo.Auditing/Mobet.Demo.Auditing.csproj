@@ -69,10 +69,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mobet.Auditing\Mobet.Auditing.csproj">
-      <Project>{b013c40e-1593-4760-b828-457fac3ce94f}</Project>
-      <Name>Mobet.Auditing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>
       <Name>Mobet</Name>

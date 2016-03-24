@@ -39,7 +39,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.AutoMapper", "Mobet.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Localization", "Mobet.Localization\Mobet.Localization.csproj", "{D3610282-0D18-45B6-B763-BC7A2F7BCA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.AutoMapper", "Mobet.Demo.AutoMapper\Mobet.Demo.AutoMapper.csproj", "{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "授权管理", "授权管理", "{17EA86DB-D34C-432E-ACBD-0961BA72B80B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Web.SignalR", "Mobet.Web.SignalR\Mobet.Web.SignalR.csproj", "{D2415958-8D9F-4538-B070-C83A62AAE26F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Auditing", "Mobet.Auditing\Mobet.Auditing.csproj", "{B013C40E-1593-4760-B828-457FAC3CE94F}"
 EndProject
@@ -47,11 +49,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.EntityFramework", "Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Events", "Mobet.Events\Mobet.Events.csproj", "{15C2D6F2-C5F8-4ABA-BBB3-9B2148097370}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "授权管理", "授权管理", "{17EA86DB-D34C-432E-ACBD-0961BA72B80B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.RedisCache", "Mobet.RedisCache\Mobet.RedisCache.csproj", "{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Web.SignalR", "Mobet.Web.SignalR\Mobet.Web.SignalR.csproj", "{D2415958-8D9F-4538-B070-C83A62AAE26F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.AutoMapper", "Mobet.Demo.AutoMapper\Mobet.Demo.AutoMapper.csproj", "{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -156,12 +154,12 @@ Global
 		{D3610282-0D18-45B6-B763-BC7A2F7BCA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3610282-0D18-45B6-B763-BC7A2F7BCA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3610282-0D18-45B6-B763-BC7A2F7BCA85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B013C40E-1593-4760-B828-457FAC3CE94F}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
 		{B013C40E-1593-4760-B828-457FAC3CE94F}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
 		{B013C40E-1593-4760-B828-457FAC3CE94F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -180,18 +178,12 @@ Global
 		{15C2D6F2-C5F8-4ABA-BBB3-9B2148097370}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C2D6F2-C5F8-4ABA-BBB3-9B2148097370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C2D6F2-C5F8-4ABA-BBB3-9B2148097370}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED0A34C-2609-4D7D-8759-2FF3E935E2AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2415958-8D9F-4538-B070-C83A62AAE26F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
