@@ -69,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mobet.Auditing\Mobet.Auditing.csproj">
+      <Project>{b013c40e-1593-4760-b828-457fac3ce94f}</Project>
+      <Name>Mobet.Auditing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet.AutoMapper\Mobet.AutoMapper.csproj">
       <Project>{44065d5c-ba25-492f-a94b-ead4d50ac3ca}</Project>
       <Name>Mobet.AutoMapper</Name>
@@ -77,13 +81,13 @@
       <Project>{a965169d-7ba1-4c55-b0ed-f113224e3f86}</Project>
       <Name>Mobet.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mobet.EntityFramework\Mobet.EntityFramework.csproj">
+      <Project>{a7935be0-cf6e-4fef-b17c-e35f60552ced}</Project>
+      <Name>Mobet.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mobet.Infrastructure\Mobet.Infrastructure.csproj">
       <Project>{b5e2ad05-4abf-480a-8036-f870a33ec621}</Project>
       <Name>Mobet.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mobet.Localization\Mobet.Localization.csproj">
-      <Project>{d3610282-0d18-45b6-b763-bc7a2f7bca85}</Project>
-      <Name>Mobet.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mobet\Mobet.csproj">
       <Project>{37846d25-21ee-4d5c-9f3e-62a5d2e988a9}</Project>

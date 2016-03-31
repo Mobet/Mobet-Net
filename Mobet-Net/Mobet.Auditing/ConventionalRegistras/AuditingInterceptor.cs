@@ -28,10 +28,10 @@ namespace Mobet.Auditing.ConventionalRegistras
 
         private readonly IAuditingConfiguration _configuration;
 
-        private readonly IAuditModelProvider _auditInfoProvider;
+        private readonly IAuditingModelProvider _auditInfoProvider;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
 
-        public AuditingInterceptor(IAuditingConfiguration configuration, IAuditModelProvider auditInfoProvider, IUnitOfWorkManager unitOfWorkManager,IAuditingStore auditingStore)
+        public AuditingInterceptor(IAuditingConfiguration configuration, IAuditingModelProvider auditInfoProvider, IUnitOfWorkManager unitOfWorkManager, IAuditingStore auditingStore)
         {
             _configuration = configuration;
             _auditInfoProvider = auditInfoProvider;
@@ -60,19 +60,15 @@ namespace Mobet.Auditing.ConventionalRegistras
             {
                 PerformSyncAuditing(invocation, auditInfo);
             }
+
         }
 
-        private AuditModel CreateAuditInfo(IInvocation invocation)
+        private AuditingMessage CreateAuditInfo(IInvocation invocation)
         {
-            var auditInfo = new AuditModel
+            var auditInfo = new AuditingMessage
             {
-                UserAccount = AppSession.UserAccount,
-                ServiceName = invocation.MethodInvocationTarget.DeclaringType != null
-                    ? invocation.MethodInvocationTarget.DeclaringType.FullName
-                    : "",
-                MethodName = invocation.MethodInvocationTarget.Name,
-                Parameters = ConvertArgumentsToJson(invocation),
-                Time = DateTime.Now
+                InputParameters = ConvertArgumentsToJson(invocation),
+                Time = DateTime.Now,
             };
 
             _auditInfoProvider.Fill(auditInfo);
@@ -80,7 +76,7 @@ namespace Mobet.Auditing.ConventionalRegistras
             return auditInfo;
         }
 
-        private void PerformSyncAuditing(IInvocation invocation, AuditModel auditInfo)
+        private void PerformSyncAuditing(IInvocation invocation, AuditingMessage auditInfo)
         {
             var stopwatch = Stopwatch.StartNew();
 
@@ -96,11 +92,13 @@ namespace Mobet.Auditing.ConventionalRegistras
             finally
             {
                 stopwatch.Stop();
+
+                auditInfo.Output = invocation.ReturnValue.ToJsonString();
                 auditInfo.Duration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
                 AuditingStore.Save(auditInfo);
             }
         }
-        private void PerformAsyncAuditing(IInvocation invocation, AuditModel auditInfo)
+        private void PerformAsyncAuditing(IInvocation invocation, AuditingMessage auditInfo)
         {
             var stopwatch = Stopwatch.StartNew();
 
@@ -109,18 +107,28 @@ namespace Mobet.Auditing.ConventionalRegistras
             if (invocation.Method.ReturnType == typeof(Task))
             {
                 invocation.ReturnValue = InternalAsyncHelper.AwaitTaskWithFinally(
-                    (Task) invocation.ReturnValue,
-                    exception => SaveAuditInfo(auditInfo, stopwatch, exception)
+                    (Task)invocation.ReturnValue,
+                    exception => SaveAuditInfo(auditInfo, exception)
                     );
             }
-            else //Task<TResult>
+            else
             {
                 invocation.ReturnValue = InternalAsyncHelper.CallAwaitTaskWithFinallyAndGetResult(
                     invocation.Method.ReturnType.GenericTypeArguments[0],
                     invocation.ReturnValue,
-                    exception => SaveAuditInfo(auditInfo, stopwatch, exception)
+                    exception => SaveAuditInfo(auditInfo, exception)
                     );
             }
+
+            stopwatch.Stop();
+
+            if (auditInfo.Exception == null)
+            {
+                auditInfo.Output = invocation.ReturnValue.ToJsonString();
+            }
+            auditInfo.Duration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
+            AuditingStore.Save(auditInfo);
+
         }
 
         private string ConvertArgumentsToJson(IInvocation invocation)
@@ -151,17 +159,9 @@ namespace Mobet.Auditing.ConventionalRegistras
             }
         }
 
-        private void SaveAuditInfo(AuditModel auditInfo, Stopwatch stopwatch, Exception exception)
+        private void SaveAuditInfo(AuditingMessage auditInfo, Exception exception)
         {
-            stopwatch.Stop();
             auditInfo.Exception = exception;
-            auditInfo.Duration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
-
-            using (var uow = _unitOfWorkManager.Begin(TransactionScopeOption.Suppress))
-            {
-                AuditingStore.Save(auditInfo);
-                uow.Complete();
-            }
         }
     }
 }

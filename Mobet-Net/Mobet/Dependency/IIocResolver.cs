@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Autofac.Core;
+
 namespace Mobet.Dependency
 {
     /// <summary>
@@ -12,17 +14,29 @@ namespace Mobet.Dependency
     {
         /// <summary>
         /// Gets an object from IOC container.
-        /// Returning object must be Released (see <see cref="Release"/>) after usage.
         /// </summary> 
-        /// <param name="type">Type of the object to get</typeparam>
+        /// <param name="serviceType">Type of the object to get</typeparam>
         /// <returns>The object instance</returns>
-        object Resolve(Type type);
+        object Resolve(Type serviceType, params Parameter[] parameters);
         /// <summary>
         /// Gets an object from IOC container.
-        /// Returning object must be Released (see <see cref="Release"/>) after usage.
         /// </summary> 
         /// <typeparam name="T">Type of the object to get</typeparam>
         /// <returns>The object instance</returns>
-        T Resolve<T>();
+        T Resolve<T>(params Parameter[] parameters);
+        /// <summary>
+        /// Retrieve a service from the context, or null if the service is not registered.
+        /// </summary>
+        /// <param name="serviceType">The type of the service.</param>
+        /// <param name="parameters">Parameters for the service.</param>
+        /// <returns></returns>
+        object ResolveOptional(Type serviceType, params Parameter[] parameters);
+        /// <summary>
+        /// Retrieve a service from the context, or null if the service is not registered.
+        /// </summary>
+        /// <typeparam name="TService">The service to resolve.</typeparam>
+        /// <param name="parameters">Parameters for the service.</param>
+        /// <returns></returns>
+        TService ResolveOptional<TService>(params Parameter[] parameters) where TService : class;
     }
 }

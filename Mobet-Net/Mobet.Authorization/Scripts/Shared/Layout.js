@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('AuthorizationApp').directive('layoutHeader', function () {
+    angular.module('app').directive('layoutHeader', function () {
         return {
             templateUrl: "/Layout/Header",
             link: function (scope, element, attr) {
@@ -23,7 +23,7 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutFooter', function () {
+    angular.module('app').directive('layoutFooter', function () {
         return {
             templateUrl: "/Layout/Footer",
             link: function (scope, element, attr) {
@@ -32,7 +32,7 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutMain', function () {
+    angular.module('app').directive('layoutMain', function () {
         return {
             templateUrl: "/Layout/Main",
             link: function (scope, element, attrs) {
@@ -41,7 +41,7 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutSetting', function () {
+    angular.module('app').directive('layoutSetting', function () {
         return {
             templateUrl: "/Layout/Settings",
             link: function (scope, el, attr) {
@@ -51,7 +51,7 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutIntercom', function () {
+    angular.module('app').directive('layoutIntercom', function () {
         return {
             templateUrl:  "/Layout/Intercom",
             link: function (scope, el, attr) {
@@ -62,7 +62,7 @@
         };
     });
 
-    angular.module('AuthorizationApp').directive('layoutNavbar', function () {
+    angular.module('app').directive('layoutNavbar', function () {
         return {
             templateUrl: "/Layout/Navbar",
             link: function (scope, el, attr) {

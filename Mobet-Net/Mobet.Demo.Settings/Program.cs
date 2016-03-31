@@ -29,8 +29,8 @@ namespace Mobet.Demo.Settings
                 cfg.RegisterConsoleApplication();
             });
 
-            var settingConfiguration = IocManager.Instance.Resolve<ISettingsConfiguration>();
-            var settingManager = IocManager.Instance.Resolve<ISettingManager>();
+            var settingConfiguration = IocManager.Instance.Resolve<IGlobalSettingsConfiguration>();
+            var settingManager = IocManager.Instance.Resolve<IGlobalSettingManager>();
             var emailSmtpHost = settingManager.GetSettingValue("Email.Smtp.Host");
 
             Console.WriteLine(string.Format("Default email smtp host is {0}", emailSmtpHost));
@@ -52,11 +52,11 @@ namespace Mobet.Demo.Settings
     /// </summary>
     internal class EmailSettingProvider : SettingProvider
     {
-        public override IEnumerable<Setting> GetSettings(SettingProviderContext context)
+        public override IEnumerable<GlobalSetting> GetSettings(GlobalSettingsProviderContext context)
         {
             return new[]
                    {
-                       new Setting("Email.Smtp.Host", "127.0.0.1", new SettingGroup("Email"), scopes: SettingScopes.Application),
+                       new GlobalSetting("Email.Smtp.Host", "127.0.0.1", new GlobalSettingGroup("Email"), scopes: GlobalSettingScope.Application),
                    };
         }
     }
@@ -68,7 +68,7 @@ namespace Mobet.Demo.Settings
 
     public class Service : IService
     {
-        public ISettingManager SettingManager { get; set; }
+        public IGlobalSettingManager SettingManager { get; set; }
 
         public Service()
         {
@@ -79,7 +79,7 @@ namespace Mobet.Demo.Settings
         }
     }
 
-    public class Simple2SettingStore : ISettingStore, IDependency
+    public class Simple2SettingStore : IGlobalSettingStore, IDependency
     {
         private Dictionary<string, string> _dictionary = new Dictionary<string, string>() { };
         public Simple2SettingStore()
@@ -87,24 +87,24 @@ namespace Mobet.Demo.Settings
             _dictionary.Add("Email.Smtp.Host", "Simple2SettingStore");
         }
 
-        public Task<Setting> GetSettingAsync(string name)
+        public Task<GlobalSetting> GetSettingAsync(string name)
         {
-            return Task.FromResult(new Setting(name, _dictionary[name]));
+            return Task.FromResult(new GlobalSetting(name, _dictionary[name]));
         }
-        public Task<Setting> DeleteSettingAsync(string name)
+        public Task<GlobalSetting> DeleteSettingAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Setting> AddOrUpdateSettingAsync(Setting setting)
+        public Task<GlobalSetting> AddOrUpdateSettingAsync(GlobalSetting setting)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Setting>> GetAllSettingsAsync()
+        public Task<List<GlobalSetting>> GetAllSettingsAsync()
         {
-            return Task.FromResult(new List<Setting>() {
-                new Setting("Email.Smtp.Host","Simple2SettingStore")
+            return Task.FromResult(new List<GlobalSetting>() {
+                new GlobalSetting("Email.Smtp.Host","Simple2SettingStore")
             });
         }
     }

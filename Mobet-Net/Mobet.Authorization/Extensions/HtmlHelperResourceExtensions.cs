@@ -4,7 +4,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
-using Mobet.Settings;
+using Mobet.GlobalSettings;
 using Mobet.Dependency;
 using Mobet.Authorization.Configuration;
 using System.Text;
@@ -28,7 +28,7 @@ namespace System.Web.Mvc.Html
 
         public static IHtmlString RenderPluginStyles(this HtmlHelper html)
         {
-            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
+            string resourceAbsolute = IocManager.Instance.Resolve<IGlobalSettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
 
             var styles = new string[]
             {
@@ -48,6 +48,8 @@ namespace System.Web.Mvc.Html
                "resources/plugins/angular-loading-bar/loading-bar.css",
 
                "resources/plugins/jquery-flavr/css/flavr.css",
+               "resources/plugins/jquery-mcustomerscroll/jquery.mcustomscrollbar.min.css",
+               
 
                "resources/css/inspinia.css",
                "resources/css/override.css"
@@ -63,7 +65,7 @@ namespace System.Web.Mvc.Html
 
         public static IHtmlString RenderPluginScripts(this HtmlHelper html)
         {
-            string resourceAbsolute = IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
+            string resourceAbsolute = IocManager.Instance.Resolve<IGlobalSettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result.ToString();
 
             var scripts = new string[]
             {
@@ -85,8 +87,12 @@ namespace System.Web.Mvc.Html
                "resources/plugins/angular-icheck/angular.icheck.js",
                "resources/plugins/angular-radio/angular.radio.js",
 
+               "resources/plugins/jquery-mcustomerscroll/jquery.mousewheel.min.js",
+               "resources/plugins/jquery-mcustomerscroll/jquery.mcustomscrollbar.min.js",
+
                "resources/plugins/angular-datatables/jquery.datatables-1.10.4.min.js",
                "resources/plugins/angular-datatables/jquery.datatables.fnreloadajax.1.10.4.js",
+               "resources/plugins/angular-datatables/jquery.datatables.fixedcolumns.js",
                "resources/plugins/angular-datatables/jquery.datatables-bootstrap.1.10.4.js",
                "resources/plugins/angular-datatables/angular.datatables.js",
 
@@ -127,7 +133,7 @@ namespace System.Web.Mvc.Html
 
         private static string GetResourcesAbsolutePath(string virtualPath)
         {
-            return IocManager.Instance.Resolve<ISettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result + virtualPath;
+            return IocManager.Instance.Resolve<IGlobalSettingManager>().GetSettingValueAsync(Constants.Settings.Resources.Domain).Result + virtualPath;
         }
     }
 }

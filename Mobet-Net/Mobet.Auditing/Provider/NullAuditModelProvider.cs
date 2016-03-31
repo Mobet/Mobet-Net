@@ -1,11 +1,12 @@
 ﻿namespace Mobet.Auditing.Provider
 {
     /// <summary>
-    /// Null implementation of <see cref="IAuditModelProvider"/>.
+    /// Null implementation of <see cref="IAuditingModelProvider"/>.
     /// </summary>
-    internal class NullAuditModelProvider : IAuditModelProvider
+    internal class NullAuditingModelProvider : IAuditingModelProvider
     {
-        public void Fill(AuditModel auditInfo)
+
+        public void Fill(AuditingMessage auditInfo)
         {
             
         }

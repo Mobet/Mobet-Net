@@ -4,9 +4,7 @@
     {
         public bool IsEnabled { get; set; }
 
-        public bool IsEnabledForAnonymousUsers { get; set; }
-
-        public IMvcControllersAuditingConfiguration MvcControllers { get; private set; }
+        public bool IsEnableControllers { get; private set; }
 
         public IAuditingSelectorList Selectors { get; private set; }
 
@@ -14,7 +12,6 @@
         {
             IsEnabled = true;
             Selectors = new AuditingSelectorList();
-            MvcControllers = new MvcControllersAuditingConfiguration();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Mobet.Extensions;
-using Mobet.Settings;
+using Mobet.GlobalSettings;
 using Mobet.Localization;
 using Mobet.Localization.Sources;
 using Mobet.Dependency;
@@ -44,7 +44,7 @@ namespace Mobet.Authorization.Services
         /// <summary>
         /// Reference to the setting manager.
         /// </summary>
-        public ISettingManager SettingManager { get; set; }
+        public IGlobalSettingManager SettingManager { get; set; }
 
         /// <summary>
         /// Gets/sets name of the localization source that is used in this controller.
@@ -64,7 +64,7 @@ namespace Mobet.Authorization.Services
         {
             _localizationSource = NullLocalizationSource.Instance;
 
-            SettingManager = IocManager.Instance.Resolve<ISettingManager>();
+            SettingManager = IocManager.Instance.Resolve<IGlobalSettingManager>();
         }
 
         /// <summary>

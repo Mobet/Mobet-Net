@@ -8,7 +8,9 @@ using Mobet.Domain.Services;
 using Mobet.Dependency;
 using Autofac;
 using System.Reflection;
-
+using Mobet.Caching;
+using Mobet.Configuration.Startup;
+using Autofac.Core;
 
 namespace Mobet.Demo.Auditing
 {
@@ -16,6 +18,11 @@ namespace Mobet.Demo.Auditing
     {
         static void Main(string[] args)
         {
+
+            StartupConfig.RegisterDependency(cfg =>
+            {
+                cfg.RegisterConsoleApplication();
+            });
             // castle windsor
             //using (var container = new WindsorContainer())
             //{
@@ -40,10 +47,27 @@ namespace Mobet.Demo.Auditing
                 .PropertiesAutowired()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+
+            List<NamedPropertyParameter> paramters = new List<NamedPropertyParameter>();
+            paramters.Add(new NamedPropertyParameter("something", "Hello,World!"));
+            paramters.Add(new NamedPropertyParameter("cacheManager", IocManager.Instance.Resolve<ICacheManager>()));
+
+            builder.RegisterType<Service>()
+                .AsImplementedInterfaces()
+                .AsSelf()
+                .PropertiesAutowired();
+                //.WithParameters(paramters)
+                //.Named<IService>("UsingConstructor");
+
             var container = builder.Build();
 
-            var service = container.Resolve<IService>();
-            service.Mothod();
+            //var service = container.Resolve<IService>();
+            //service.Mothod();
+
+            var service2 = container.Resolve<IService>(new NamedParameter("something", "Hello,World!"), new NamedParameter("cacheManager", IocManager.Instance.Resolve<ICacheManager>()));
+
+            service2.Mothod2();
 
             Console.ReadKey();
         }
@@ -57,20 +81,35 @@ namespace Mobet.Demo.Auditing
     public interface IService
     {
         void Mothod();
+        void Mothod2();
 
     }
     public class Service : IService, ISingletonDependency
     {
         public ILogging Logging { get; set; }
 
+        private string _something;
+        private ICacheManager _cachemanager;
+
         public Service()
         {
             Logging = NullLogging.Instance;
         }
 
+        public Service(string something, ICacheManager cacheManager)
+        {
+            _cachemanager = cacheManager;
+            _something = something;
+        }
+
         public void Mothod()
         {
             Logging.Log("service doing something...");
+        }
+
+        public void Mothod2()
+        {
+            Console.WriteLine(_something);
         }
     }
 

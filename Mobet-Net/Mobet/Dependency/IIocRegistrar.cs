@@ -81,12 +81,25 @@ namespace Mobet.Dependency
         /// <summary>
         /// Register a typ with parameters
         /// </summary>
-        void RegisterWithParameters<TType>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+        void RegisterWithParameter<TType>(string parameterName, object parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
             where TType : class;
         /// <summary>
         /// Register a typ with parameters
         /// </summary>
-        void RegisterWithParameters<TType, TImpl>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+        void RegisterWithParameter<TType, TImpl>(string parameterName, object parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+            where TType : class
+            where TImpl : class, TType;
+
+
+        /// <summary>
+        /// Register a typ with parameters
+        /// </summary>
+        void RegisterWithParameters<TType>(IEnumerable<Parameter> parameters, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
+            where TType : class;
+        /// <summary>
+        /// Register a typ with parameters
+        /// </summary>
+        void RegisterWithParameters<TType, TImpl>(IEnumerable<Parameter> parameters, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Transient)
             where TType : class
             where TImpl : class, TType;
     }

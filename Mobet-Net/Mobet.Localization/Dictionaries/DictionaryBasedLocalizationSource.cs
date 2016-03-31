@@ -58,13 +58,13 @@ namespace Mobet.Localization.Dictionaries
         }
 
         /// <inheritdoc/>
-        public string GetString(string name)
+        public virtual string GetString(string name)
         {
             return GetString(name, Thread.CurrentThread.CurrentUICulture);
         }
 
         /// <inheritdoc/>
-        public string GetString(string name, CultureInfo culture)
+        public virtual string GetString(string name, CultureInfo culture)
         {
             var value = GetStringOrNull(name, culture);
 
@@ -76,12 +76,12 @@ namespace Mobet.Localization.Dictionaries
             return value;
         }
 
-        public string GetStringOrNull(string name, bool tryDefaults = true)
+        public virtual string GetStringOrNull(string name, bool tryDefaults = true)
         {
             return GetStringOrNull(name, Thread.CurrentThread.CurrentUICulture, tryDefaults);
         }
 
-        public string GetStringOrNull(string name, CultureInfo culture, bool tryDefaults = true)
+        public virtual string GetStringOrNull(string name, CultureInfo culture, bool tryDefaults = true)
         {
             var cultureName = culture.Name;
             var dictionaries = DictionaryProvider.Dictionaries;

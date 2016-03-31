@@ -934,8 +934,7 @@
     <Content Include="Resources\plugins\angular-datatables\css\datatables.css" />
     <Content Include="Resources\plugins\angular-datatables\images\sort_asc.png" />
     <Content Include="Resources\plugins\angular-datatables\images\sort_desc.png" />
-    <Content Include="Resources\plugins\angular-datatables\jquery.datatables-1.10.10.js" />
-    <Content Include="Resources\plugins\angular-datatables\jquery.datatables-1.10.10.min.js" />
+    <Content Include="Resources\plugins\angular-datatables\jquery.datatables.fixedcolumns.js" />
     <Content Include="Resources\plugins\angular-datatables\jquery.datatables-1.10.4.min.js" />
     <Content Include="Resources\plugins\angular-datatables\jquery.datatables-bootstrap.1.10.4.js" />
     <Content Include="Resources\plugins\angular-datatables\jquery.datatables.fnreloadajax.1.10.4.js" />
@@ -1035,6 +1034,11 @@
     <Content Include="Resources\plugins\jquery-layer\skin\default\loading-2.gif" />
     <Content Include="Resources\plugins\jquery-layer\skin\layer.css" />
     <Content Include="Resources\plugins\jquery-layer\skin\layer.ext.css" />
+    <Content Include="Resources\plugins\jquery-mcustomerscroll\jquery.mcustomscrollbar.min.css" />
+    <Content Include="Resources\plugins\jquery-mcustomerscroll\jquery.mcustomscrollbar.min.js" />
+    <Content Include="Resources\plugins\jquery-mcustomerscroll\jquery.mousewheel-3.0.6.min.js" />
+    <Content Include="Resources\plugins\jquery-mcustomerscroll\jquery.mousewheel.min.js" />
+    <Content Include="Resources\plugins\jquery-mcustomerscroll\mCSB_buttons.png" />
     <Content Include="Resources\plugins\jquery-metismenu\jquery.metisMenu.js" />
     <Content Include="Resources\plugins\jquery-nestable\jquery.nestable.js" />
     <Content Include="Resources\plugins\jquery-sha1\jquery.sha1.js" />

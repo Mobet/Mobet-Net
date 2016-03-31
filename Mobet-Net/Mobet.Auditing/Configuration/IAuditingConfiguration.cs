@@ -13,15 +13,9 @@ namespace Mobet.Auditing.Configuration
         bool IsEnabled { get; set; }
 
         /// <summary>
-        /// Set true to enable saving audit logs if current user is not logged in.
-        /// Default: false.
+        /// Used to configure auditing for MVC/WebAPI Controllers.
         /// </summary>
-        bool IsEnabledForAnonymousUsers { get; set; }
-
-        /// <summary>
-        /// Used to configure auditing for MVC Controllers.
-        /// </summary>
-        IMvcControllersAuditingConfiguration MvcControllers { get; }
+        bool IsEnableControllers { get; }
 
         /// <summary>
         /// List of selectors to select classes/interfaces which should be audited as default.

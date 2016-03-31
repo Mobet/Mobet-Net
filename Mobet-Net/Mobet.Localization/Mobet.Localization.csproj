@@ -47,6 +47,8 @@
       <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\dotnet\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,6 +63,11 @@
     <Compile Include="Configuration\LocalizationConfiguration.cs" />
     <Compile Include="Configuration\LocalizationSourceList.cs" />
     <Compile Include="ConventionalRegistras\LocalizationConventionalRegistrar.cs" />
+    <Compile Include="Dictionaries\Db\DbLocalizationDictionaryProvider.cs" />
+    <Compile Include="Dictionaries\Db\DbLocalizationSource.cs" />
+    <Compile Include="Dictionaries\Db\LanguageTextChangedEventHandler.cs" />
+    <Compile Include="Dictionaries\Db\LanguageTextChangedEvent.cs" />
+    <Compile Include="Dictionaries\Db\DbLocalizationDictionary.cs" />
     <Compile Include="Dictionaries\DictionaryBasedLocalizationSource.cs" />
     <Compile Include="Dictionaries\IDictionaryBasedLocalizationSource.cs" />
     <Compile Include="Dictionaries\ILocalizationDictionary.cs" />
@@ -79,16 +86,25 @@
     <Compile Include="Extensions\LocalizationManagerExtensions.cs" />
     <Compile Include="ILocalizationContext.cs" />
     <Compile Include="ILocalizationManager.cs" />
-    <Compile Include="Language\DefaultLanguageProvider.cs" />
+    <Compile Include="Language\Db\LanguageChangedEventHandler.cs" />
+    <Compile Include="Language\Db\ILanguageDbManager.cs" />
+    <Compile Include="Language\Db\ILanguageDbProvider.cs" />
+    <Compile Include="Language\Db\LanguageChangedEvent.cs" />
+    <Compile Include="Language\Db\LanguageDbManager.cs" />
+    <Compile Include="Language\Db\LanguageDbProvider.cs" />
+    <Compile Include="Language\LanguageProvider.cs" />
     <Compile Include="Language\GlobalizationHelper.cs" />
     <Compile Include="Language\ILanguageManager.cs" />
     <Compile Include="Language\ILanguageProvider.cs" />
     <Compile Include="Language\LanguageInfo.cs" />
     <Compile Include="Language\LanguageManager.cs" />
+    <Compile Include="LocalizationConstansts.cs" />
     <Compile Include="LocalizationContext.cs" />
     <Compile Include="LocalizationHelper.cs" />
     <Compile Include="LocalizationManager.cs" />
     <Compile Include="LocalizationSourceHelper.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\LanguageText.cs" />
     <Compile Include="Modules\LocalizationManagerModule.cs" />
     <Compile Include="NullLocalizationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +119,8 @@
     <Compile Include="Sources\Resource\ResourceFileLocalizationSource.cs" />
     <Compile Include="Sources\Xml\XmlLocalizationSource.cs" />
     <Compile Include="Startup\StartupConfigurationExtensions.cs" />
+    <Compile Include="Store\ILanguageStore.cs" />
+    <Compile Include="Store\ILanguageTextStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sources\XmlSource\Abp-de.xml" />
@@ -123,6 +141,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 using Mobet.Localization;
 using Mobet.Runtime.Session;
-using Mobet.Settings;
+using Mobet.GlobalSettings;
 using Mobet.Localization.Sources;
 using Mobet.Authorization.Models;
 
@@ -20,7 +20,7 @@ namespace Mobet.Authorization.Controllers.Shared
 
         public ILocalizationManager LocalizationManager { get; set; }
 
-        public ISettingManager SettingManager { get; set; }
+        public IGlobalSettingManager SettingManager { get; set; }
 
         public BaseController()
         {
@@ -91,6 +91,5 @@ namespace Mobet.Authorization.Controllers.Shared
             return new NewtonJsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         #endregion
-
     }
 }

@@ -23,10 +23,14 @@ using Mobet.Modules.Logging;
 using Mobet.Runtime.Session.Modules;
 using Mobet.Caching;
 using Mobet.Domain.UnitOfWork.Configuration;
-using Mobet.Settings.Configuration;
-using Mobet.Settings.Modules;
-using Mobet.Settings;
-using Mobet.Settings.Store;
+using Mobet.GlobalSettings.Configuration;
+using Mobet.GlobalSettings.Modules;
+using Mobet.GlobalSettings;
+using Mobet.GlobalSettings.Store;
+using Mobet.Events.ConventionalRegistras;
+using Mobet.Events.Modules;
+using Mobet.Localization.Configuration;
+using Mobet.Localization.Modules;
 
 namespace Mobet.Configuration.Startup
 {
@@ -41,20 +45,35 @@ namespace Mobet.Configuration.Startup
     public class StartupConfiguration
     {
         /// <summary>
-        /// Used to configure unit of work defaults.
+        /// 工作单元默认配置
         /// </summary>
-        public IUnitOfWorkDefaultOptionsConfiguration UnitOfWorkDefaultOptionsConfiguration { get { return IocManager.Instance.Resolve<IUnitOfWorkDefaultOptionsConfiguration>(); } }
+        public IUnitOfWorkDefaultOptionsConfiguration UnitOfWorkDefaultOptionsConfiguration { get; set;  }
         /// <summary>
-        /// Used to configure setting system.
+        /// 全局设置配置
         /// </summary>
-        public ISettingsConfiguration SettingsConfiguration { get { return IocManager.Instance.Resolve<ISettingsConfiguration>(); } }
+        public IGlobalSettingsConfiguration GlobalSettingsConfiguration { get;set; }
 
         public StartupConfiguration()
         {
             IocManager.Instance.AddConventionalRegistrar(new BasicConventionalRegistrar());
 
+            IocManager.Instance.AddConventionalRegistrar(new EventBusConventionalRegistras());
+
+            IocManager.Instance.RegisterIfNot<ICacheManager, NetCacheManager>();
             IocManager.Instance.RegisterIfNot<IUnitOfWorkDefaultOptionsConfiguration, UnitOfWorkDefaultOptionsConfiguration>();
-            IocManager.Instance.RegisterIfNot<ISettingsConfiguration, SettingsConfiguration>();
+            IocManager.Instance.RegisterIfNot<ILocalizationConfiguration, LocalizationConfiguration>();
+            IocManager.Instance.RegisterIfNot<IGlobalSettingsConfiguration, GlobalSettingsConfiguration>();
+            IocManager.Instance.RegisterIfNot<IGlobalSettingManager, GlobalSettingManager>();
+            IocManager.Instance.RegisterIfNot<IGlobalSettingStore, SimpleGlobalSettingStore>(DependencyLifeStyle.Transient);
+
+
+            IocManager.Instance.RegisterModule(new LocalizationManagerModule());
+            IocManager.Instance.RegisterModule(new EventBusModule());
+            IocManager.Instance.RegisterModule(new GlobalSettingsManagerModule());
+
+
+            UnitOfWorkDefaultOptionsConfiguration = IocManager.Instance.Resolve<IUnitOfWorkDefaultOptionsConfiguration>();
+            GlobalSettingsConfiguration = IocManager.Instance.Resolve<IGlobalSettingsConfiguration>();
         }
 
     }
@@ -63,19 +82,9 @@ namespace Mobet.Configuration.Startup
     {
         private const string AssemblySkipLoadingPattern = "^System|^vshost32|^Nito.AsyncEx|^mscorlib|^Microsoft|^AjaxControlToolkit|^Antlr3|^Autofac|^NSubstitute|^AutoMapper|^Castle|^ComponentArt|^CppCodeProvider|^DotNetOpenAuth|^EntityFramework|^EPPlus|^FluentValidation|^ImageResizer|^itextsharp|^log4net|^MaxMind|^MbUnit|^MiniProfiler|^Mono.Math|^MvcContrib|^Newtonsoft|^NHibernate|^nunit|^Org.Mentalis|^PerlRegex|^QuickGraph|^Recaptcha|^Remotion|^RestSharp|^Telerik|^Iesi|^TestFu|^UserAgentStringLibrary|^VJSharpCodeProvider|^WebActivator|^WebDev|^WebGrease";
 
-        public static StartupConfiguration UseCacheProviderRedis(this StartupConfiguration bootstrap, string configuration)
-        {
-            IocManager.Instance.RegisterWithParameters<ICacheManager, RedisCacheManager>("configuration", configuration);
-            return bootstrap;
-        }
-        public static StartupConfiguration UseCacheProviderNetCache(this StartupConfiguration bootstrap)
-        {
-            IocManager.Instance.Register<ICacheManager, Caching.NetCacheManager>();
-            return bootstrap;
-        }
         public static StartupConfiguration UseLoggingLog4net(this StartupConfiguration bootstrap, string configFile = "log4net.config")
         {
-            IocManager.Instance.RegisterWithParameters<ILoggerFactory, Log4netFactory>("configFile", configFile);
+            IocManager.Instance.RegisterWithParameter<ILoggerFactory, Log4netFactory>("configFile", configFile);
             IocManager.Instance.RegisterModule(new LoggingModule());
             return bootstrap;
         }
@@ -84,20 +93,22 @@ namespace Mobet.Configuration.Startup
             IocManager.Instance.RegisterModule(new AppSessionModule());
             return bootstrap;
         }
-
-        public static StartupConfiguration UseSettings(this StartupConfiguration bootstrap, Action<ISettingsConfiguration> invoke)
+        public static StartupConfiguration UseGlobalSettings(this StartupConfiguration bootstrap, Action<IGlobalSettingsConfiguration> invoke = null)
         {
-            IocManager.Instance.RegisterIfNot<ICacheManager, NetCacheManager>();
-            IocManager.Instance.RegisterIfNot<ISettingManager, SettingManager>();
-            IocManager.Instance.RegisterIfNot<ISettingStore, SimpleSettingStore>(DependencyLifeStyle.Transient);
-
-            invoke(IocManager.Instance.Resolve<ISettingsConfiguration>());
-
-            IocManager.Instance.RegisterModule(new SettingManagerModule());
-
+            if (invoke != null)
+            {
+                invoke(IocManager.Instance.Resolve<IGlobalSettingsConfiguration>());
+            }
             return bootstrap;
         }
-
+        public static StartupConfiguration UseLocalization(this StartupConfiguration bootstrap, Action<ILocalizationConfiguration> invoke = null)
+        {
+            if (invoke != null)
+            {
+                invoke(IocManager.Instance.Resolve<ILocalizationConfiguration>());
+            }
+            return bootstrap;
+        }
         public static StartupConfiguration RegisterWebMvcApplication(this StartupConfiguration bootstrap, params IModule[] modules)
         {
             var assemblies = FilterSystemAssembly(BuildManager.GetReferencedAssemblies().Cast<Assembly>());

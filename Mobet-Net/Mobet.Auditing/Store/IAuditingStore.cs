@@ -5,14 +5,14 @@ namespace Mobet.Auditing.Store
     /// <summary>
     /// This interface should be implemented by vendors to
     /// make auditing working.
-    /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
+    /// Default implementation is <see cref="LoggingAuditingStore"/>.
     /// </summary>
-    public interface IAuditingStore :IDependency
+    public interface IAuditingStore
     {
         /// <summary>
         /// Should save audits to a persistent store.
         /// </summary>
         /// <param name="auditInfo">Audit informations</param>
-        Task SaveAsync(AuditModel auditInfo);
+        Task SaveAsync(AuditingMessage auditInfo);
     }
 }

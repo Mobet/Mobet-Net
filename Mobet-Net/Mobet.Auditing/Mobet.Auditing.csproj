@@ -60,19 +60,18 @@
     <Compile Include="AuditModel.cs" />
     <Compile Include="Configuration\AuditingConfiguration.cs" />
     <Compile Include="Configuration\IAuditingConfiguration.cs" />
-    <Compile Include="Configuration\IMvcControllersAuditingConfiguration.cs" />
-    <Compile Include="Configuration\MvcControllersAuditingConfiguration.cs" />
     <Compile Include="ConventionalRegistras\AuditingInterceptor.cs" />
     <Compile Include="ConventionalRegistras\AuditingInterceptorRegistrar.cs" />
     <Compile Include="Extensions\AuditingStoreExtensions.cs" />
+    <Compile Include="IAuditingManager.cs" />
     <Compile Include="Startup\StartupConfigurationExtensions.cs" />
     <Compile Include="IAuditingSelectorList.cs" />
     <Compile Include="NamedTypeSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\IAuditModelProvider.cs" />
+    <Compile Include="Provider\IAuditingModelProvider.cs" />
     <Compile Include="Provider\NullAuditModelProvider.cs" />
     <Compile Include="Store\IAuditingStore.cs" />
-    <Compile Include="Store\SimpleLogAuditingStore.cs" />
+    <Compile Include="Store\LoggingAuditingStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mobet\Mobet.csproj">

@@ -168,8 +168,8 @@
     <Compile Include="Caching\NetCacheManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Configuration\StartupConfiguration.cs" />
+    <Compile Include="IConstants.cs" />
     <Compile Include="Domain\Models\AggregateRoot.cs" />
     <Compile Include="Domain\Models\Audited\AuditedEntity.cs" />
     <Compile Include="Domain\Models\Audited\ChangeAuditedEntity.cs" />
@@ -181,26 +181,96 @@
     <Compile Include="Domain\Services\IRequest.cs" />
     <Compile Include="Domain\Services\IResponse.cs" />
     <Compile Include="Domain\Services\PagingRequest.cs" />
+    <Compile Include="Events\ConventionalRegistras\EventBusConventionalRegistras.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\EntityEventData.cs" />
+    <Compile Include="Events\EventBus.cs" />
+    <Compile Include="Events\ExceptionOccursEvent.cs" />
+    <Compile Include="Events\ExceptionOccursEventHandler.cs" />
+    <Compile Include="Events\Handlers\ActionEventHandler.cs" />
+    <Compile Include="Events\Handlers\HandlerDispose.cs" />
+    <Compile Include="Events\Handlers\IEventHandler.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Events\IEventDataWithInheritableGenericArgument.cs" />
+    <Compile Include="Events\Modules\EventBusModule.cs" />
+    <Compile Include="Events\NullDisposable.cs" />
+    <Compile Include="Events\NullEventBus.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Collections\ITypeList.cs" />
     <Compile Include="Collections\TypeList.cs" />
+    <Compile Include="Localization\Configuration\ILocalizationConfiguration.cs" />
+    <Compile Include="Localization\Configuration\ILocalizationSourceList.cs" />
+    <Compile Include="Localization\Configuration\LocalizationConfiguration.cs" />
+    <Compile Include="Localization\Configuration\LocalizationSourceList.cs" />
+    <Compile Include="Localization\ConventionalRegistras\LocalizationConventionalRegistrar.cs" />
+    <Compile Include="Localization\Dictionaries\Db\DbLocalizationDictionary.cs" />
+    <Compile Include="Localization\Dictionaries\Db\DbLocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Sources\Db\DbLocalizationSource.cs" />
+    <Compile Include="Localization\Dictionaries\Db\LanguageTextChangedEvent.cs" />
+    <Compile Include="Localization\Dictionaries\Db\LanguageTextChangedEventHandler.cs" />
+    <Compile Include="Localization\Dictionaries\DictionaryBasedLocalizationSource.cs" />
+    <Compile Include="Localization\Dictionaries\IDictionaryBasedLocalizationSource.cs" />
+    <Compile Include="Localization\Dictionaries\ILocalizationDictionary.cs" />
+    <Compile Include="Localization\Dictionaries\ILocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Dictionaries\Json\JsonEmbeddedFileLocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Dictionaries\Json\JsonFileLocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Dictionaries\Json\JsonLocalizationDictionary.cs" />
+    <Compile Include="Localization\Dictionaries\Json\JsonLocalizationFile.cs" />
+    <Compile Include="Localization\Dictionaries\LocalizationDictionary.cs" />
+    <Compile Include="Localization\Dictionaries\Xml\LocalizationDictionaryProviderBase.cs" />
+    <Compile Include="Localization\Dictionaries\Xml\XmlEmbeddedFileLocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Dictionaries\Xml\XmlFileLocalizationDictionaryProvider.cs" />
+    <Compile Include="Localization\Dictionaries\Xml\XmlLocalizationDictionary.cs" />
+    <Compile Include="Localization\LocalizationString.cs" />
+    <Compile Include="Localization\LocalizationStringToStringJsonConverter.cs" />
+    <Compile Include="Localization\Extensions\LocalizationManagerExtensions.cs" />
+    <Compile Include="Localization\LocalizationFixedString.cs" />
+    <Compile Include="Localization\ILocalizationString.cs" />
+    <Compile Include="Localization\ILocalizationContext.cs" />
+    <Compile Include="Localization\ILocalizationManager.cs" />
+    <Compile Include="Localization\Language\Db\ILanguageDbManager.cs" />
+    <Compile Include="Localization\Language\Db\LanguageChangedEvent.cs" />
+    <Compile Include="Localization\Language\Db\LanguageChangedEventHandler.cs" />
+    <Compile Include="Localization\Language\Db\LanguageDbManager.cs" />
+    <Compile Include="Localization\Language\Db\LanguageDbProvider.cs" />
+    <Compile Include="Localization\Language\ILanguageManager.cs" />
+    <Compile Include="Localization\Language\ILanguageProvider.cs" />
+    <Compile Include="Localization\Language\LanguageInfo.cs" />
+    <Compile Include="Localization\Language\LanguageManager.cs" />
+    <Compile Include="Localization\Language\LanguageProvider.cs" />
+    <Compile Include="Localization\LocalizationContext.cs" />
+    <Compile Include="Localization\LocalizationHelper.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="Localization\LocalizedString.cs" />
+    <Compile Include="Localization\Models\Language.cs" />
+    <Compile Include="Localization\Models\LanguageText.cs" />
+    <Compile Include="Localization\Modules\LocalizationManagerModule.cs" />
+    <Compile Include="Localization\NullLocalizationManager.cs" />
+    <Compile Include="Localization\Settings\LocalizationSettingProvider.cs" />
+    <Compile Include="Localization\Sources\ILocalizationSource.cs" />
+    <Compile Include="Localization\Sources\LocalizationSourceExtensionInfo.cs" />
+    <Compile Include="Localization\Sources\LocalizationSourceExtensions.cs" />
+    <Compile Include="Localization\Sources\NullLocalizationSource.cs" />
+    <Compile Include="Localization\Sources\Resource\ResourceFileLocalizationSource.cs" />
+    <Compile Include="Localization\Sources\Xml\XmlLocalizationSource.cs" />
+    <Compile Include="Localization\Store\ILanguageStore.cs" />
+    <Compile Include="Localization\Store\ILanguageTextStore.cs" />
     <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Runtime\Cookie\CookieHelper.cs" />
-    <Compile Include="Settings\Configuration\ISettingsConfiguration.cs" />
-    <Compile Include="Settings\Configuration\SettingsConfiguration.cs" />
-    <Compile Include="Settings\Modules\SettingManagerModule.cs" />
-    <Compile Include="Settings\Store\SimpleSettingStore.cs" />
-    <Compile Include="Settings\ISettingManager.cs" />
-    <Compile Include="Settings\Store\ISettingStore.cs" />
-    <Compile Include="Settings\ISetting.cs" />
-    <Compile Include="Settings\Setting.cs" />
-    <Compile Include="Settings\SettingGroup.cs" />
-    <Compile Include="Settings\Provider\SettingsProviderContext.cs" />
-    <Compile Include="Settings\SettingManager.cs" />
-    <Compile Include="Settings\Extensions\SettingManagerExtensions.cs" />
-    <Compile Include="Settings\Provider\SettingsProvider.cs" />
-    <Compile Include="Settings\SettingScope.cs" />
+    <Compile Include="GlobalSettings\Configuration\IGlobalSettingsConfiguration.cs" />
+    <Compile Include="GlobalSettings\Configuration\SettingsConfiguration.cs" />
+    <Compile Include="GlobalSettings\Modules\SettingManagerModule.cs" />
+    <Compile Include="GlobalSettings\Store\SimpleGlobalSettingStore.cs" />
+    <Compile Include="GlobalSettings\IGlobalSettingManager.cs" />
+    <Compile Include="GlobalSettings\Store\IGlobalSettingStore.cs" />
+    <Compile Include="GlobalSettings\Models\GlobalSetting.cs" />
+    <Compile Include="GlobalSettings\Provider\GlobalSettingProviderContext.cs" />
+    <Compile Include="GlobalSettings\GlobalSettingManager.cs" />
+    <Compile Include="GlobalSettings\Extensions\SettingManagerExtensions.cs" />
+    <Compile Include="GlobalSettings\Provider\GlobalSettingsProvider.cs" />
+    <Compile Include="GlobalSettings\Models\GlobalSettingScope.cs" />
     <Compile Include="Domain\UnitOfWork\Configuration\IDataFilterConfiguration.cs" />
     <Compile Include="Domain\UnitOfWork\DisposeAction.cs" />
     <Compile Include="Dependency\ConventionalRegistrarModule.cs" />
@@ -280,7 +350,10 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Localization\Sources\XmlSource\Default-zh-CN.xml" />
+    <Content Include="Localization\Sources\XmlSource\Default.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -76,7 +76,7 @@ namespace Mobet.Authorization
             {
                 AuthenticationType = "Cookies"
             });
-
+            
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {

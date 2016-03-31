@@ -33,7 +33,7 @@ namespace Mobet.Dependency
             var builder = new ContainerBuilder();
             IocContainer = builder.Build();
             _conventionalRegistrars = new List<IConventionalDependencyRegistrar>();
-        } 
+        }
         public IContainer IocContainer { get; private set; }
         public bool IsRegistered(Type type)
         {
@@ -127,7 +127,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void RegisterWithParameters<TType>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton) where TType : class
+        public void RegisterWithParameter<TType>(string parameterName, object parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton) where TType : class
         {
             var builder = new ContainerBuilder();
             switch (lifeStyle)
@@ -143,7 +143,7 @@ namespace Mobet.Dependency
             }
             builder.Update(IocContainer);
         }
-        public void RegisterWithParameters<TType, TImpl>(string parameterName, string parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
+        public void RegisterWithParameter<TType, TImpl>(string parameterName, object parameterValue, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
             where TType : class
             where TImpl : class, TType
         {
@@ -155,6 +155,40 @@ namespace Mobet.Dependency
                     break;
                 case DependencyLifeStyle.Transient:
                     builder.RegisterType<TImpl>().WithParameter(parameterName, parameterValue).As<TType>().AsImplementedInterfaces().InstancePerDependency();
+                    break;
+                default:
+                    break;
+            }
+            builder.Update(IocContainer);
+        }
+        public void RegisterWithParameters<TType>(IEnumerable<Parameter> parameters, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton) where TType : class
+        {
+            var builder = new ContainerBuilder();
+            switch (lifeStyle)
+            {
+                case DependencyLifeStyle.Singleton:
+                    builder.RegisterType<TType>().WithParameters(parameters).AsSelf().AsImplementedInterfaces().SingleInstance();
+                    break;
+                case DependencyLifeStyle.Transient:
+                    builder.RegisterType<TType>().WithParameters(parameters).AsSelf().AsImplementedInterfaces().InstancePerDependency();
+                    break;
+                default:
+                    break;
+            }
+            builder.Update(IocContainer);
+        }
+        public void RegisterWithParameters<TType, TImpl>(IEnumerable<Parameter> parameters, DependencyLifeStyle lifeStyle = DependencyLifeStyle.Singleton)
+            where TType : class
+            where TImpl : class, TType
+        {
+            var builder = new ContainerBuilder();
+            switch (lifeStyle)
+            {
+                case DependencyLifeStyle.Singleton:
+                    builder.RegisterType<TImpl>().WithParameters(parameters).As<TType>().AsImplementedInterfaces().SingleInstance();
+                    break;
+                case DependencyLifeStyle.Transient:
+                    builder.RegisterType<TImpl>().WithParameters(parameters).As<TType>().AsImplementedInterfaces().InstancePerDependency();
                     break;
                 default:
                     break;
@@ -174,21 +208,27 @@ namespace Mobet.Dependency
             _builder.RegisterModule(module);
             _builder.Update(IocContainer);
         }
-        public object Resolve(Type type)
+        public object Resolve(Type type, params Parameter[] parameters)
         {
-            return IocContainer.Resolve(type);
+            return IocContainer.Resolve(type, parameters);
         }
-        public T Resolve<T>()
+        public T Resolve<T>(params Parameter[] parameters)
         {
-            return IocContainer.Resolve<T>();
+            return IocContainer.Resolve<T>(parameters);
+        }
+
+        public object ResolveOptional(Type serviceType, params Parameter[] parameters)
+        {
+            return IocContainer.ResolveOptional(serviceType, parameters);
+        }
+
+        public TService ResolveOptional<TService>(params Parameter[] parameters) where TService : class
+        {
+            return IocContainer.ResolveOptional<TService>(parameters);
         }
         public void Dispose()
         {
             IocContainer.Dispose();
         }
-
-
-
-
     }
 }

@@ -28,7 +28,7 @@ namespace Mobet.EntityFramework
         where TEntity : class, IEntity<TPrimaryKey>
         where TDbContext : DbContext
     {
-        protected virtual TDbContext DbContext { get { return _dbContextProvider.DbContext; } }
+        protected virtual TDbContext _dbContext { get { return _dbContextProvider.DbContext; } }
 
         private readonly IEntityFrameworkDbContextProvider<TDbContext> _dbContextProvider;
         protected Repository(IEntityFrameworkDbContextProvider<TDbContext> dbContextProvider)
@@ -36,32 +36,46 @@ namespace Mobet.EntityFramework
             _dbContextProvider = dbContextProvider;
         }
 
-        public IDbConnection Connection { get { return DbContext.Database.Connection; } }
-        public DbSet<TEntity> Table { get { return DbContext.Set<TEntity>(); } }
-        public IQueryable<TEntity> Models { get { return DbContext.Set<TEntity>().AsQueryable(); } }
+        public IDbConnection Connection { get { return _dbContext.Database.Connection; } }
+        public DbSet<TEntity> Table { get { return _dbContext.Set<TEntity>(); } }
+        public IQueryable<TEntity> Models { get { return _dbContext.Set<TEntity>().AsQueryable(); } }
 
+
+        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> lambda)
+        {
+            return _dbContext.Set<TEntity>().Where(lambda);
+        }
+        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> lambda, Expression<Func<TEntity, object>> includes)
+        {
+            IQueryable<TEntity> temp = _dbContext.Set<TEntity>();
+            foreach (MemberInfo me in ((dynamic)includes.Body).Members)
+            {
+                temp = temp.Include(me.Name);
+            }
+            return temp.Where(lambda);
+        }
         private void SaveChanges()
         {
-            DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
         private void SaveChangesAsync()
         {
-            DbContext.SaveChangesAsync();
+            _dbContext.SaveChangesAsync();
         }
 
         public TEntity Add(TEntity model)
         {
-            return DbContext.Set<TEntity>().Add(model);
+            return _dbContext.Set<TEntity>().Add(model);
         }
         public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> models)
         {
-            return DbContext.Set<TEntity>().AddRange(models);
+            return _dbContext.Set<TEntity>().AddRange(models);
         }
 
         public TEntity Update(TEntity model)
         {
             AttachIfNot(model);
-            DbContext.Entry(model).State = EntityState.Modified;
+            _dbContext.Entry(model).State = EntityState.Modified;
             return model;
         }
         public TEntity UpdateProperty(TEntity model, System.Linq.Expressions.Expression<Func<TEntity, object>> lambda)
@@ -70,34 +84,34 @@ namespace Mobet.EntityFramework
             AttachIfNot(model);
             foreach (MemberInfo memberInfo in memberInfos)
             {
-                DbContext.Entry(model).Property(memberInfo.Name).IsModified = true;
+                _dbContext.Entry(model).Property(memberInfo.Name).IsModified = true;
             }
             return model;
         }
         public TEntity UpdateCompare(TEntity model, TEntity source)
         {
-            DbContext.Entry(source).CurrentValues.SetValues(model);
+            _dbContext.Entry(source).CurrentValues.SetValues(model);
             return model;
         }
 
         public TEntity Remove(TEntity model)
         {
-            return DbContext.Set<TEntity>().Remove(model);
+            return _dbContext.Set<TEntity>().Remove(model);
         }
         public IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> models)
         {
-            return DbContext.Set<TEntity>().RemoveRange(models);
+            return _dbContext.Set<TEntity>().RemoveRange(models);
         }
         public TEntity Remove(TPrimaryKey key)
         {
-            return Remove(DbContext.Set<TEntity>().Find(key));
+            return Remove(_dbContext.Set<TEntity>().Find(key));
         }
         public IEnumerable<TEntity> RemoveRange(IEnumerable<TPrimaryKey> keys)
         {
             List<TEntity> range = new List<TEntity>();
             foreach (var key in keys)
             {
-                var model = DbContext.Set<TEntity>().Find(key);
+                var model = _dbContext.Set<TEntity>().Find(key);
                 range.Add(model);
             }
             return RemoveRange(range);
@@ -105,35 +119,36 @@ namespace Mobet.EntityFramework
 
         public bool Any(System.Linq.Expressions.Expression<Func<TEntity, bool>> lambda)
         {
-            return DbContext.Set<TEntity>().Any(lambda);
+            return _dbContext.Set<TEntity>().Any(lambda);
         }
 
         public int Count()
         {
-            return DbContext.Set<TEntity>().Count();
+            return _dbContext.Set<TEntity>().Count();
         }
         public int Count(System.Linq.Expressions.Expression<Func<TEntity, bool>> lambda)
         {
-            return DbContext.Set<TEntity>().Count(lambda);
+            return _dbContext.Set<TEntity>().Count(lambda);
         }
 
         public TEntity Find(TPrimaryKey key)
         {
-            return DbContext.Set<TEntity>().Find(key);
+            return _dbContext.Set<TEntity>().Find(key);
         }
         public TEntity FirstOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> lambda)
         {
-            return DbContext.Set<TEntity>().FirstOrDefault(lambda);
+            return _dbContext.Set<TEntity>().FirstOrDefault(lambda);
         }
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> lambda, Expression<Func<TEntity, object>> includes)
         {
-            IQueryable<TEntity> temp = DbContext.Set<TEntity>();
+            IQueryable<TEntity> temp = _dbContext.Set<TEntity>();
             foreach (MemberInfo me in ((dynamic)includes.Body).Members)
             {
                 temp = temp.Include(me.Name);
             }
             return temp.FirstOrDefault(lambda);
         }
+
         protected virtual void AttachIfNot(TEntity model)
         {
             if (!Table.Local.Contains(model))

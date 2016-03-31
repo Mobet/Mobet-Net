@@ -12,7 +12,6 @@ namespace Mobet.Auditing
         public static bool ShouldSaveAudit(MethodInfo methodInfo, IAuditingConfiguration configuration, IAppSession appSession, bool defaultValue = false)
         {
             if ((configuration == null || !configuration.IsEnabled)
-                || (!configuration.IsEnabledForAnonymousUsers && (appSession == null || !string.IsNullOrEmpty(appSession.UserAccount)))
                 || (methodInfo == null)
                 || (!methodInfo.IsPublic)
                 || (methodInfo.IsDefined(typeof(DisableAuditingAttribute)))

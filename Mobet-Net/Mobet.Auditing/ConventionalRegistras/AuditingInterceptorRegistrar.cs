@@ -25,7 +25,9 @@ namespace Mobet.Auditing.ConventionalRegistras
                 var builder = new ContainerBuilder();
 
                 builder.RegisterAssemblyTypes(context.Assembly)
-                   .Where(t => ShouldIntercept(t))
+                   .Where(t => _config.Selectors.Any(selector => selector.Predicate(t))
+                                || (t.IsDefined(typeof(AuditedAttribute), true))
+                                || (t.GetMethods().Any(m => m.IsDefined(typeof(AuditedAttribute), true))))
                    .AsImplementedInterfaces()
                    .EnableInterfaceInterceptors()
                    .InterceptedBy(typeof(AuditingInterceptor))
@@ -35,18 +37,6 @@ namespace Mobet.Auditing.ConventionalRegistras
 
                 builder.Update(context.IocManager.IocContainer);
             }
-        }
-
-        private bool ShouldIntercept(Type type)
-        {
-            if ((_config.Selectors.Any(selector => selector.Predicate(type)))
-                || (type.IsDefined(typeof(AuditedAttribute), true))
-                || (type.GetMethods().Any(m => m.IsDefined(typeof(AuditedAttribute), true)))
-                )
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

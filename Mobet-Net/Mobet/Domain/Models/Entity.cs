@@ -26,6 +26,7 @@ namespace Mobet.Domain.Models
         /// Unique identifier for this entity.
         /// </summary>
         public virtual TPrimaryKey Id { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Entity<TPrimaryKey>))
@@ -39,8 +40,13 @@ namespace Mobet.Domain.Models
                 return true;
             }
 
-            //Transient objects are not considered as equal
             var other = (Entity<TPrimaryKey>)obj;
+
+            //Transient objects are not considered as equal
+            if (EqualityComparer<TPrimaryKey>.Default.Equals(Id, default(TPrimaryKey)) && EqualityComparer<TPrimaryKey>.Default.Equals(other.Id, default(TPrimaryKey)))
+            {
+                return false;
+            }
 
             //Must have a IS-A relation of types or must be same type
             var typeOfThis = GetType();

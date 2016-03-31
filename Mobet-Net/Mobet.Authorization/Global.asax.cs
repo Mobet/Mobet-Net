@@ -21,15 +21,14 @@ using Mobet.Localization.Dictionaries;
 using Mobet.Localization.Dictionaries.Xml;
 using Mobet.Localization.Settings;
 using Mobet.Localization.Language;
-using Mobet.Localization.Startup;
 using Mobet.Extensions;
 
 using Mobet.EntityFramework.Startup;
-using Mobet.Events.Startup;
 using Mobet.Auditing.Startup;
 using Mobet.AutoMapper.Startup;
 using Mobet.Services.SettingProviders;
 using Mobet.Services;
+using Mobet.Localization;
 
 namespace Mobet.Authorization
 {
@@ -45,7 +44,7 @@ namespace Mobet.Authorization
             StartupConfig.RegisterDependency(cfg =>
             {
                 //应用程序配置
-                cfg.UseSettings(config =>
+                cfg.UseGlobalSettings(config =>
                 {
                     config.Providers.Add<EmailSettingProvider>();
                     config.Providers.Add<LocalizationSettingProvider>();
@@ -66,8 +65,7 @@ namespace Mobet.Authorization
                     config.DefaultNameOrConnectionString = "Mobet.Authorization";
                 });
 
-                cfg.UseEventBus()
-                   .UseCacheProviderNetCache()
+                cfg
                    .UseAppSession()
                    .UseAuditing()
                    .UseAutoMapper();
@@ -81,7 +79,7 @@ namespace Mobet.Authorization
         protected virtual void Application_BeginRequest(object sender, EventArgs e)
         {
             var langCookie = Request.Cookies["Mobet.Localization.CultureName"];
-            if (langCookie != null && GlobalizationHelper.IsValidCultureCode(langCookie.Value))
+            if (langCookie != null && LocalizationHelper.IsValidCultureCode(langCookie.Value))
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(langCookie.Value);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(langCookie.Value);
@@ -90,7 +88,7 @@ namespace Mobet.Authorization
             {
                 var firstValidLanguage = Request
                     .UserLanguages
-                    .FirstOrDefault(GlobalizationHelper.IsValidCultureCode);
+                    .FirstOrDefault(LocalizationHelper.IsValidCultureCode);
 
                 if (firstValidLanguage != null)
                 {

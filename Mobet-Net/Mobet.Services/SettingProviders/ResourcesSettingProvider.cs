@@ -1,20 +1,21 @@
 ﻿using Mobet.Services;
-using Mobet.Settings;
-using Mobet.Settings.Provider;
+using Mobet.GlobalSettings;
+using Mobet.GlobalSettings.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Mobet.GlobalSettings.Models;
 
 namespace Mobet.Authorization.Configuration
 {
-    public class ResourcesSettingProvider : SettingProvider
+    public class ResourcesSettingProvider : GlobalSettingsProvider
     {
-        public override IEnumerable<Setting> GetSettings(SettingProviderContext context)
+        public override IEnumerable<GlobalSettings.Models.GlobalSetting> GetSettings(GlobalSettingsProviderContext context)
         {
             return new[]
             {
-                new Setting(Constants.Settings.Resources.Domain,"https://120.25.244.254:44300/",new SettingGroup("Resources"))
+                new GlobalSettings.Models.GlobalSetting { Name = Constants.Settings.Resources.Domain, Value = "https://120.25.244.254:44300/",Group = "Resources" }
             };
         }
 

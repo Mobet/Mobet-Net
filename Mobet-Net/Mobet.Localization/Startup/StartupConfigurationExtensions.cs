@@ -14,7 +14,7 @@ namespace Mobet.Localization.Startup
 {
     public static class StartupConfigurationExtensions
     {
-        public static StartupConfiguration UseLocalization(this StartupConfiguration bootstrap, Action<ILocalizationConfiguration> invoke = null)
+        public static StartupConfiguration UseDbLocalization(this StartupConfiguration bootstrap, Action<ILocalizationConfiguration> invoke = null)
         {
             IocManager.Instance.RegisterIfNot<ILocalizationConfiguration, LocalizationConfiguration>();
             invoke(IocManager.Instance.Resolve<ILocalizationConfiguration>());

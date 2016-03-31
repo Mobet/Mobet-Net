@@ -1,6 +1,6 @@
 ﻿using Mobet.Authorization.Configuration;
 using Mobet.Dependency;
-using Mobet.Settings;
+using Mobet.GlobalSettings;
 using System.Web;
 using System.Web.Optimization;
 

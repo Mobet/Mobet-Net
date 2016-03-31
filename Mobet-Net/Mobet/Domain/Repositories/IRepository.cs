@@ -32,6 +32,9 @@ namespace Mobet.Domain.Repositories
         DbSet<TEntity> Table { get; }
         IQueryable<TEntity> Models { get; }
 
+        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> lambda);
+        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> lambda, Expression<Func<TEntity, object>> includes);
+
         TEntity Add(TEntity model);
         IEnumerable<TEntity> AddRange(IEnumerable<TEntity> models);
 

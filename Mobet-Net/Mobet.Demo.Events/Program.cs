@@ -9,7 +9,6 @@ using Mobet.Dependency;
 using Mobet.Events;
 using Mobet.Events.Handlers;
 using Mobet.Configuration.Startup;
-using Mobet.Events.Startup;
 
 namespace Mobet.Demo.Events
 {
@@ -21,11 +20,6 @@ namespace Mobet.Demo.Events
 
             StartupConfig.RegisterDependency(cfg =>
             {
-                cfg.UseEventBus(config =>
-                {
-                    config.UseDefaultEventBus = true;
-                });
-
                 cfg.RegisterConsoleApplication();
             });
 

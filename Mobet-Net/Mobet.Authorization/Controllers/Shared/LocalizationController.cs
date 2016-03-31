@@ -1,5 +1,6 @@
 ﻿using Mobet.Auditing.Attributes;
 using Mobet.Authorization.Models;
+using Mobet.Localization;
 using Mobet.Localization.Language;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Mobet.Authorization.Controllers.Shared
         [DisableAuditing]
         public virtual ActionResult ChangeCulture(string cultureName, string returnUrl = "")
         {
-            if (!GlobalizationHelper.IsValidCultureCode(cultureName))
+            if (!LocalizationHelper.IsValidCultureCode(cultureName))
             {
                 throw new Exception("Unknown language: " + cultureName + ". It must be a valid culture!");
             }

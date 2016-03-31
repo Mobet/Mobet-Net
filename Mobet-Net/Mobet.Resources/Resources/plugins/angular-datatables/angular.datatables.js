@@ -16,24 +16,21 @@
                 },
                 "sZeroRecords": "没有检索到数据",
             }
-                    , "bSingleSelect": true            //单选或多选
+                    , "bSingleSelect": true             //单选或多选
 					, "iDisplayLength": 10              //用于指定一屏显示的条数，需开启分页器
-					, "bServerSide": true              //开关是否想服务器端传递参数，用于服务端分页。
-					, "bPaginate": true                 //开关，是否显示分页器
-					, "bFilter": false                  //开关，是否启用客户端过滤器
-					, "bAutoWith": false                //开关，是否自适应宽度
-					, "bDeferRender": true             //用于渲染的一个参数
-					, "bLengthChange": false            //开关，是否显示每页大小的下拉框
-					, "bProcessing": false              //开关，以指定当正在处理数据的时候，是否显示“正在处理”这个提示信息
-					, "bScrollInfinite": false          //开关，以指定是否无限滚动（与sScrollY配合使用），在大数据量的时候很有用。当这个标志为true的时候，分页器就默认关闭
-					, "bSort": true                     //开关，是否启用各列具有按列排序的功能
-					, "aoColumnDefs": []                //隐藏列
+					, "bServerSide": true               //是否想服务器端传递参数，用于服务端分页。
+					, "bPaginate": true                 //是否显示分页器
+					, "bFilter": false                  //是否启用客户端过滤器
+					, "bAutoWith": true                 //是否自适应宽度
+					, "bDeferRender": true              //延时渲染
+					, "bLengthChange": false            //是否显示每页大小的下拉框
+					, "bProcessing": false               //以指定当正在处理数据的时候，是否显示“正在处理”这个提示信息
+					, "bScrollInfinite": false          //以指定是否无限滚动（与sScrollY配合使用），在大数据量的时候很有用。当这个标志为true的时候，分页器就默认关闭
+					, "bSort": true                     //是否启用各列具有按列排序的功能
 					, "sPaginationType": "full_numbers" //用于指定分页器风格
-					, "sAjaxSource": '/'                //指定要从哪个URL获取数据
-					, "aoColumns": []
-            //, "sScrollX": '1800px'
+                    , "ajax": {}
+                    , "sScrollX": '1200px'
                     , "fnAfterDrawCallback": function () {
-
                     }
 					, "fnDrawCallback": function (oSettings) {
 					    handlerRowClick($(oSettings.nTable).attr('angular-table'));
@@ -41,13 +38,91 @@
 					    if ($.isFunction(tableOptions[$(oSettings.nTable).attr('angular-table')].fnAfterDrawCallback)) {
 					        tableOptions[$(oSettings.nTable).attr('angular-table')].fnAfterDrawCallback();
 					    }
+					    try {
+					        $('.dataTables_scrollBody').css({ 'overflow': 'visible' });
+					        $(".dataTables_scroll").mCustomScrollbar({
+					            setWidth: false,
+					            setHeight: false,
+					            setTop: 0,
+					            setLeft: 0,
+					            axis: "x",
+					            scrollbarPosition: "inside",
+					            scrollInertia: 950,
+					            autoDraggerLength: true,
+					            autoHideScrollbar: false,
+					            autoExpandScrollbar: false,
+					            alwaysShowScrollbar: 0,
+					            snapAmount: null,
+					            snapOffset: 0,
+					            mouseWheel: {
+					                enable: true,
+					                scrollAmount: "auto",
+					                axis: "x",
+					                preventDefault: false,
+					                deltaFactor: "auto",
+					                normalizeDelta: false,
+					                invert: false,
+					                disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+					            },
+					            scrollButtons: {
+					                enable: false,
+					                scrollType: "stepless",
+					                scrollAmount: "auto"
+					            },
+					            keyboard: {
+					                enable: true,
+					                scrollType: "stepless",
+					                scrollAmount: "auto"
+					            },
+					            contentTouchScroll: 25,
+					            advanced: {
+					                autoExpandHorizontalScroll: false,
+					                autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+					                updateOnContentResize: true,
+					                updateOnImageLoad: true,
+					                updateOnSelectorChange: false,
+					                releaseDraggableSelectors: false
+					            },
+					            theme: "minimal-dark",
+					            callbacks: {
+					                onInit: false,
+					                onScrollStart: false,
+					                onScroll: false,
+					                onTotalScroll: false,
+					                onTotalScrollBack: false,
+					                whileScrolling: false,
+					                onTotalScrollOffset: 0,
+					                onTotalScrollBackOffset: 0,
+					                alwaysTriggerOffsets: true,
+					                onOverflowY: false,
+					                onOverflowX: false,
+					                onOverflowYNone: false,
+					                onOverflowXNone: false
+					            },
+					            live: false,
+					            liveSelector: null
+					        });
+
+					        var right = $('.DTFC_RightWrapper').css('right') + '';
+					        $('.DTFC_RightWrapper').css('right', right.replace('px', '') - 17 + 'px');
+
+
+					    } catch (e) {
+					        console.log(e);
+					    }
 					}
 					, "fnInitComplete": function (oSettings, json) {
-					   
+
+
 					}
         }
+
 		, table = {}
+
+		, tables = {}
+
 		, tablename = ''
+
 		, handlerRowClick = function (tablename) {
 		    $(".datatable-checks").iCheck({
 		        checkboxClass: 'icheckbox_square-green',
@@ -72,6 +147,7 @@
 		        //console.log(tablename)
 		        //console.log(oSelections[tablename])
 		    });
+
 		    $('table[angular-table="' + tablename + '"]').find("tbody tr[role='row']").unbind("click").bind("click", function () {
 		        var elems = $(this).find(".datatable-checks").parents('.icheckbox_square-green');
 		        if (elems.length > 0) {
@@ -91,6 +167,7 @@
 		        //console.log(tablename)
 		        //console.log(oSelections[tablename])
 		    });
+
 		    $('table[angular-table="' + tablename + '"]').find(".datatables-check-all").unbind("click").bind("click", function () {
 		        if ($(this).attr('checked') == undefined || $(this).attr('checked') == false) {
 		            oSelections[tablename] = [];
@@ -105,8 +182,13 @@
 		            $('table[angular-table="' + tablename + '"]').find(this).attr('checked', false);
 		        }
 		    });
+
 		    oSelections[tablename] = [];
+
+		   
+
 		}
+
 		, setSelection = function (data) {
 		    $(".icheckbox_square-green").removeClass("checked");
 		    oSelections[tablename] = [];
@@ -124,9 +206,12 @@
 		        }
 		    }
 		}
-		, tables = {}
+
 		, tableOptions = {}
+
 		, oSelections = {}
+
+
         return {
             getTableOptions: function (name) {
                 return tableOptions[name];
@@ -138,6 +223,7 @@
                     return; console.log('未指定初始化table名称');
                 }
                 table = $('table[angular-table="' + tablename + '"]').dataTable(opts);
+
                 tables[tablename] = table;
 
                 tableOptions[tablename] = opts;
@@ -183,6 +269,7 @@
                         $scope.table[options.sName] = table;
                     }
                 }
+                $.fn.dataTable.ext.errMode = 'throw';
             }
         };
     }])

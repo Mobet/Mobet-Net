@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Mobet.Settings;
-using Mobet.Settings.Provider;
+using Mobet.GlobalSettings;
+using Mobet.GlobalSettings.Provider;
+using Mobet.GlobalSettings.Models;
 
 namespace Mobet.Services.SettingProviders
 {
-    public class EmailSettingProvider : SettingProvider
+    public class EmailSettingProvider : GlobalSettingsProvider
     {
-        public override IEnumerable<Setting> GetSettings(SettingProviderContext context)
+        public override IEnumerable<GlobalSettings.Models.GlobalSetting> GetSettings(GlobalSettingsProviderContext context)
         {
             return new[]
                    {
-                       new Setting(Constants.Settings.Email.SMTP, "127.0.0.1", new SettingGroup("Email"), scopes: SettingScopes.Application),
+                       new GlobalSettings.Models.GlobalSetting {Name = Constants.Settings.Email.SMTP,Value = "127.0.0.1",Group =  "Email", Scope = GlobalSettingScope.Application },
                    };
         }
     }

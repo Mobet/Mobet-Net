@@ -10,7 +10,7 @@ using System.Web.Caching;
 
 namespace Mobet.Caching
 {
-    public class NetCacheManager : ICacheManager
+    public class NetCacheManager : ICacheManager, ISingletonDependency
     {
 
         System.Web.Caching.Cache provider = null;
