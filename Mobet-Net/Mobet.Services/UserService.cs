@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 
+
 using Mobet.AutoMapper;
+using Mobet.Domain.UnitOfWork;
 using Mobet.Domain.Repositories;
 using Mobet.Extensions;
 using Mobet.Services.Services;
 using Mobet.Services.Enum;
 using Mobet.Services.Requests.User;
-using System.ComponentModel;
 using Mobet.Localization;
 using Mobet.Caching;
+
 using IdentityServer3.Core.Services.Default;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Extensions;
-using Mobet.Domain.UnitOfWork;
 
 namespace Mobet.Services
 {

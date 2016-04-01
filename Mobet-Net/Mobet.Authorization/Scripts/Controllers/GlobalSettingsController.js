@@ -6,7 +6,7 @@
  */
 
 (function () {
-    angular.module('app').controller('GlobalSettingsController', function ($scope, $state, $http, $timeout, toaster, loadingBar, $dialogs) {
+    angular.module('app').controller('GlobalSettingsController', function ($scope, $state, $http, $timeout, toaster, loadingBar, $dialogs, $compile) {
         var globalSettings;
         $scope.model = {};
         $scope.domain = {};
@@ -18,18 +18,34 @@
                 $scope.save(true);
             });
         };
-        $scope.modify = function () {
-            console.log(globalSettings.fnGetSeletion())
-            if (globalSettings.fnGetSeletion() != undefined && globalSettings.fnGetSeletion().length == 1) {
-                dialog = $dialogs.create('/GlobalSettings/Detail', 'GlobalSettingsDetailController', globalSettings.fnGetSeletion()[0], { key: false, back: 'static' });
-                dialog.result.then(function (model) {
-                    $scope.model = model;
-                    $scope.save(false);
-                });
+        $scope.modify = function (row, $event) {
+            var model;
+            if ($event) {
+                $event.stopPropagation();
+                model = globalSettings.fnGetData(globalSettings.fnGetNodes()[row]);
             } else {
-                toaster.pop('error', "提示", "请选择一条数据");
+                model = globalSettings.fnGetSeletion()[0];
             }
+            if (model == undefined) {
+                toaster.pop('error', "提示", "请选择一条数据");
+                return;
+            }
+            dialog = $dialogs.create('/GlobalSettings/Detail', 'GlobalSettingsDetailController',model, { key: false, back: 'static' });
+            dialog.result.then(function (model) {
+                $scope.model = model;
+                $scope.save(false);
+            });
         };
+        $scope.clearCache = function (row, $event) {
+            var model;
+            if ($event) {
+                $event.stopPropagation();
+                model = globalSettings.fnGetData(globalSettings.fnGetNodes()[row]);
+            } else {
+                model = globalSettings.fnGetSeletion()[0];
+            }
+        }
+
         $scope.save = function (flag) {
             if (flag) {
                 $http.post('/GlobalSettings/CreateAsync', $scope.model).success(function (data) {
@@ -87,7 +103,6 @@
             $scope.domain = {};
         }
 
-        // init angular-table
         $timeout(function () {
             $scope.setTableOptions({
                 "sName": "globalsettings",
@@ -96,33 +111,27 @@
                     type: 'POST',
                     data: function (d) {
                         d.Data = $scope.domain;
-                        console.log(d);
                     }
                 },
                 "aoColumns": [
-                            {
-                                "mDataProp": "Id", "bSortable": false, "sWidth": "70px", "sTitle": "<span class='datatables-check-all'>全选</span>", "sClass": "center",
-                                "mRender": function () {
-                                    return "<input class='datatable-checks' type='checkbox' />";
-                                }
-                            },
-                             { "mDataProp": "Id", "sTitle": "Id", "bVisible": false },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称1" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称2" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称3" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称4" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称5" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称6" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称7" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称8" },
-                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称9" },
+                             { "mDataProp": "Id", "bSortable": false, "sWidth": "70px", "sTitle": "<span class='datatables-check-all'>全选</span>", "sClass": "center", "mRender": function () { return "<input class='datatable-checks' type='checkbox' />"; } },
+                             { "mDataProp": "DisplayName", "sWidth": "200px", "sTitle": "显示名称" },
+                             { "mDataProp": "Name", "sWidth": "200px", "sTitle": "名称" },
                              { "mDataProp": "Value", "sTitle": "值", "sWidth": "200px", "mRender": function (v) { if (v.length > 80) { return v.substring(0, 80) + '...'; } return v; } },
-                             //{ "mDataProp": "DESCRIPTION", "sTitle": "说明" },
-                             //{ "mDataProp": "CREATED_TIME", "sTitle": "创建时间" }
+                             { "mDataProp": "Description", "sWidth": "200px", "sTitle": "说明" },
+                             {
+                                 "mDataProp": "Id", "sTitle": "操作", "mRender": function (data, type, row, meta) {
+                                     return '<a href="javascript:void(0)" ng-click="modify(' + meta.row + ',$event)" >编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" ng-click="clearCache(' + meta.row + ',$event)">清除缓存</a>';
+                                 }
+                             },
                 ],
-                "fixedColumns": {
-                    leftColumns: 3,
+                'fnRowCallback': function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    $compile(nRow)($scope);
                 },
+                //"fixedColumns": {
+                //    leftColumns: false,
+                //    rightColumns: 1
+                //},
                 "fnAfterDrawCallback": function () {
                     loadingBar.complete();
                 },
@@ -133,25 +142,23 @@
                 }
             });
             globalSettings = $scope.table['globalsettings'];
+        });
 
-        });
-        // init bootstrap tooltip
         $('[data-toggle="tooltip"]').tooltip();
-    })
-        .controller('GlobalSettingsDetailController', function ($scope, $modalInstance, data) {
-            $scope.model = data || { IS_ACTIVED: 1 };
-            $scope.title = data == null ? "添加" : "修改";
-            $scope.reset = function () {
-                $scope.model = {};
-            };
-            $scope.save = function () {
-                console.log($scope.model)
-                $modalInstance.close($scope.model);
-            };
-            $scope.close = function () {
-                $modalInstance.dismiss('canceled');
-            };
-        });
+    }).controller('GlobalSettingsDetailController', function ($scope, $modalInstance, data) {
+        $scope.model = data || { IS_ACTIVED: 1 };
+        $scope.title = data == null ? "添加" : "修改";
+        $scope.reset = function () {
+            $scope.model = {};
+        };
+        $scope.save = function () {
+            console.log($scope.model)
+            $modalInstance.close($scope.model);
+        };
+        $scope.close = function () {
+            $modalInstance.dismiss('canceled');
+        };
+    });
 })();
 
 

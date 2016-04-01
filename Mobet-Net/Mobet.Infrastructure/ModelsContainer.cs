@@ -11,6 +11,7 @@ using Mobet.Configuration.Startup;
 using Castle.Core.Logging;
 using System.Data.Entity.ModelConfiguration;
 using Mobet.Infrastructure.Mappings;
+using Mobet.GlobalSettings.Models;
 
 namespace Mobet.Infrastructure
 {
@@ -18,6 +19,7 @@ namespace Mobet.Infrastructure
     {
         public ModelsContainer() : base("Mobet.Authorization")
         {
+
         }
 
         public ModelsContainer(string nameOrConnectionString)
@@ -33,10 +35,9 @@ namespace Mobet.Infrastructure
             base.OnModelCreating(builder);
         }
         public virtual DbSet<User> Users { get; set; }
-
         public virtual DbSet<Menu> Menus { get; set; }
-
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<GlobalSetting> GlobalSettings { get; set; }
 
     }
-    }
+}

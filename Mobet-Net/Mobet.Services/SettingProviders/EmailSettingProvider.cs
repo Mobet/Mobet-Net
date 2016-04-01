@@ -15,7 +15,7 @@ namespace Mobet.Services.SettingProviders
         {
             return new[]
                    {
-                       new GlobalSettings.Models.GlobalSetting {Name = Constants.Settings.Email.SMTP,Value = "127.0.0.1",Group =  "Email", Scope = GlobalSettingScope.Application },
+                       new GlobalSettings.Models.GlobalSetting {Name = Constants.Settings.Email.SMTP,DisplayName = "消息通知邮箱",Value = "127.0.0.1",Group =  "Email", Scope = GlobalSettingScope.Application ,Description = "消息通知邮箱SMTP设置"},
                    };
         }
     }

@@ -103,16 +103,16 @@
 					            liveSelector: null
 					        });
 
-					        var right = $('.DTFC_RightWrapper').css('right') + '';
-					        $('.DTFC_RightWrapper').css('right', right.replace('px', '') - 17 + 'px');
 
+					        var right = $('.DTFC_RightWrapper').css('right') + '';
+					        var fixpoint = (right.replace('px', '') - 17 ) > 0 ? right.replace('px', '') - 17 + 'px' : '0px'
+					        $('.DTFC_RightWrapper').css('right', fixpoint);
 
 					    } catch (e) {
 					        console.log(e);
 					    }
 					}
 					, "fnInitComplete": function (oSettings, json) {
-
 
 					}
         }
@@ -185,8 +185,6 @@
 
 		    oSelections[tablename] = [];
 
-		   
-
 		}
 
 		, setSelection = function (data) {
@@ -211,7 +209,6 @@
 
 		, oSelections = {}
 
-
         return {
             getTableOptions: function (name) {
                 return tableOptions[name];
@@ -220,7 +217,7 @@
                 var opts = angular.extend(defaultOptions, options);
                 tablename = options['sName'];
                 if (tablename == undefined || tablename == '') {
-                    return; console.log('未指定初始化table名称');
+                    return; 
                 }
                 table = $('table[angular-table="' + tablename + '"]').dataTable(opts);
 

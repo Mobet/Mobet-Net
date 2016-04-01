@@ -23,12 +23,16 @@ using Mobet.Localization.Settings;
 using Mobet.Localization.Language;
 using Mobet.Extensions;
 
+using Mobet.Domain.UnitOfWork.ConventionalRegistras;
 using Mobet.EntityFramework.Startup;
 using Mobet.Auditing.Startup;
 using Mobet.AutoMapper.Startup;
 using Mobet.Services.SettingProviders;
 using Mobet.Services;
 using Mobet.Localization;
+using Mobet.GlobalSettings.Store;
+using Autofac;
+using Autofac.Extras.DynamicProxy2;
 
 namespace Mobet.Authorization
 {
@@ -70,11 +74,25 @@ namespace Mobet.Authorization
                    .UseAuditing()
                    .UseAutoMapper();
 
-                cfg.RegisterWebMvcApplication();
+                cfg.RegisterWebMvcApplication(new ConventionalRegistrarConfig());
 
             });
         }
 
+        public class ConventionalRegistrarConfig : Autofac.Module
+        {
+            protected override void Load(Autofac.ContainerBuilder builder)
+            {
+
+                builder.RegisterType<GlobalSettingStore>()
+                    .AsImplementedInterfaces()
+                    .EnableClassInterceptors()
+                    .InterceptedBy(typeof(UnitOfWorkInterceptor))
+                    .InstancePerDependency();
+
+                base.Load(builder);
+            }
+        }
 
         protected virtual void Application_BeginRequest(object sender, EventArgs e)
         {

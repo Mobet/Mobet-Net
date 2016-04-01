@@ -16,6 +16,7 @@ namespace Mobet.Demo.Events
     {
         static void Main(string[] args)
         {
+            
             StartupConfiguration boot = new StartupConfiguration();
 
             StartupConfig.RegisterDependency(cfg =>

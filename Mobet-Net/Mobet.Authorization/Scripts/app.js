@@ -38,13 +38,5 @@
                 }
             };
         }]);
-        //$provide.decorator("$exceptionHandler", function ($delegate) {
-        //    return function (exception, cause, loadingBar, toaster) {
-        //        console.log(exception)
-        //        toaster.pop("error", "系统繁忙，请稍候再试");
-        //        loadingBar.complete();
-        //        $delegate(exception, cause);
-        //    };
-        //});  
     });
 })();

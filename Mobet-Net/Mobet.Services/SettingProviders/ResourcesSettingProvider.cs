@@ -15,7 +15,7 @@ namespace Mobet.Authorization.Configuration
         {
             return new[]
             {
-                new GlobalSettings.Models.GlobalSetting { Name = Constants.Settings.Resources.Domain, Value = "https://120.25.244.254:44300/",Group = "Resources" }
+                new GlobalSettings.Models.GlobalSetting { Name = Constants.Settings.Resources.Domain,DisplayName = "资源站点根目录", Value = "https://120.25.244.254:44300/",Group = "Resources" ,Description = "资源站点根目录"}
             };
         }
 

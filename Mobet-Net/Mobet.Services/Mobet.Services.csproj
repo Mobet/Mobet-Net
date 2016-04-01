@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSettingStore.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Enum\MessageAuthCodeType.cs" />
     <Compile Include="Models\User.cs" />
