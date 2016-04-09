@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Mobet.Services.Requests.User
 {
-    [AutoMapTo(typeof(Domain.Models.User),typeof(Requests.User.UserCreateRequest))]
-    public class UserRegisterByMobilephoneRequest : IRequest
+    [AutoMapTo(typeof(Domain.Entities.User),typeof(Requests.User.UserCreateRequest))]
+    public class UserRegisterByTelphoneRequest : IRequest
     {
         /// <summary>
         /// 手机号码
         /// </summary>
-        public string Mobilephone { get; set; }
+        [Required]
+        public string Telphone { get; set; }
         /// <summary>
         /// 密码
         /// </summary>
-        public string Password { get; set; }
-        /// <summary>
-        /// 短信验证码
-        /// </summary>
         [Required]
-        public string MessageAuthCode { get; set; }
+        public string Password { get; set; }
+
+        [Required]
+        public string Sign { get; set; }
     }
 
-    public class UserRegisterByMobilephoneResponse : IResponse
+    public class UserRegisterByTelphoneResponse : IResponse
     {
         public bool Result { get; set; }
 

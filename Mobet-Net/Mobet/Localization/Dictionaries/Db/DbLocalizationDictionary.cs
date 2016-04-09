@@ -77,7 +77,7 @@ namespace Mobet.Localization.Dictionaries.Db
 
         private Dictionary<string, string> GetAllLanguageText()
         {
-            return _cacheManager.Retrive<Dictionary<string, string>>(IConstants.Localization.CacheNames.LocalizationText + _sourceName.ToUpper(), () =>
+            return _cacheManager.Retrive<Dictionary<string, string>>(Constants.CacheNames.LocalizationText + _sourceName.ToUpper(), () =>
              {
                  return _languageTextStore
                              .GetAllLanguageTextsAsync(l => l.Source == _sourceName && l.LanguageName == CultureInfo.Name)

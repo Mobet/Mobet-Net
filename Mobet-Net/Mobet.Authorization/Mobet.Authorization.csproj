@@ -96,6 +96,10 @@
       <HintPath>..\packages\IdentityServer3.EntityFramework.2.4.1\lib\net45\IdentityServer3.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IdentityServer3.WsFederation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityServer3.WsFederation.2.2.0\lib\net45\IdentityServer3.WsFederation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>
@@ -157,6 +161,10 @@
       <HintPath>..\packages\Microsoft.Owin.Security.WeChat.1.0.0.1\lib\net45\Microsoft.Owin.Security.WeChat.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin.Security.WsFederation, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.WsFederation.3.0.1\lib\net45\Microsoft.Owin.Security.WsFederation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -170,6 +178,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Services" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
       <Private>True</Private>
@@ -258,6 +267,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configuration\Certificate.cs" />
+    <Compile Include="Configuration\RelyingParties.cs" />
     <Compile Include="Configuration\Clients.cs" />
     <Compile Include="Configuration\IdentityServerServiceFactoryHelper.cs" />
     <Compile Include="Configuration\Scopes.cs" />
@@ -270,60 +280,56 @@
     <Compile Include="Controllers\GlobalSettingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ScopeController.cs" />
-    <Compile Include="Controllers\Shared\DataTablesParam.cs" />
-    <Compile Include="Models\AjaxResponse.cs" />
-    <Compile Include="Configuration\Services\AuthorizationWebViewPage.cs" />
     <Compile Include="Controllers\Shared\LocalizationController.cs" />
     <Compile Include="Controllers\Shared\LayoutController.cs" />
     <Compile Include="Controllers\Shared\BaseController.cs" />
-    <Compile Include="Configuration\Services\AbstractWebViewPage.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\HtmlHelperResourceExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalRegisterViewModel.cs" />
-    <Compile Include="Models\Error.cs" />
-    <Compile Include="Models\NewtonJsonResult.cs" />
-    <Compile Include="Models\ValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\Services\AccountViewService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\Localization\Views\Views-en.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\Localization\Messages\Messages.xml">
+    <EmbeddedResource Include="Configuration\Localization\Events\Events-en.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Localization\Events\Events.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopes.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\Localization\Events\Events-en.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Localization\Messages\Messages-en.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopesen.xml">
+    <EmbeddedResource Include="Configuration\Localization\Messages\Messages.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Content\authorization.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <EmbeddedResource Include="Configuration\Localization\Views\Views.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <Content Include="Scripts\Controllers\GlobalSettingsController.js" />
     <Content Include="Scripts\Shared\SessionService.js" />
     <Content Include="Scripts\Shared\LayoutService.js" />
     <Content Include="Scripts\Shared\Layout.js" />
     <Content Include="Scripts\app.js" />
+    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopes.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Scopes\Scopesen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Views\Views-en.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Localization\Views\Views.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\GlobalSettings\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -412,15 +418,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layout\Intercom.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Layout_Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\Registration.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\GlobalSettings\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

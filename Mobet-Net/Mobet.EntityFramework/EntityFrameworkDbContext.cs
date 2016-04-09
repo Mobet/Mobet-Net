@@ -8,9 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Mobet.Runtime.Session;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Logging;
-using Mobet.Domain.Models.Audited;
+using Mobet.Domain.Entities.Audited;
 
 namespace Mobet.EntityFramework
 {
@@ -82,12 +82,12 @@ namespace Mobet.EntityFramework
                     case EntityState.Added:
                         if (entry.Entity is ICreateAudited)
                         {
-                            entry.Cast<ICreateAudited>().Entity.CreateAccount = AppSession.UserAccount;
+                            entry.Cast<ICreateAudited>().Entity.CreateUser = AppSession.UserId;
                             entry.Cast<ICreateAudited>().Entity.CreateTime = DateTime.Now;
                         }
                         if (entry.Entity is IAudited)
                         {
-                            entry.Cast<IAudited>().Entity.CreateAccount = AppSession.UserAccount;
+                            entry.Cast<IAudited>().Entity.CreateUser = AppSession.UserId;
                             entry.Cast<IAudited>().Entity.ChangeTime = DateTime.Now;
                         }
                         if (entry.Entity is ISoftDelete)
@@ -99,19 +99,19 @@ namespace Mobet.EntityFramework
                         if (entry.Entity is ICreateAudited)
                         {
                             entry.Cast<ICreateAudited>().Property(x => x.CreateTime).IsModified = false;
-                            entry.Cast<ICreateAudited>().Property(x => x.CreateAccount).IsModified = false;
+                            entry.Cast<ICreateAudited>().Property(x => x.CreateUser).IsModified = false;
                         }
                         if (entry.Entity is IChangeAudited)
                         {
-                            entry.Cast<IChangeAudited>().Entity.ChangeAccount = AppSession.UserAccount;
+                            entry.Cast<IChangeAudited>().Entity.ChangeUser = AppSession.UserId;
                             entry.Cast<IChangeAudited>().Entity.ChangeTime = DateTime.Now;
                         }
                         if (entry.Entity is IAudited)
                         {
                             entry.Cast<IAudited>().Property(x => x.CreateTime).IsModified = false;
-                            entry.Cast<IAudited>().Property(x => x.CreateAccount).IsModified = false;
+                            entry.Cast<IAudited>().Property(x => x.CreateUser).IsModified = false;
 
-                            entry.Cast<IAudited>().Entity.ChangeAccount = AppSession.UserAccount;
+                            entry.Cast<IAudited>().Entity.ChangeUser = AppSession.UserId;
                             entry.Cast<IAudited>().Entity.ChangeTime = DateTime.Now;
                         }
 
@@ -121,7 +121,7 @@ namespace Mobet.EntityFramework
                         {
                             entry.Cast<ISoftDelete>().State = EntityState.Unchanged;
                             entry.Cast<ISoftDelete>().Entity.IsDeleted = true;
-                            entry.Cast<ISoftDelete>().Entity.DeleteAccount = AppSession.UserAccount;
+                            entry.Cast<ISoftDelete>().Entity.DeleteUser = AppSession.UserId;
                             entry.Cast<ISoftDelete>().Entity.DeleteTime = DateTime.Now;
                         }
                         break;

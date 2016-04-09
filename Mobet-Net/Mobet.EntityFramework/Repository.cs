@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Domain.UnitOfWork;
 using Mobet.Domain.Repositories;
 using System.Data;

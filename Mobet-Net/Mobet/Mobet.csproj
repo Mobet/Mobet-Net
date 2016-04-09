@@ -79,6 +79,7 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +112,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -169,15 +171,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration\StartupConfiguration.cs" />
-    <Compile Include="IConstants.cs" />
-    <Compile Include="Domain\Models\AggregateRoot.cs" />
-    <Compile Include="Domain\Models\Audited\AuditedEntity.cs" />
-    <Compile Include="Domain\Models\Audited\ChangeAuditedEntity.cs" />
-    <Compile Include="Domain\Models\Audited\CreateAuditedEntity.cs" />
-    <Compile Include="Domain\Models\Audited\IChangeAudited.cs" />
-    <Compile Include="Domain\Models\Audited\ICreateAudited.cs" />
-    <Compile Include="Domain\Models\Audited\PassivableEntity.cs" />
-    <Compile Include="Domain\Models\Audited\SoftDeleteEntity.cs" />
+    <Compile Include="Exceptions\AuthorizationException.cs" />
+    <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\UserFriendlyException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Domain\Entities\AggregateRoot.cs" />
+    <Compile Include="Domain\Entities\Audited\AuditedEntity.cs" />
+    <Compile Include="Domain\Entities\Audited\ChangeAuditedEntity.cs" />
+    <Compile Include="Domain\Entities\Audited\CreateAuditedEntity.cs" />
+    <Compile Include="Domain\Entities\Audited\IChangeAudited.cs" />
+    <Compile Include="Domain\Entities\Audited\ICreateAudited.cs" />
+    <Compile Include="Domain\Entities\Audited\PassivableEntity.cs" />
+    <Compile Include="Domain\Entities\Audited\SoftDeleteEntity.cs" />
     <Compile Include="Domain\Services\IRequest.cs" />
     <Compile Include="Domain\Services\IResponse.cs" />
     <Compile Include="Domain\Services\PagingRequest.cs" />
@@ -200,6 +206,7 @@
     <Compile Include="Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Collections\ITypeList.cs" />
     <Compile Include="Collections\TypeList.cs" />
+    <Compile Include="GlobalSettings\Models\GlobalSetting.cs" />
     <Compile Include="Localization\Configuration\ILocalizationConfiguration.cs" />
     <Compile Include="Localization\Configuration\ILocalizationSourceList.cs" />
     <Compile Include="Localization\Configuration\LocalizationConfiguration.cs" />
@@ -258,14 +265,14 @@
     <Compile Include="Localization\Store\ILanguageStore.cs" />
     <Compile Include="Localization\Store\ILanguageTextStore.cs" />
     <Compile Include="Logging\LogHelper.cs" />
-    <Compile Include="Runtime\Cookie\CookieHelper.cs" />
+    <Compile Include="Runtime\Cookie\Captcha.cs" />
+    <Compile Include="Runtime\Cookie\CookieManager.cs" />
     <Compile Include="GlobalSettings\Configuration\IGlobalSettingsConfiguration.cs" />
     <Compile Include="GlobalSettings\Configuration\SettingsConfiguration.cs" />
     <Compile Include="GlobalSettings\Modules\SettingManagerModule.cs" />
     <Compile Include="GlobalSettings\Store\SimpleGlobalSettingStore.cs" />
     <Compile Include="GlobalSettings\IGlobalSettingManager.cs" />
     <Compile Include="GlobalSettings\Store\IGlobalSettingStore.cs" />
-    <Compile Include="GlobalSettings\Models\GlobalSetting.cs" />
     <Compile Include="GlobalSettings\Provider\GlobalSettingProviderContext.cs" />
     <Compile Include="GlobalSettings\GlobalSettingManager.cs" />
     <Compile Include="GlobalSettings\Extensions\SettingManagerExtensions.cs" />
@@ -288,12 +295,12 @@
     <Compile Include="Dependency\IocManager.cs" />
     <Compile Include="Dependency\IocRegistrarExtensions.cs" />
     <Compile Include="Dependency\ISingletonDependency.cs" />
-    <Compile Include="Domain\Models\Entity.cs" />
-    <Compile Include="Domain\Models\IAggregateRoot.cs" />
-    <Compile Include="Domain\Models\Audited\IAudited.cs" />
-    <Compile Include="Domain\Models\IEntity.cs" />
-    <Compile Include="Domain\Models\IPassivable.cs" />
-    <Compile Include="Domain\Models\ISoftDelete.cs" />
+    <Compile Include="Domain\Entities\Entity.cs" />
+    <Compile Include="Domain\Entities\IAggregateRoot.cs" />
+    <Compile Include="Domain\Entities\Audited\IAudited.cs" />
+    <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Domain\Entities\IPassivable.cs" />
+    <Compile Include="Domain\Entities\ISoftDelete.cs" />
     <Compile Include="Domain\Repositories\IRepository.cs" />
     <Compile Include="Domain\Services\IApplicationService.cs" />
     <Compile Include="Domain\UnitOfWork\DataFilters.cs" />
@@ -337,12 +344,24 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Logging\Modules\LoggingModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runtime\Session\ClaimsSession.cs" />
+    <Compile Include="Runtime\Security\CryptoManager.cs" />
+    <Compile Include="Runtime\Session\AppClaimsSession.cs" />
     <Compile Include="Runtime\Session\IAppSession.cs" />
     <Compile Include="Runtime\Session\Modules\AppSessionModule.cs" />
     <Compile Include="Runtime\Session\NullAppSession.cs" />
     <Compile Include="Threading\AsyncHelper.cs" />
     <Compile Include="Threading\InternalAsyncHelper.cs" />
+    <Compile Include="Utils\StringHelper.cs" />
+    <Compile Include="Web\ActionDescriptorHelper.cs" />
+    <Compile Include="Web\Models\AjaxResponse.cs" />
+    <Compile Include="Web\Models\DataTablesParam.cs" />
+    <Compile Include="Web\Models\ErrorInfo.cs" />
+    <Compile Include="Web\Models\ErrorViewModel.cs" />
+    <Compile Include="Web\Models\MvcAjaxResponse.cs" />
+    <Compile Include="Web\Models\ValidationErrorInfo.cs" />
+    <Compile Include="Web\Mvc\AbstractWebViewPage.cs" />
+    <Compile Include="Web\Mvc\LocalizationWebViewPage.cs" />
+    <Compile Include="Web\Models\NewtonJsonResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -353,6 +372,9 @@
   <ItemGroup>
     <Content Include="Localization\Sources\XmlSource\Default-zh-CN.xml" />
     <Content Include="Localization\Sources\XmlSource\Default.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\Mvc\Attributes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

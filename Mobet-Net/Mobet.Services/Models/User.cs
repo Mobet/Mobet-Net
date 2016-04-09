@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 using Mobet.AutoMapper;
-using System.Security.Claims;
 
 namespace Mobet.Services.Models
 {
-    [AutoMapTo(typeof(Domain.Models.User))]
+    [AutoMapTo(typeof(Domain.Entities.User))]
     public class User
     {
+        public User()
+        {
+            Claims = new List<Claim>();
+        }
         /// <summary>
         /// 主键
         /// </summary>

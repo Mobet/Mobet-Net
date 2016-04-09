@@ -57,6 +57,18 @@
     <Compile Include="Migrations\201604010411158_03.Designer.cs">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604061133321_04.cs" />
+    <Compile Include="Migrations\201604061133321_04.Designer.cs">
+      <DependentUpon>201604061133321_04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604061212004_05.cs" />
+    <Compile Include="Migrations\201604061212004_05.Designer.cs">
+      <DependentUpon>201604061212004_05.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604080907265_06.cs" />
+    <Compile Include="Migrations\201604080907265_06.Designer.cs">
+      <DependentUpon>201604080907265_06.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelsContainer.cs" />
     <Compile Include="Mappings\RoleMenusMapping.cs" />
     <Compile Include="Mappings\UserRolesMapping.cs" />
@@ -91,6 +103,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604010411158_03.resx">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604061133321_04.resx">
+      <DependentUpon>201604061133321_04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604061212004_05.resx">
+      <DependentUpon>201604061212004_05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604080907265_06.resx">
+      <DependentUpon>201604080907265_06.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

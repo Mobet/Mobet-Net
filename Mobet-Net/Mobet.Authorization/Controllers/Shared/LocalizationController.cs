@@ -2,6 +2,7 @@
 using Mobet.Authorization.Models;
 using Mobet.Localization;
 using Mobet.Localization.Language;
+using Mobet.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

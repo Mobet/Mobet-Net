@@ -12,14 +12,35 @@ using System.Drawing;
 using System.IO;
 using Mobet.Runtime.Cookie;
 using System.Drawing.Imaging;
+using Mobet.Authorization.Controllers.Shared;
+using Mobet.Web.Models;
+
+using Constants = Mobet.Services.Constants;
+using Mobet.Runtime.Security;
+using Mobet.Services.Services;
+using Mobet.Services.Requests.Message;
+using System.Threading.Tasks;
+using Mobet.Caching;
+using Mobet.Services;
+using Mobet.Services.Requests.User;
+using Mobet.AutoMapper;
+using Mobet.Runtime.Session;
+using System.Threading;
+using Newtonsoft.Json;
 
 namespace Mobet.Authorization.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        public AccountController()
-        {
+        public ICacheManager CacheManager { get; set; }
+        public IMessageService MessageService { get; set; }
+        public IUserService UserService { get; set; }
 
+        public AccountController(IMessageService messageService, ICacheManager cacheManager, IUserService userService)
+        {
+            MessageService = messageService;
+            CacheManager = cacheManager;
+            UserService = userService;
         }
         public ActionResult Index()
         {
@@ -34,29 +55,6 @@ namespace Mobet.Authorization.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Registration(string signin, LocalRegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                //var user = new LocalRegistrationUserService.CustomUser
-                //{
-                //    Username = model.Username,
-                //    Password = model.Password,
-                //    Subject = Guid.NewGuid().ToString(),
-                //    Claims = new List<Claim>()
-                //};
-                //LocalRegistrationUserService.Users.Add(user);
-                //user.Claims.Add(new Claim(Constants.ClaimTypes.GivenName, model.First));
-                //user.Claims.Add(new Claim(Constants.ClaimTypes.FamilyName, model.Last));
-
-                return Redirect("/core/" + Constants.RoutePaths.Login + "?signin=" + signin);
-            }
-
-            return View();
-        }
-
         public ActionResult Logout(LogoutViewModel model)
         {
             return this.View(model);
@@ -65,7 +63,11 @@ namespace Mobet.Authorization.Controllers
         {
             return this.View(model);
         }
-
+        public ActionResult SignOut()
+        {
+            Request.GetOwinContext().Authentication.SignOut();
+            return View();
+        }
         public ActionResult Consent(ConsentViewModel model)
         {
             return this.View(model);
@@ -74,76 +76,71 @@ namespace Mobet.Authorization.Controllers
         {
             return this.View(model);
         }
-        public virtual ActionResult Error(ErrorViewModel model)
+        public virtual ActionResult Error(Web.Models.ErrorViewModel model)
         {
             return this.View(model);
         }
 
         [HttpGet]
-        public ActionResult GetRadomCode()
+        public ActionResult GetCaptcha()
         {
-            var bytes = CreateRandomCode("__Mobet.Signup.CheckCode");
-            return File(bytes, @"image/jpeg");
+            return File(Captcha.GetBytes(Constants.CookieNames.Captcha), @"image/jpeg");
         }
 
-        public static byte[] CreateRandomCode(string cookieName)
+        [HttpPost]
+        public async Task<JsonResult> ValidateCaptchaAndSendMessageCode(string telphone, string captcha)
         {
-            var img = new Bitmap(150, 50);
-            var g = Graphics.FromImage(img);
-            try
+            if (string.IsNullOrEmpty(telphone))
             {
-                var r = new Random();
-                var MyColor = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
-                g.Clear(Color.White);
-                for (var i = 0; i < 10; i++)
-                {
-                    MyColor = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
-                    img.SetPixel(r.Next(150), r.Next(50), MyColor);  //产生10个随机颜色的杂点
-                }
-                var str = "";    //存储产生的5位验证码
-                for (var i = 1; i <= 5; i++)
-                {
-                    var s = GetString()[r.Next(GetString().Length)];
-                    MyColor = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
-                    var myBrush = new SolidBrush(MyColor);
-                    g.DrawString(s, new Font("Algerian", r.Next(20, 32),FontStyle.Italic), myBrush, 30 * (i - 1), r.Next(13));
-                    str += s;
-                }
-
-                //设置cookie
-                CookieHelper.CreateCookie(cookieName, str, DateTime.MaxValue);
-
-                for (var i = 1; i <= 5; i++)
-                {
-                    MyColor = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
-                    var p = new Pen(MyColor, r.Next(5));
-                    g.DrawLine(p, r.Next(150), r.Next(50), r.Next(150), r.Next(50));
-                    g.DrawLine(p, r.Next(170), r.Next(180), r.Next(150), r.Next(150));
-                }
-
-                //保存图片数据
-                using (var stream = new MemoryStream())
-                {
-                    img.Save(stream, ImageFormat.Jpeg);
-                    //输出图片流
-                    return stream.ToArray();
-                }
+                return Json(new MvcAjaxResponse(false, "无效的手机号码"));
             }
-            finally
+            if (CryptoManager.DecryptDES(CookieManager.GetCookieValue(Constants.CookieNames.Captcha)) != captcha)
             {
-                g.Dispose();
-                img.Dispose();
+                return Json(new MvcAjaxResponse(false, "错误的验证码"));
             }
+
+            var response = await MessageService.MessageCaptchaSendAsync(new MessageCaptchaSendRequest
+            {
+                MessageCaptcha = Mobet.Services.MessageCaptcha.Register,
+                Telphone = telphone
+            });
+
+            return Json(new MvcAjaxResponse(response.Result, response.Message));
         }
 
-        /// <summary>
-        /// 返回除字母O之外的25个字母和数字0之外的9个数字
-        /// </summary>
-        /// <returns></returns>
-        private static string[] GetString()
+        [HttpPost]
+        public JsonResult ValidateMessageCaptcha(string captcha, string telphone)
         {
-            string[] Arr = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            return Arr;
+            if (CacheManager.Get<string>(string.Format(Constants.CacheNames.MessageCaptcha, MessageCaptcha.Register, telphone, captcha)) != captcha)
+            {
+                return Json(new MvcAjaxResponse(false, "短信验证码无效"));
+            }
+
+            return Json(new MvcAjaxResponse("短信验证码验证成功"));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration(string signin, LocalRegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = UserService.RegisterByTelphone(model.MapTo<UserRegisterByTelphoneRequest>());
+                if (response.Result)
+                {
+                    return Redirect("/core/" + IdentityServer3.Core.Constants.RoutePaths.Login + "?signin=" + signin);
+                }
+
+                model.ErrorMessage = response.Message;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult GetUserProfileData()
+        {
+            var model = UserService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId });
+            return Json(new MvcAjaxResponse(model));
         }
     }
 }

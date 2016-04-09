@@ -31,6 +31,7 @@ using Mobet.Events.ConventionalRegistras;
 using Mobet.Events.Modules;
 using Mobet.Localization.Configuration;
 using Mobet.Localization.Modules;
+using Mobet.Runtime.Session;
 
 namespace Mobet.Configuration.Startup
 {
@@ -65,12 +66,13 @@ namespace Mobet.Configuration.Startup
             IocManager.Instance.RegisterIfNot<IGlobalSettingsConfiguration, GlobalSettingsConfiguration>();
             IocManager.Instance.RegisterIfNot<IGlobalSettingManager, GlobalSettingManager>();
             IocManager.Instance.RegisterIfNot<IGlobalSettingStore, SimpleGlobalSettingStore>(DependencyLifeStyle.Transient);
+            IocManager.Instance.RegisterIfNot<IAppSession, AppClaimsSession>(DependencyLifeStyle.Transient);
 
 
             IocManager.Instance.RegisterModule(new LocalizationManagerModule());
             IocManager.Instance.RegisterModule(new EventBusModule());
             IocManager.Instance.RegisterModule(new GlobalSettingsManagerModule());
-
+            IocManager.Instance.RegisterModule(new AppSessionModule());
 
             UnitOfWorkDefaultOptionsConfiguration = IocManager.Instance.Resolve<IUnitOfWorkDefaultOptionsConfiguration>();
             GlobalSettingsConfiguration = IocManager.Instance.Resolve<IGlobalSettingsConfiguration>();
@@ -88,11 +90,7 @@ namespace Mobet.Configuration.Startup
             IocManager.Instance.RegisterModule(new LoggingModule());
             return bootstrap;
         }
-        public static StartupConfiguration UseAppSession(this StartupConfiguration bootstrap)
-        {
-            IocManager.Instance.RegisterModule(new AppSessionModule());
-            return bootstrap;
-        }
+
         public static StartupConfiguration UseGlobalSettings(this StartupConfiguration bootstrap, Action<IGlobalSettingsConfiguration> invoke = null)
         {
             if (invoke != null)

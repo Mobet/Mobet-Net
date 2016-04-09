@@ -20,7 +20,7 @@ namespace Mobet.Localization.Language.Db
 
         public void HandleEvent(LanguageChangedEvent eventData)
         {
-            _cacheManager.Remove(IConstants.Localization.CacheNames.Language + eventData.LanguageSourceName);
+            _cacheManager.Remove(Constants.CacheNames.Language + eventData.LanguageSourceName);
         }
 
     }

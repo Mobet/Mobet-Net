@@ -50,9 +50,11 @@ namespace Mobet.Authorization
                 //应用程序配置
                 cfg.UseGlobalSettings(config =>
                 {
+                    config.Providers.Add<AuthorizationSettingProvider>();
                     config.Providers.Add<EmailSettingProvider>();
                     config.Providers.Add<LocalizationSettingProvider>();
                     config.Providers.Add<ResourcesSettingProvider>();
+                    config.Providers.Add<MessageSettingProvider>();
                 });
                 //本地化
                 cfg.UseLocalization(config =>
@@ -70,7 +72,6 @@ namespace Mobet.Authorization
                 });
 
                 cfg
-                   .UseAppSession()
                    .UseAuditing()
                    .UseAutoMapper();
 
@@ -83,13 +84,11 @@ namespace Mobet.Authorization
         {
             protected override void Load(Autofac.ContainerBuilder builder)
             {
-
                 builder.RegisterType<GlobalSettingStore>()
                     .AsImplementedInterfaces()
                     .EnableClassInterceptors()
                     .InterceptedBy(typeof(UnitOfWorkInterceptor))
                     .InstancePerDependency();
-
                 base.Load(builder);
             }
         }

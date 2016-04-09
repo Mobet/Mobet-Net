@@ -12,7 +12,7 @@ namespace Mobet.Localization.Settings
         {
             return new[]
             {
-                new GlobalSettings.Models.GlobalSetting { Name = "Localization.Default.Language.Name", Value= "zh-CN" , Group = "Localization"  }
+                new GlobalSettings.Models.GlobalSetting { Name = "Settings.Localization.DefaultLanguageName", Value= "zh-CN" , Group = "本地化设置" ,Description = "默认语言" }
             };
         }
     }

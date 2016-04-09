@@ -88,9 +88,9 @@ namespace Mobet.GlobalSettings
             return await Task.FromResult<IReadOnlyList<GlobalSetting>>(_settings.Values.ToImmutableList());
         }
 
-        public async Task<GlobalSetting> AddOrUpdateSettingAsync(string name, string value)
+        public async Task<GlobalSetting> AddOrUpdateSettingAsync(GlobalSetting data)
         {
-            return await _settingStore.AddOrUpdateSettingAsync(new GlobalSetting { Name = name, Value = value });
+            return await _settingStore.AddOrUpdateSettingAsync(data);
         }
 
         public async Task<GlobalSetting> DeleteSettingAsync(string name)
@@ -100,10 +100,14 @@ namespace Mobet.GlobalSettings
 
         public async Task ClearGlobalSettingCacheAsync()
         {
-            _settingCacheProvider.Remove(IConstants.GlobalSettings.CacheNames.GlobalSettings);
+            _settingCacheProvider.Remove(Constants.CacheNames.GlobalSettings);
             await Task.FromResult(true);
         }
-
+        public async Task ClearGlobalSettingCacheAsync(string name)
+        {
+            _settingCacheProvider.Remove(name);
+            await Task.FromResult(true);
+        }
 
         private GlobalSettingsProvider CreateProvider(Type providerType)
         {
@@ -113,7 +117,7 @@ namespace Mobet.GlobalSettings
 
         private async Task<Dictionary<string, GlobalSetting>> GetApplicationSettingsAsync()
         {
-            var settings = await _settingCacheProvider.Retrive(IConstants.GlobalSettings.CacheNames.GlobalSettings, async () =>
+            var settings = await _settingCacheProvider.Retrive(Constants.CacheNames.GlobalSettings, async () =>
             {
                 var dictionary = new Dictionary<string, GlobalSetting>();
                 foreach (var setting in await _settingStore.GetAllSettingsAsync())

@@ -62,12 +62,18 @@
         };
     });
 
-    angular.module('app').directive('layoutNavbar', function () {
+    angular.module('app').directive('layoutNavbar', function ($http) {
         return {
             templateUrl: "/Layout/Navbar",
-            link: function (scope, el, attr) {
-                //app.handleBootstrapSwitch(el);
-                //app.handleFormChat(scope);
+            link: function ($scope, el, attr) {
+
+                $scope.Model = {};
+
+                //加载用户信息
+                $http.post('/Account/GetUserProfileData').success(function (res) {
+                    $scope.Model.NickName = res.Data.Model.NickName;
+                });
+
 
                 $('#side-menu').metisMenu();
             }

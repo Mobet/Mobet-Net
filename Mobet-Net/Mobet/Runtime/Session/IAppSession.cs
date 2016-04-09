@@ -15,6 +15,8 @@ namespace Mobet.Runtime.Session
         /// <summary>
         /// Gets current UserId or empty.
         /// </summary>
-        string UserAccount { get; }
+        string UserId { get; }
+
+        string Name { get; }
     }
 }

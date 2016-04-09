@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Mobet.Localization.Models;
 using Mobet.GlobalSettings;
+using Mobet.GlobalSettings.Models;
 
 namespace Mobet.Localization.Language.Db
 {
@@ -29,7 +30,7 @@ namespace Mobet.Localization.Language.Db
 
         public async Task<IReadOnlyList<Models.Language>> GetLanguagesAsync()
         {
-            var languages = _cacheManager.Retrive<IReadOnlyList<Models.Language>>(IConstants.Localization.CacheNames.Language, () =>
+            var languages = _cacheManager.Retrive<IReadOnlyList<Models.Language>>(Constants.CacheNames.Language, () =>
             {
                 return _languageStore.GetAllLanguagesAsync().Result.ToImmutableList();
             });
@@ -39,7 +40,7 @@ namespace Mobet.Localization.Language.Db
 
         public virtual async Task<Models.Language> GetDefaultLanguageOrNullAsync()
         {
-            var defaultLanguageName = await _globalSettingManager.GetSettingValueAsync(IConstants.Localization.DefaultLanguageName);
+            var defaultLanguageName = await _globalSettingManager.GetSettingValueAsync(Constants.Localization.DefaultLanguageName);
             var language = (await GetLanguagesAsync()).FirstOrDefault(x => x.Name == defaultLanguageName);
             return language;
         }
@@ -62,7 +63,8 @@ namespace Mobet.Localization.Language.Db
         public virtual async Task SetDefaultLanguageAsync(string languageName)
         {
             var cultureInfo = CultureInfo.GetCultureInfo(languageName);
-            await _globalSettingManager.AddOrUpdateSettingAsync(languageName, cultureInfo.Name);
+            var defaultLanguageDisplayName = await _globalSettingManager.GetSettingValueAsync(Constants.Localization.DefaultLanguageDisplayName);
+            await _globalSettingManager.AddOrUpdateSettingAsync(new GlobalSetting { DisplayName = defaultLanguageDisplayName, Name = languageName, Value = cultureInfo.Name });
             await _globalSettingManager.ClearGlobalSettingCacheAsync();
         }
     }

@@ -38,6 +38,12 @@ namespace Mobet.Services.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        UserRegisterByMobilephoneResponse RegisterByMobilephone(UserRegisterByMobilephoneRequest request);
+        UserRegisterByTelphoneResponse RegisterByTelphone(UserRegisterByTelphoneRequest request);
+        /// <summary>
+        /// 获取登录用户信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserGetProfileDataResponse GetUserProfileData(UserGetProfileDataRequest request);
     }
 }

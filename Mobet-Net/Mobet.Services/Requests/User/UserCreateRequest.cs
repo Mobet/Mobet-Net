@@ -10,7 +10,7 @@ using Mobet.AutoMapper;
 
 namespace Mobet.Services.Requests.User
 {
-    [AutoMap(typeof(Domain.Models.User))]
+    [AutoMap(typeof(Domain.Entities.User))]
     public class UserCreateRequest : IRequest
     {
         /// <summary>
@@ -18,6 +18,10 @@ namespace Mobet.Services.Requests.User
         /// </summary>
         [StringLength(50)]
         public virtual string OpenId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public virtual string Password { get; set; }
         /// <summary>
         /// 真实姓名
         /// </summary>
@@ -34,11 +38,6 @@ namespace Mobet.Services.Requests.User
         public DateTime? Birthday { get; set; }
         /// <summary>
         /// 移动号码
-        /// </summary>
-        [StringLength(50)]
-        public virtual string Mobilephone { get; set; }
-        /// <summary>
-        /// 电话号码
         /// </summary>
         [StringLength(50)]
         public virtual string Telphone { get; set; }

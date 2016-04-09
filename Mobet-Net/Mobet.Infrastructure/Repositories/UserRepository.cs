@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Mobet.Domain;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Domain.Repositories;
 using Mobet.EntityFramework;
 

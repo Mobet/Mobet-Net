@@ -75,6 +75,9 @@ namespace Mobet.Services
 
                 public const string InvalidMessageCode = "InvalidMessageCode";
 
+                public const string UserAddComplete = "UserAddComplete";
+                public const string UserAlreadyExists = "UserAlreadyExists";
+
             }
             public class ScopeIds
             {
@@ -91,9 +94,13 @@ namespace Mobet.Services
         }
 
 
-        public static class Cache
+        public static class CacheNames
         {
-            public const string MessageCode = "AUTHORIZATION:MESSAGE_CODE:{0}_{1}_{2}";
+            public const string MessageCaptcha = "AUTHORIZATION:MESSAGE_CODE:{0}_{1}_{2}";
+        }
+
+        public static class CookieNames {
+            public const string Captcha = "__mobet.signup.captcha";
         }
 
 
@@ -106,8 +113,26 @@ namespace Mobet.Services
 
             public static class Email
             {
-                public const string SMTP = "Settings.Email.SMTP";
+                public const string MailSMTP = "Settings.Email.SMTP";
+                public const string MailUserName = "Settings.Email.UserName";
+                public const string MailPassword = "Settings.Email.Password";
+                public const string MailPort = "Settings.Email.Port";
+            }
+            public static class Authorization
+            {
+                public const string Domain = "Settings.Authorization.Domain";
+                public const string CaptchaAddress = "Settings.Authorization.CaptchaAddress";
+                
+            }
+
+            public static class Message {
+                public const string MessageContentTemplate = "Settings.Message.ContentTemplate";
+                public const string MessageSeverUrl = "Settings.Message.SeverUrl";
+                public const string MessageDeptType = "Settings.Message.DeptType";
+                public const string MessageBesType = "Settings.Message.BesType";
+                public const string MessageExpiredTime = "Settings.Message.ExpiredTime";
             }
         }
+
     }
 }

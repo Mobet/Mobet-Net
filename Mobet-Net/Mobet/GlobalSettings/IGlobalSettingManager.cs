@@ -32,9 +32,9 @@ namespace Mobet.GlobalSettings
         /// <summary>
         /// Add Or Update setting for the application level.
         /// </summary>
-        /// <param name="name">Unique name of the setting</param>
-        /// <param name="value">Value of the setting</param>
-        Task<GlobalSetting> AddOrUpdateSettingAsync(string name, string value);
+        /// <param name="data">save data</param>
+        /// <returns></returns>
+        Task<GlobalSetting> AddOrUpdateSettingAsync(GlobalSetting data);
         /// <summary>
         /// Delete setting by name.
         /// </summary>
@@ -45,6 +45,10 @@ namespace Mobet.GlobalSettings
         /// Clear cache.
         /// </summary>
         Task ClearGlobalSettingCacheAsync();
+        /// <summary>
+        /// Clear cache.
+        /// </summary>
+        Task ClearGlobalSettingCacheAsync(string name);
 
     }
 }

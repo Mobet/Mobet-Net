@@ -2,7 +2,7 @@
 using Autofac.Extras.DynamicProxy2;
 using Mobet.Configuration.Startup;
 using Mobet.Dependency;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Domain.Repositories;
 using Mobet.Domain.Services;
 using Mobet.Domain.UnitOfWork;

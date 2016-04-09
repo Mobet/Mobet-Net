@@ -17,6 +17,10 @@ using Microsoft.Owin.Security;
 using Microsoft.IdentityModel.Protocols;
 using System.Threading.Tasks;
 using Mobet.Localization;
+using IdentityServer3.WsFederation.Configuration;
+using IdentityServer3.WsFederation.Models;
+using IdentityServer3.WsFederation.Services;
+using Microsoft.Owin.Security.WsFederation;
 
 [assembly: OwinStartup(typeof(Mobet.Authorization.Startup))]
 namespace Mobet.Authorization
@@ -76,77 +80,90 @@ namespace Mobet.Authorization
             {
                 AuthenticationType = "Cookies"
             });
-            
 
-            app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+
+            //app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+            //{
+            //    ClientId = "mvc.owin.hybrid",                                   //客户端ID,客户端唯一标识
+            //    Authority = "https://localhost:44373/core",                     //权限验证地址
+            //    RedirectUri = "https://localhost:44373/",                       //验证成功后返回地址，此地址在申请客户端时填写
+            //    PostLogoutRedirectUri = "https://localhost:44373/",             //登出后返回地址
+            //    ResponseType = "code id_token",                                 //授权响应类型
+            //    Scope = "openid profile read write offline_access",             //授权范围
+
+
+            //    SignInAsAuthenticationType = "Cookies",
+
+            //    Notifications = new OpenIdConnectAuthenticationNotifications
+            //    {
+            //        AuthorizationCodeReceived = async n =>
+            //        {
+            //            // use the code to get the access and refresh token
+            //            var tokenClient = new TokenClient(
+            //                "https://localhost:44373/core/connect/token",
+            //                "mvc.owin.hybrid",
+            //                "secret");
+
+            //            var tokenResponse = await tokenClient.RequestAuthorizationCodeAsync(
+            //                n.Code, n.RedirectUri);
+
+            //            // use the access token to retrieve claims from userinfo
+            //            var userInfoClient = new UserInfoClient(
+            //                new Uri("https://localhost:44373/core/connect/userinfo"),
+            //                tokenResponse.AccessToken);
+
+            //            var userInfoResponse = await userInfoClient.GetAsync();
+
+            //            // create new identity
+            //            var id = new ClaimsIdentity(n.AuthenticationTicket.Identity.AuthenticationType);
+            //            id.AddClaims(userInfoResponse.GetClaimsIdentity().Claims);
+
+            //            id.AddClaim(new Claim("access_token", tokenResponse.AccessToken));
+            //            id.AddClaim(new Claim("expires_at", DateTime.Now.AddSeconds(tokenResponse.ExpiresIn).ToLocalTime().ToString()));
+            //            id.AddClaim(new Claim("refresh_token", tokenResponse.RefreshToken));
+            //            id.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+            //            id.AddClaim(new Claim("sid", n.AuthenticationTicket.Identity.FindFirst("sid").Value));
+
+            //            n.AuthenticationTicket = new AuthenticationTicket(
+            //                new ClaimsIdentity(id.Claims, n.AuthenticationTicket.Identity.AuthenticationType),
+            //                n.AuthenticationTicket.Properties);
+            //        },
+
+            //        RedirectToIdentityProvider = n =>
+            //        {
+            //            // if signing out, add the id_token_hint
+            //            if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
+            //            {
+            //                var idTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token");
+
+            //                if (idTokenHint != null)
+            //                {
+            //                    n.ProtocolMessage.IdTokenHint = idTokenHint.Value;
+            //                }
+            //            }
+
+            //            return Task.FromResult(0);
+            //        }
+            //    }
+            //});
+
+            app.UseWsFederationAuthentication(new WsFederationAuthenticationOptions
             {
-                ClientId = "mvc.owin.hybrid",                                   //客户端ID,客户端唯一标识
-                Authority = "https://localhost:44300/core",                     //权限验证地址
-                RedirectUri = "https://localhost:44300/",                       //验证成功后返回地址，此地址在申请客户端时填写
-                PostLogoutRedirectUri = "https://localhost:44300/",             //登出后返回地址
-                ResponseType = "code id_token",                                 //授权响应类型
-                Scope = "openid profile read write offline_access",             //授权范围
-
-
-                SignInAsAuthenticationType = "Cookies",
-
-                Notifications = new OpenIdConnectAuthenticationNotifications
-                {
-                    AuthorizationCodeReceived = async n =>
-                    {
-                        // use the code to get the access and refresh token
-                        var tokenClient = new TokenClient(
-                            "https://localhost:44300/core/connect/token",
-                            "mvc.owin.hybrid",
-                            "secret");
-
-                        var tokenResponse = await tokenClient.RequestAuthorizationCodeAsync(
-                            n.Code, n.RedirectUri);
-
-                        // use the access token to retrieve claims from userinfo
-                        var userInfoClient = new UserInfoClient(
-                            new Uri("https://localhost:44300/core/connect/userinfo"),
-                            tokenResponse.AccessToken);
-
-                        var userInfoResponse = await userInfoClient.GetAsync();
-
-                        // create new identity
-                        var id = new ClaimsIdentity(n.AuthenticationTicket.Identity.AuthenticationType);
-                        id.AddClaims(userInfoResponse.GetClaimsIdentity().Claims);
-
-                        id.AddClaim(new Claim("access_token", tokenResponse.AccessToken));
-                        id.AddClaim(new Claim("expires_at", DateTime.Now.AddSeconds(tokenResponse.ExpiresIn).ToLocalTime().ToString()));
-                        id.AddClaim(new Claim("refresh_token", tokenResponse.RefreshToken));
-                        id.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
-                        id.AddClaim(new Claim("sid", n.AuthenticationTicket.Identity.FindFirst("sid").Value));
-
-                        n.AuthenticationTicket = new AuthenticationTicket(
-                            new ClaimsIdentity(id.Claims, n.AuthenticationTicket.Identity.AuthenticationType),
-                            n.AuthenticationTicket.Properties);
-                    },
-
-                    RedirectToIdentityProvider = n =>
-                    {
-                        // if signing out, add the id_token_hint
-                        if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
-                        {
-                            var idTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token");
-
-                            if (idTokenHint != null)
-                            {
-                                n.ProtocolMessage.IdTokenHint = idTokenHint.Value;
-                            }
-                        }
-
-                        return Task.FromResult(0);
-                    }
-                }
+                MetadataAddress = "https://localhost:44373/core/wsfed/metadata",
+                Wtrealm = "urn:owinrp",
+                SignInAsAuthenticationType = "Cookies"
             });
         }
 
-        private void PluginConfiguration(IAppBuilder app, IdentityServerOptions opts)
+        private void PluginConfiguration(IAppBuilder pluginApp, IdentityServerOptions options)
         {
-            //throw new NotImplementedException();
+            var wsFedOptions = new WsFederationPluginOptions(options);
+
+            // data sources for in-memory services
+            wsFedOptions.Factory.Register(new Registration<IEnumerable<RelyingParty>>(RelyingParties.Get()));
+            wsFedOptions.Factory.RelyingPartyService = new Registration<IRelyingPartyService>(typeof(InMemoryRelyingPartyService));
+
+            pluginApp.UseWsFederationPlugin(wsFedOptions);
         }
 
         private void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)

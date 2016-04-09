@@ -28,8 +28,6 @@
 					, "bScrollInfinite": false          //以指定是否无限滚动（与sScrollY配合使用），在大数据量的时候很有用。当这个标志为true的时候，分页器就默认关闭
 					, "bSort": true                     //是否启用各列具有按列排序的功能
 					, "sPaginationType": "full_numbers" //用于指定分页器风格
-                    , "ajax": {}
-                    , "sScrollX": '1200px'
                     , "fnAfterDrawCallback": function () {
                     }
 					, "fnDrawCallback": function (oSettings) {
@@ -38,79 +36,80 @@
 					    if ($.isFunction(tableOptions[$(oSettings.nTable).attr('angular-table')].fnAfterDrawCallback)) {
 					        tableOptions[$(oSettings.nTable).attr('angular-table')].fnAfterDrawCallback();
 					    }
-					    try {
-					        $('.dataTables_scrollBody').css({ 'overflow': 'visible' });
-					        $(".dataTables_scroll").mCustomScrollbar({
-					            setWidth: false,
-					            setHeight: false,
-					            setTop: 0,
-					            setLeft: 0,
-					            axis: "x",
-					            scrollbarPosition: "inside",
-					            scrollInertia: 950,
-					            autoDraggerLength: true,
-					            autoHideScrollbar: false,
-					            autoExpandScrollbar: false,
-					            alwaysShowScrollbar: 0,
-					            snapAmount: null,
-					            snapOffset: 0,
-					            mouseWheel: {
-					                enable: true,
-					                scrollAmount: "auto",
+					    if (oSettings.sScrollX != undefined) {
+					        try {
+					            $('.dataTables_scrollBody').css({ 'overflow': 'visible' });
+					            $(".dataTables_scroll").mCustomScrollbar({
+					                setWidth: false,
+					                setHeight: false,
+					                setTop: 0,
+					                setLeft: 0,
 					                axis: "x",
-					                preventDefault: false,
-					                deltaFactor: "auto",
-					                normalizeDelta: false,
-					                invert: false,
-					                disableOver: ["select", "option", "keygen", "datalist", "textarea"]
-					            },
-					            scrollButtons: {
-					                enable: false,
-					                scrollType: "stepless",
-					                scrollAmount: "auto"
-					            },
-					            keyboard: {
-					                enable: true,
-					                scrollType: "stepless",
-					                scrollAmount: "auto"
-					            },
-					            contentTouchScroll: 25,
-					            advanced: {
-					                autoExpandHorizontalScroll: false,
-					                autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
-					                updateOnContentResize: true,
-					                updateOnImageLoad: true,
-					                updateOnSelectorChange: false,
-					                releaseDraggableSelectors: false
-					            },
-					            theme: "minimal-dark",
-					            callbacks: {
-					                onInit: false,
-					                onScrollStart: false,
-					                onScroll: false,
-					                onTotalScroll: false,
-					                onTotalScrollBack: false,
-					                whileScrolling: false,
-					                onTotalScrollOffset: 0,
-					                onTotalScrollBackOffset: 0,
-					                alwaysTriggerOffsets: true,
-					                onOverflowY: false,
-					                onOverflowX: false,
-					                onOverflowYNone: false,
-					                onOverflowXNone: false
-					            },
-					            live: false,
-					            liveSelector: null
-					        });
+					                scrollbarPosition: "inside",
+					                scrollInertia: 950,
+					                autoDraggerLength: true,
+					                autoHideScrollbar: false,
+					                autoExpandScrollbar: false,
+					                alwaysShowScrollbar: 0,
+					                snapAmount: null,
+					                snapOffset: 0,
+					                mouseWheel: {
+					                    enable: true,
+					                    scrollAmount: "auto",
+					                    axis: "x",
+					                    preventDefault: false,
+					                    deltaFactor: "auto",
+					                    normalizeDelta: false,
+					                    invert: false,
+					                    disableOver: ["select", "option", "keygen", "datalist", "textarea"]
+					                },
+					                scrollButtons: {
+					                    enable: false,
+					                    scrollType: "stepless",
+					                    scrollAmount: "auto"
+					                },
+					                keyboard: {
+					                    enable: true,
+					                    scrollType: "stepless",
+					                    scrollAmount: "auto"
+					                },
+					                contentTouchScroll: 25,
+					                advanced: {
+					                    autoExpandHorizontalScroll: false,
+					                    autoScrollOnFocus: "input,textarea,select,button,datalist,keygen,a[tabindex],area,object,[contenteditable='true']",
+					                    updateOnContentResize: true,
+					                    updateOnImageLoad: true,
+					                    updateOnSelectorChange: false,
+					                    releaseDraggableSelectors: false
+					                },
+					                theme: "minimal-dark",
+					                callbacks: {
+					                    onInit: false,
+					                    onScrollStart: false,
+					                    onScroll: false,
+					                    onTotalScroll: false,
+					                    onTotalScrollBack: false,
+					                    whileScrolling: false,
+					                    onTotalScrollOffset: 0,
+					                    onTotalScrollBackOffset: 0,
+					                    alwaysTriggerOffsets: true,
+					                    onOverflowY: false,
+					                    onOverflowX: false,
+					                    onOverflowYNone: false,
+					                    onOverflowXNone: false
+					                },
+					                live: false,
+					                liveSelector: null
+					            });
 
-
-					        var right = $('.DTFC_RightWrapper').css('right') + '';
-					        var fixpoint = (right.replace('px', '') - 17 ) > 0 ? right.replace('px', '') - 17 + 'px' : '0px'
-					        $('.DTFC_RightWrapper').css('right', fixpoint);
-
-					    } catch (e) {
-					        console.log(e);
+					            var right = $('.DTFC_RightWrapper').css('right') + '';
+					            var fixpoint = (right.replace('px', '') - 17 ) > 0 ? right.replace('px', '') - 17 + 'px' : '0px'
+					            $('.DTFC_RightWrapper').css('right', fixpoint);
+					        } catch (e) {
+					            console.log(e);
+					        }
 					    }
+					    
 					}
 					, "fnInitComplete": function (oSettings, json) {
 
@@ -267,6 +266,10 @@
                     }
                 }
                 $.fn.dataTable.ext.errMode = 'throw';
+
+                window.onresize = function () {
+                    $('table[angular-table="' + $attrs.angularTable + '"]').css({'width': '100%','min-width':'800px'});
+                }
             }
         };
     }])

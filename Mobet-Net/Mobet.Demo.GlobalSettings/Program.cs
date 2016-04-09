@@ -1,6 +1,6 @@
 ﻿using Mobet.Configuration.Startup;
 using Mobet.Dependency;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Domain.Repositories;
 using Mobet.Domain.Services;
 using Mobet.EntityFramework;

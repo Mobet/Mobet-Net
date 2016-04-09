@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 
 using Mobet.EntityFramework;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Configuration.Startup;
 using Castle.Core.Logging;
 using System.Data.Entity.ModelConfiguration;

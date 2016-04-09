@@ -1,4 +1,4 @@
-﻿using Mobet.Domain.Models;
+﻿using Mobet.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;

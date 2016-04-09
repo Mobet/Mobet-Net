@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Data.Entity;
 
 using Mobet.Dependency;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 
 namespace Mobet.Domain.Repositories
 {

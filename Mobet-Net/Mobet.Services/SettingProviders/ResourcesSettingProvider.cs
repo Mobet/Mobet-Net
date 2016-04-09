@@ -11,11 +11,11 @@ namespace Mobet.Authorization.Configuration
 {
     public class ResourcesSettingProvider : GlobalSettingsProvider
     {
-        public override IEnumerable<GlobalSettings.Models.GlobalSetting> GetSettings(GlobalSettingsProviderContext context)
+        public override IEnumerable<GlobalSetting> GetSettings(GlobalSettingsProviderContext context)
         {
             return new[]
             {
-                new GlobalSettings.Models.GlobalSetting { Name = Constants.Settings.Resources.Domain,DisplayName = "资源站点根目录", Value = "https://120.25.244.254:44300/",Group = "Resources" ,Description = "资源站点根目录"}
+                new GlobalSetting { Name = Constants.Settings.Resources.Domain,DisplayName = "资源站点根目录", Value = "https://120.25.244.254:44300/",Group = "资源设置" ,Description = "资源站点根目录"}
             };
         }
 

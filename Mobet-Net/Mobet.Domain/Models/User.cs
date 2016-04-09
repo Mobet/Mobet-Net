@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations.Schema;
+using Mobet.Domain.Entities.Audited;
 
-namespace Mobet.Domain.Models
+namespace Mobet.Domain.Entities
 {
-    public class User : IAggregateRoot, IAudited, ISoftDelete
+    public class User : SoftDeleteEntity, IAggregateRoot
     {
         /// <summary>
         /// 构造函数
@@ -99,45 +100,12 @@ namespace Mobet.Domain.Models
         /// <summary>
         /// Subject
         /// </summary>
+        [Required]
+        [StringLength(50)]
         public virtual string Subject { get; set; }
-
-        /// <summary>
-        /// 数据版本
-        /// </summary>
+        
+        [Timestamp]
         public virtual byte[] Version { get; set; }
-        /// <summary>
-        /// 创建用户
-        /// </summary>
-        [StringLength(50)]
-        public virtual string CreateAccount { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public virtual DateTime? CreateTime { get; set; }
-        /// <summary>
-        /// 更改用户
-        /// </summary>
-        [StringLength(50)]
-        public virtual string ChangeAccount { get; set; }
-        /// <summary>
-        /// 更改时间
-        /// </summary>
-        public virtual DateTime? ChangeTime { get; set; }
-        /// <summary>
-        /// 是否删除 
-        /// </summary>
-        public virtual bool IsDeleted { get; set; }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public virtual string DeleteAccount { get; set; }
-
-        /// <summary>
-        /// 删除时间
-        /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
-
         /// <summary>
         /// 拥有的角色
         /// </summary>

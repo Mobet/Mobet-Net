@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 using Mobet.EntityFramework.Startup;
 using Mobet.EntityFramework;
 using System.Data.Entity;
-using Mobet.Domain.Models;
+using Mobet.Domain.Entities;
 using Mobet.Domain.Repositories;
 using System.Linq.Expressions;
 using Mobet.Domain.Services;

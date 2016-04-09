@@ -48,7 +48,7 @@ namespace Mobet.Localization.Dictionaries.Db
         public DbLocalizationDictionaryProvider(ILocalizationDictionaryProvider internalProvider = null)
         {
             _internalProvider = internalProvider ?? new XmlEmbeddedFileLocalizationDictionaryProvider(
-                        Assembly.GetExecutingAssembly(), IConstants.Localization.DefaultLocalizationXmlSources
+                        Assembly.GetExecutingAssembly(), Constants.Localization.DefaultLocalizationXmlSources
                         );
             _dictionaries = new ConcurrentDictionary<string, ILocalizationDictionary>();
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mobet.Domain.Models
+namespace Mobet.Domain.Entities
 {
     public partial class Menu : IAggregateRoot, IPassivable
     {

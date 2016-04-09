@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mobet.Services.Requests.User
 {
-    [AutoMap(typeof(Domain.Models.User))]
+    [AutoMap(typeof(Domain.Entities.User))]
     public class UserLoginRequest : IRequest
     {
         /// <summary>

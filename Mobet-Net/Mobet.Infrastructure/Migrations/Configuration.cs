@@ -28,7 +28,7 @@ namespace Mobet.Infrastructure.Migrations
             //    );
             //
 
-            context.Users.AddOrUpdate(x => x.Subject, new Domain.Models.User
+            context.Users.AddOrUpdate(x => x.Subject, new Domain.Entities.User
             {
                 Subject = "0F809FCE-D394-4907-8249-07BCA520A04A",
                 Name = "–ÌÀ…≥¨",

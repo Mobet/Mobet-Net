@@ -20,7 +20,31 @@ namespace Mobet.Runtime.Session
         /// <summary>
         /// Gets current UserId or empty.
         /// </summary>
-        public string UserAccount { get { return string.Empty; } }
+        public string UserId { get { return string.Empty; } }
+
+        public string Name
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        public string Sid
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        public string UserData
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
 
         private NullAppSession()
         {

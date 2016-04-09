@@ -1,23 +1,40 @@
-﻿@model IdentityServer3.Core.ViewModels.ErrorViewModel
+﻿@model Mobet.Web.Models.ErrorViewModel
 @{
-	ViewBag.Title = "Error";
+    ViewBag.Title = "Error";
+    Layout = null;
 }
 
 @* This is essentially a copy of the embedded HTML that comes from IdSvr, adapted to access the Model server-side *@
 
 <div class="page-header">
-	<h1>@ViewBag.Title</h1>
+    <h1>@ViewBag.Title</h1>
 </div>
 <div class="row">
-	<div class="col-md-6 col-sm-6">
-	    <div class="alert alert-danger">
-	        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-	        {
-	            <div>@Model.ErrorMessage</div>
-	        }
-	    </div>
-		<div class="request-id">Request Id: <span>@Model.RequestId</span></div>
-	</div>
+    <div class="col-md-6 col-sm-6">
+        <div class="alert alert-danger">
+            @if (Model != null && Model.ErrorInfo != null)
+            {
+                <div>@Model.ErrorInfo.Code</div>
+                <div>@Model.ErrorInfo.Message</div>
+                <div>@Model.ErrorInfo.Details</div>
+                if (Model.ErrorInfo.ValidationErrors != null)
+                {
+                    foreach (var validationError in Model.ErrorInfo.ValidationErrors)
+                    {
+                        <div>@validationError.Members</div>
+                        <div>@validationError.Message</div>
+                    }
+                }
+            }
+        </div>
+        <div class="alert alert-danger">
+            @if (Model != null && Model.Exception != null)
+            {
+                <div>@Model.Exception.Message</div>
+                <div>@Model.Exception.StackTrace</div>
+            }
+        </div>
+    </div>
 </div>
 @section scripts{
     @Html.Partial("_RenderAngularModel")
