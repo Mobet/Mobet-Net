@@ -159,7 +159,7 @@ html, body { height: 100%; }
     .logout:hover { color: #ff7e00; }
 .btnjump { display: none; }
 .beianlink { color: #9d9d9d; }
-.n-frame { background: #fff; padding: 34px 34px 0; border: 1px solid #e6e6e6; -webkit-border-radius: 10px; -moz-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px; min-height: 400px; _height: 400px; }
+.n-frame { background: #fff; padding: 50px 34px 0; border: 1px solid #e6e6e6; -webkit-border-radius: 3px; -moz-border-radius: 3px; -o-border-radius:3px; border-radius: 3px; min-height: 400px; _height: 400px; }
 .device-frame { border: none; -webkit-border-radius: 0; -moz-border-radius: 0; -o-border-radius: 0; border-radius: 0; padding-top: 0; }
 .title-big, .title-bigger, .title-biggest, .title-normal, .title_big30 { font-size: 16px; color: #333; line-height: 1.5; font-weight: bold; }
 .title-normal { color: #555; }
@@ -261,25 +261,25 @@ html, body { height: 100%; }
     .country_tips a { *margin-top: -16px; }
 .zh_CN .country_tips { display: none; }
 .labelbox, .tits_list, .borderbox { border: 1px solid #e8e8e8; }
-.labelbox { height: 40px; line-height: 40px; display: inline-block; }
+.labelbox { height: 40px; line-height: 40px; display: inline-block;    border-radius: 2px; }
     .labelbox input { height: 20px; line-height: 20px; padding: 10px; display: inline-block; }
 .dis_none_pc { display: none; }
 .dis-inb { display: inline-block; *display: inline; *zoom: 1; }
 .nowrap { white-space: nowrap; -webkit-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; overflow: hidden; }
 .btnjump, .logout_wap, .btn_editinfo { display: none; }
 .device_recommend { min-height: 120px; margin-top: 20px; _height: 120px; margin-bottom: 10px; }
-.n-main-nav { overflow: hidden; position: relative; z-index: 2; margin-bottom: -1px; }
+.n-main-nav { overflow: hidden; position: relative; z-index: 2; margin-bottom: -1px; padding-left:220px;}
     .n-main-nav ul { width: 73%; overflow: hidden; }
     .n-main-nav li { float: left; text-align: center; max-width: 25%; height: 44px; overflow: hidden; }
         .n-main-nav li a { display: block; padding: 0 34px; color: #333; font-weight: bold; font-size: 14px; line-height: 20px; height: 20px; overflow: hidden; white-space: nowrap; -webkit-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; }
             .n-main-nav li.current a, .n-main-nav li a:hover { color: #ff7e00; }
 .n-nav-corner { width: 23px; height: 12px; margin-top: 12px; margin-bottom: -2px; _margin-bottom: -5px; display: none; background: url(https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/n-layout-corner.png) 0 0 no-repeat; }
 .n-main-nav li.current .n-nav-corner { display: inline-block; *display: inline; *zoom: 1; }
-.n-account-area { overflow: hidden; position: absolute; right: 36px; top: 114px; }
-.na-info { width: 120px; text-align: right; padding-top: 16px; margin-right: 10px; float: left; }
+.n-account-area { overflow: hidden; position: absolute; left: 36px; top: 114px; }
+.na-info { width: 120px; text-align: left; padding-top: 16px; margin-left: 10px; float: left; }
 .na-name { color: #333; font-weight: bold; font-size: 14px; line-height: 1.5; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .na-num { font-size: 12px; color: #666; line-height: 1.2; }
-.na-img-area { width: 80px; height: 80px; border: 2px solid #e3e3e3; border-radius: 50%; padding: 4px; background: #fff; position: relative; z-index: 4; cursor: pointer; }
+.na-img-area { width: 80px; height: 80px; border: 1px solid #E6E6E6; border-radius: 50%; padding: 4px; background: #fff; position: relative; z-index: 4; cursor: pointer; }
     .na-img-area:hover .na-edit { display: block; }
 .na-img-bg-area { background: url(https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/n-avator-bg.png) 0 0 no-repeat; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
 .na-img-area img { display: block; width: 100%; height: 100%; border-radius: 50%; }
@@ -289,7 +289,7 @@ html, body { height: 100%; }
     .card-name-item .n-btn { padding: 4px 10px; margin-left: 10px; }
 .card-item .na-img-area { width: 50px; height: 50px; padding: 2px; border: 1px solid #e3e3e3; margin-right: 10px; }
 .card-item .na-img-bg-area { background: url(https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/n-avator-bg50.png) 0 0 no-repeat; }
-.font-img-item { position: relative; overflow: hidden; padding: 0 0 0 56px; margin-bottom: 30px; height: 40px; }
+.font-img-item { position: relative; overflow: hidden; padding: 0 0 0 30px; margin-bottom: 30px; height: 40px; }
     .font-img-item .fi-ico { position: absolute; left: 0; top: 0; }
 .fi-ico { display: inline-block; *display: inline; *zoom: 1; width: 40px; height: 40px; background: url(https://account.xiaomi.com/static/res/7c3e9b0/passport/acc-2014/img/device-icos.png) 0 0 no-repeat; }
 .fi-ico-phone { background-position: -200px 0; }
@@ -316,7 +316,7 @@ html, body { height: 100%; }
 .color-active { color: #ff7e00; }
 .light-num { font-size: 20px; font-weight: bold; color: #ff7e00; padding: 0 2px; }
 .n-btn { display: inline-block; *display: inline; *zoom: 1; line-height: normal !important; color: #555; border: 1px solid #e8e8e8; padding: 7px 40px; background: #fff; overflow: visible; *vertical-align: middle; cursor: pointer; margin-right: 10px; }
-a.n-btn { *padding: 9px 40px; _padding: 8px 40px 9px 40px; }
+a.n-btn { *padding: 9px 40px; _padding: 8px 40px 9px 40px;border-radius: 3px; }
 .n-btn:hover { background: #f3f3f4; }
 .n-btn-default { background: #e4e4e7; border: 1px solid #dfdfe1; }
     .n-btn-default:hover { background: #dadadc; border: 1px solid #d6d6d7; }
@@ -422,7 +422,7 @@ a.n-btn { *padding: 9px 40px; _padding: 8px 40px 9px 40px; }
 .naInfoImgBox { padding: 80px 20px 0; }
 .naImgLink { padding-top: 15px; }
 .framedatabox { padding-top: 15px; }
-.fdata { padding-left: 20px; line-height: 40px; border-bottom: 2px solid #e6e6e6; overflow: hidden; }
+.fdata { padding-left: 20px; line-height: 40px; border-bottom: 1px dashed #e6e6e6; overflow: hidden; }
     .fdata h3 { font-size: 16px; color: #333; }
 .layereditinfo { width: 460px; }
 .editbasicinfo { padding: 40px 0 0 20px; }

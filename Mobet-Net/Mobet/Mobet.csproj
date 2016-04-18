@@ -265,6 +265,11 @@
     <Compile Include="Localization\Store\ILanguageStore.cs" />
     <Compile Include="Localization\Store\ILanguageTextStore.cs" />
     <Compile Include="Logging\LogHelper.cs" />
+    <Compile Include="Net\Mail\Configuration\EmailSenderConfiguration.cs" />
+    <Compile Include="Net\Mail\EmailSender.cs" />
+    <Compile Include="Net\Mail\EmailSettingProvider.cs" />
+    <Compile Include="Net\Mail\IEmailSender.cs" />
+    <Compile Include="Net\Mail\Configuration\IEmailSenderConfiguration.cs" />
     <Compile Include="Runtime\Cookie\Captcha.cs" />
     <Compile Include="Runtime\Cookie\CookieManager.cs" />
     <Compile Include="GlobalSettings\Configuration\IGlobalSettingsConfiguration.cs" />

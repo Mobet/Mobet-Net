@@ -1,0 +1,91 @@
+﻿@model Mobet.Authorization.Models.PassportSecurityViewModel
+@{
+    Layout = null;
+}
+<ul class="device-detail-area">
+    <li id="changePassword" class="click-row">
+        <div class="font-img-item clearfix">
+            <p class="title-normal dis-inb">@L("帐号密码")</p>
+            <p class="font-default">
+                @L("用于保护帐号信息和登录安全")
+            </p>
+            <span class="title-normal wap-desc">
+                @L("修改")
+            </span>
+            <i class="arrow_r"></i>
+        </div>
+        <div class="ada-btn-area" ng-click="setPassword()">
+            <a href="javascript:void(0);" class="n-btn">@L("修改")</a>
+        </div>
+    </li>
+    <li id="changeEmail" class="click-row">
+        <div class="font-img-item clearfix">
+            <p class="title-normal dis-inb">@L("安全邮箱")</p>
+            @if (string.IsNullOrEmpty(Model.Email))
+            {
+                <p class="font-default color-active">@L("安全邮箱将可用于登录帐号和重置密码，建议立即设置")</p>
+            }
+            else
+            {
+                <p class="font-default">@L("安全邮箱将可用于登录帐号和重置密码")</p>
+            }
+            <i class="arrow_r"></i>
+        </div>
+        <div class="ada-btn-area" ng-click="setEmail()">
+            @if (string.IsNullOrEmpty(Model.Email))
+            {
+                <a href="javascript:void(0);" class="n-btn">@L("设置")</a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="n-btn">@L("修改")</a>
+            }
+        </div>
+    </li>
+    <li id="changeMobile" class="click-row">
+        <div class="font-img-item clearfix">
+            <p class="title-normal dis-inb">@L("安全手机")</p>
+            @if (string.IsNullOrEmpty(Model.Telphone))
+            {
+                <p class="font-default color-active">@L("安全手机可以用于登录帐号，重置密码或其他安全验证，建议立即绑定")</p>
+            }
+            else {
+                <p class="font-default">@L("安全手机可以用于登录帐号，重置密码或其他安全验证")</p>
+            }
+            <i class="arrow_r"></i>
+        </div>
+        <div class="ada-btn-area" ng-click="setTelphone()">
+            @if (string.IsNullOrEmpty(Model.Telphone))
+            {
+                <a href="javascript:void(0);" class="n-btn">@L("绑定")</a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="n-btn">@L("修改")</a>
+            }
+        </div>
+    </li>
+    <li id="setMibao" class="click-row">
+        <div class="font-img-item clearfix">
+            <p class="title-normal dis-inb">@L("密保问题")</p>
+            @if (Model.Questions == null || Model.Questions.Count == 0)
+            {
+                <p class="font-default color-active">@L("密保问题用于安全验证，建议立即设置")</p>
+            }
+            else
+            {
+                <p class="font-default">@L("密保问题用于安全验证")</p>
+            }
+            <i class="arrow_r"></i>
+        </div>
+        <div class="ada-btn-area" ng-click="setQuestions()">
+            @if (Model.Questions == null || Model.Questions.Count == 0)
+            {
+                <a href="javascript:void(0);" class="n-btn">@L("设置")</a>
+            }
+            else {
+                <a href="javascript:void(0);" class="n-btn">@L("修改")</a>
+            }
+        </div>
+    </li>
+</ul>

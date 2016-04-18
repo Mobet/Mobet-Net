@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="passport">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="注册，Account，Sign in，账号，帐户，登录，登陆，安全令牌，动态口令，注册，找回密码" />
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+
+    @Html.RenderPluginStyles()
+    <link href="~/Content/authorization.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="wrapper blockimportant" ng-controller="MainController">
+        <div class="wrap">
+            <div class="layout bugfix_ie6 dis_none">
+                <div class="n-logo-area clearfix">
+                    <a id="logoutLink" class="fl-r logout" href="/core/logout">退出</a>
+                </div>
+                <div class="n-account-area-box">
+                    <div class="n-account-area clearfix">
+                        <div class="na-img-area fl-l">
+                            <div class="na-img-bg-area">
+                                <img src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p01ipyFBOr98/GOF2ZyTtU5ejqs_320.jpg">
+                            </div>
+                            <em class="na-edit"></em>
+                        </div>
+                        @*<div class="na-info">
+                                <p class="na-name">穆轻寒</p>
+                                <p class="na-num">1052654699</p>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="layout">
+                @* nav layout *@
+                <div class="n-main-nav clearfix">
+                    <ul class="c_b">
+                        <li>
+                            <a href="#Security">帐号安全</a>
+                            <em class="n-nav-corner"></em>
+                        </li>
+                        <li class="current">
+                            <a href="#Profile">个人信息</a>
+                            <em class="n-nav-corner"></em>
+                        </li>
+                        <li>
+                            <a href="#Permissions">绑定授权</a>
+                            <em class="n-nav-corner"></em>
+                        </li>
+                        <li>
+                            <a href="#Services">服务</a>
+                            <em class="n-nav-corner"></em>
+                        </li>
+                    </ul>
+                </div>
+                <div class="n-frame" ui-view>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* footer layout *@
+    <div class="n-footer">
+        <div class="nf-link-area clearfix">
+            <ul class="lang-select-list">
+                <li><a class="lang-select-li current" href="javascript:void(0)" data-lang="zh-CN">简体</a>|</li>
+                <li><a class="lang-select-li" href="javascript:void(0)" data-lang="zh_TW">繁体</a>|</li>
+                <li><a class="lang-select-li" href="javascript:void(0)" data-lang="en">English</a></li>
+                <li><a class="a_critical" href="#" target="_blank"><em></em>常见问题</a></li>
+
+            </ul>
+        </div>
+        <p class="nf-intro"><span>公司版权所有-京ICP备10046444-<a class="beianlink beian-record-link" target="_blank" href="#"><span><img src="http://www.beian.gov.cn/file/ghs.png"></span>京公网安备11010802020134号</a>-京ICP证110507号</span></p>
+    </div>
+    <toaster-container toaster-options="{'time-out': 2000}"></toaster-container>
+    @Html.RenderPluginScripts()
+    @Scripts.Render("~/biz/scripts")
+</body>
+</html>

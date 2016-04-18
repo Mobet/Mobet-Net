@@ -103,11 +103,6 @@ namespace Mobet.GlobalSettings
             _settingCacheProvider.Remove(Constants.CacheNames.GlobalSettings);
             await Task.FromResult(true);
         }
-        public async Task ClearGlobalSettingCacheAsync(string name)
-        {
-            _settingCacheProvider.Remove(name);
-            await Task.FromResult(true);
-        }
 
         private GlobalSettingsProvider CreateProvider(Type providerType)
         {

@@ -58,13 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageService.cs" />
-    <Compile Include="Requests\Message\MessageSendCodeRequest.cs" />
+    <Compile Include="CaptchaService.cs" />
+    <Compile Include="Requests\BooleanResponse.cs" />
+    <Compile Include="Requests\Captcha\MessageCaptchaSendRequest.cs" />
     <Compile Include="Requests\User\UserGetProfileDataRequest.cs" />
+    <Compile Include="Requests\Captcha\EmailCaptchaSendReuquest.cs" />
+    <Compile Include="Requests\User\UserSetEmailRequest.cs" />
+    <Compile Include="Requests\User\UserSetPasswordRequest.cs" />
+    <Compile Include="Services\IMessageService.cs" />
     <Compile Include="SettingProviders\MessageSettingProvider.cs" />
     <Compile Include="Stores\GlobalSettingStore.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="MessageCaptcha.cs" />
+    <Compile Include="Captcha.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\User\UserChangeRequest.cs" />
@@ -72,11 +77,9 @@
     <Compile Include="Requests\User\UserGetPagingRequest.cs" />
     <Compile Include="Requests\User\UserLoginRequest.cs" />
     <Compile Include="Requests\User\UserRegisterByMobilephoneRequest.cs" />
-    <Compile Include="Services\IMessageService.cs" />
     <Compile Include="SettingProviders\AuthorizationSettingProvider.cs" />
     <Compile Include="SettingProviders\ResourcesSettingProvider.cs" />
     <Compile Include="Services\IUserAccountService.cs" />
-    <Compile Include="SettingProviders\EmailSettingProvider.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>

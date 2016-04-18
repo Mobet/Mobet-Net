@@ -6,8 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mobet.Domain.Models;
-using Mobet.Domain.Models.Audited;
+using Mobet.Domain.Entities.Audited;
 
 namespace Mobet.Web.SignalR.Notifications.Models
 {
@@ -20,7 +19,7 @@ namespace Mobet.Web.SignalR.Notifications.Models
         /// <summary>
         /// User Account.
         /// </summary>
-        public virtual string UserAccount { get; set; }
+        public virtual long UserId { get; set; }
 
         /// <summary>
         /// Notification Id.

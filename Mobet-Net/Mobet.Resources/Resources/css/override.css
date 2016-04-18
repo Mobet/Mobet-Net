@@ -180,6 +180,37 @@ fieldset[disabled] .btn-danger:focus,
 fieldset[disabled] .btn-danger:active,
 fieldset[disabled] .btn-danger.active { background-color: #ef6776; border-color: #ef6776; }
 
+
+
+.btn-orange { background-color: #f25807; border-color: #f25807; color: #FFFFFF; }
+
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:active,
+.btn-orange.active,
+.open .dropdown-toggle.btn-orange { background-color: #f25807; border-color: #f25807; color: #FFFFFF; }
+
+.btn-orange:active,
+.btn-orange.active,
+.open .dropdown-toggle.btn-orange { background-image: none; }
+
+.btn-orange.disabled,
+.btn-orange.disabled:hover,
+.btn-orange.disabled:focus,
+.btn-orange.disabled:active,
+.btn-orange.disabled.active,
+.btn-orange[disabled],
+.btn-orange[disabled]:hover,
+.btn-orange[disabled]:focus,
+.btn-orange[disabled]:active,
+.btn-orange.active[disabled],
+fieldset[disabled] .btn-orange,
+fieldset[disabled] .btn-orange:hover,
+fieldset[disabled] .btn-orange:focus,
+fieldset[disabled] .btn-orange:active,
+fieldset[disabled] .btn-orange.active { background-color: #f25807; border-color: #f25807; }
+
+
 .btn-link { color: inherit; }
 
 .btn-link:hover,
@@ -1244,6 +1275,10 @@ td.visible-print { display: none !important; }
 .wd-400 { width: 400px; }
 
 .wd-500 { width: 500px; }
+
+.wd-530 { width: 530px; }
+
+.wd-550 { width: 550px; }
 
 .wd-600 { width: 600px; }
 

@@ -41,26 +41,23 @@ namespace Mobet.Demo.Localization
 
             StartupConfig.RegisterDependency(cfg =>
             {
-                cfg.UseLocalization(config =>
-                {
-                    config.Sources.Add(
-                                new DictionaryBasedLocalizationSource(
-                                    "Demo",
-                                    new XmlEmbeddedFileLocalizationDictionaryProvider(
-                                        Assembly.GetExecutingAssembly(), "Mobet.Demo.Localization.Localization.XmlSources"
-                            )));
-                    config.Sources.Add(
-                                new DictionaryBasedLocalizationSource(
-                                    "Lang",
-                                    new JsonEmbeddedFileLocalizationDictionaryProvider(
-                                        Assembly.GetExecutingAssembly(),
-                                         "Mobet.Demo.Localization.Localization.JsonSources"
-                            )));
+                cfg.LocalizationConfiguration.Sources.Add(
+                            new DictionaryBasedLocalizationSource(
+                                "Demo",
+                                new XmlEmbeddedFileLocalizationDictionaryProvider(
+                                    Assembly.GetExecutingAssembly(), "Mobet.Demo.Localization.Localization.XmlSources"
+                        )));
+                cfg.LocalizationConfiguration.Sources.Add(
+                            new DictionaryBasedLocalizationSource(
+                                "Lang",
+                                new JsonEmbeddedFileLocalizationDictionaryProvider(
+                                    Assembly.GetExecutingAssembly(),
+                                     "Mobet.Demo.Localization.Localization.JsonSources"
+                        )));
 
-                    config.Sources.Add(new ResourceFileLocalizationSource("Res", Res.ResourceManager));
+                cfg.LocalizationConfiguration.Sources.Add(new ResourceFileLocalizationSource("Res", Res.ResourceManager));
 
-                    config.Sources.Add(new DbLocalizationSource("Database",new DbLocalizationDictionaryProvider()));
-                });
+                cfg.LocalizationConfiguration.Sources.Add(new DbLocalizationSource("Database", new DbLocalizationDictionaryProvider()));
 
 
                 cfg.UseDataAccessEntityFramework(x =>

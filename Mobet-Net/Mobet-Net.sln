@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.RedisCache", "Mobet.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.GlobalSettings", "Mobet.Demo.GlobalSettings\Mobet.Demo.GlobalSettings.csproj", "{780057B4-33ED-4D90-8CF3-8F336C7B8FFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.Email", "Mobet.Demo.Email\Mobet.Demo.Email.csproj", "{2045F2C3-FB36-4BF8-898F-27A7D66A703C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AzureWebSites|Any CPU = AzureWebSites|Any CPU
@@ -176,6 +178,12 @@ Global
 		{780057B4-33ED-4D90-8CF3-8F336C7B8FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780057B4-33ED-4D90-8CF3-8F336C7B8FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{780057B4-33ED-4D90-8CF3-8F336C7B8FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,5 +203,6 @@ Global
 		{FB9E026E-BAB3-498A-A954-B93B05C146A5} = {57D4A6C2-E3E4-4712-813B-E1EF7C1E17B7}
 		{839102AE-7F98-4C71-9F77-90C6DE7BEF0F} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
 		{780057B4-33ED-4D90-8CF3-8F336C7B8FFC} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
+		{2045F2C3-FB36-4BF8-898F-27A7D66A703C} = {755FB146-43A1-4CC9-A61B-A434C453B31D}
 	EndGlobalSection
 EndGlobal

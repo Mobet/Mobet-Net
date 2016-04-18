@@ -45,5 +45,17 @@ namespace Mobet.Services.Services
         /// <param name="request"></param>
         /// <returns></returns>
         UserGetProfileDataResponse GetUserProfileData(UserGetProfileDataRequest request);
+        /// <summary>
+        /// 设置/修改密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserSetPasswordResponse SetPassword(UserSetPasswordRequest request);
+        /// <summary>
+        /// 设置/修改邮箱
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UserSetEmailResponse SetEmail(UserSetEmailRequest request);
     }
 }

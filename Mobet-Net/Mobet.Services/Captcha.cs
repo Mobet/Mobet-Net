@@ -23,4 +23,20 @@ namespace Mobet.Services
         [Description("找回密码")]
         RetrievePassword = 2,
     }
+
+    /// <summary>
+    /// 邮件验证码类型
+    /// </summary>
+    public enum EmailCaptcha
+    {
+        /// <summary>
+        /// 绑定
+        /// </summary>
+        Bind = 1,
+        /// <summary>
+        /// 变更
+        /// </summary>
+        Change = 2,
+    }
+
 }

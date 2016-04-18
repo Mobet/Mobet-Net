@@ -1,0 +1,113 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="modal">
+    <div class="modal-dialog wd-550">
+        <div class="modal-content">
+            <form name="application" ng-submit="save()" class="form-horizontal">
+                <div class="modal-header">
+                    <h4 class="modal-title">@L("设置邮箱")</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row dashboard-header">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <div class="tabbar">
+                                    <div class="tab_opt">
+                                        <span class="mailtab now" style="margin-left: -21px;">输入新邮箱</span>
+                                        <span class="mailtab" style="margin-left: 80px;">验证新邮箱</span>
+                                        <span class="mailtab end" style="margin-left: 97px;">完成</span>
+                                    </div>
+                                    <div class="tabline c_b" style="margin-left: 0px;">
+                                        <i class="now"></i>
+                                        <i></i>
+                                        <i class="end"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step1 step-active">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+                                        <div class="txt_tip"><b>@L("请输入新的安全邮箱地址")</b></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">@L("邮箱地址")</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" ng-model="model.Email" placeholder="@L("邮箱地址")" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <div class="inputbg inputcode dis_box">
+                                        <label class="labelbox" for="">
+                                            <input class="code" type="text" name="icode" id="captcha" ng-model="model.Captcha" autocomplete="off" placeholder="@L("图片验证码")">
+                                        </label>
+                                        <img alt="@L("图片验证码")" title="@L("看不清换一张")" id="icode_image" class="icode_image code-image chkcode_img" src="@(GlobalSettingManager.GetSettingValueAsync(Mobet.Services.Constants.Settings.Authorization.CaptchaAddress).Result + "?type=SetEmail")">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step2" style="display:none">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+                                    <div class="txt_tip"><b>@L("我们向您新的邮件发送了验证邮件 请输入邮件中的验证码")</b></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <div class="inputbg inputcode dis_box">
+                                        <label class="labelbox" for="">
+                                            <input class="code" type="text" name="icode" id="captcha" ng-model="model.EmailCaptcha" autocomplete="off" placeholder="@L("图片验证码")">
+                                        </label>
+                                        <span class="remain">
+                                            <a class="color333 send-status disabled btn-resms" href="javascript:void(0)">
+                                                @L("重新发送")
+                                                <span id="wait-timer">(60)</span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step3 success" style="display:none">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                            </div>
+                            <div class="form-group">
+                                <center><h3>@L("您已成功修改安全邮箱！")</h3></center>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-9">
+                                <div class="err_tip_independ err_tip">@L("邮箱格式不正确")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-orange wd-100" id="btn-next-step">@L("下一步")</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

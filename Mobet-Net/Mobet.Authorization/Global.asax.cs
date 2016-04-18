@@ -45,38 +45,31 @@ namespace Mobet.Authorization
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            StartupConfig.RegisterDependency(cfg =>
+            StartupConfig.RegisterDependency(config =>
             {
                 //应用程序配置
-                cfg.UseGlobalSettings(config =>
-                {
-                    config.Providers.Add<AuthorizationSettingProvider>();
-                    config.Providers.Add<EmailSettingProvider>();
-                    config.Providers.Add<LocalizationSettingProvider>();
-                    config.Providers.Add<ResourcesSettingProvider>();
-                    config.Providers.Add<MessageSettingProvider>();
-                });
+                config.GlobalSettingsConfiguration.Providers.Add<AuthorizationSettingProvider>();
+                config.GlobalSettingsConfiguration.Providers.Add<LocalizationSettingProvider>();
+                config.GlobalSettingsConfiguration.Providers.Add<ResourcesSettingProvider>();
+                config.GlobalSettingsConfiguration.Providers.Add<MessageSettingProvider>();
+
                 //本地化
-                cfg.UseLocalization(config =>
-                {
-                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Messages, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Messages)));
-                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Events, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Events)));
-                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Scopes, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Scopes)));
-                    config.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Views, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Views)));
+                config.LocalizationConfiguration.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Messages, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Messages)));
+                config.LocalizationConfiguration.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Events, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Events)));
+                config.LocalizationConfiguration.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Scopes, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Scopes)));
+                config.LocalizationConfiguration.Sources.Add(new DictionaryBasedLocalizationSource(Constants.Localization.SourceName.Views, new XmlEmbeddedFileLocalizationDictionaryProvider(Assembly.GetExecutingAssembly(), Constants.Localization.RootNamespace.Views)));
 
-                });
                 //EF 连接字符串
-                cfg.UseDataAccessEntityFramework(config =>
+                config.UseDataAccessEntityFramework(cfg =>
                 {
-                    config.DefaultNameOrConnectionString = "Mobet.Authorization";
+                    cfg.DefaultNameOrConnectionString = "Mobet.Authorization";
                 });
 
-                cfg
+                config
                    .UseAuditing()
                    .UseAutoMapper();
 
-                cfg.RegisterWebMvcApplication(new ConventionalRegistrarConfig());
-
+                config.RegisterWebMvcApplication(new ConventionalRegistrarConfig());
             });
         }
 

@@ -53,7 +53,7 @@ namespace Mobet.Web.SignalR.Notifications
             {
                 try
                 {
-                    var onlineClient = _onlineClientManager.GetByUserIdOrNull(userNotification.UserAccount);
+                    var onlineClient = _onlineClientManager.GetByUserIdOrNull(userNotification.UserId);
                     if (onlineClient == null)
                     {
                         continue;
@@ -62,7 +62,7 @@ namespace Mobet.Web.SignalR.Notifications
                     var signalRClient = CommonHub.Clients.Client(onlineClient.ConnectionId);
                     if (signalRClient == null)
                     {
-                        Logger.Debug("Can not get user " + userNotification.UserAccount + " from SignalR hub!");
+                        Logger.Debug("Can not get user " + userNotification.UserId + " from SignalR hub!");
                         continue;
                     }
 
@@ -70,7 +70,7 @@ namespace Mobet.Web.SignalR.Notifications
                 }
                 catch (Exception ex)
                 {
-                    Logger.Warn("Could not send notification to userId: " + userNotification.UserAccount);
+                    Logger.Warn("Could not send notification to userId: " + userNotification.UserId);
                     Logger.Warn(ex.ToString(), ex);
                 }
             }

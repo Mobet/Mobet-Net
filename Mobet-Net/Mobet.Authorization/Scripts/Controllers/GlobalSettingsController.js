@@ -69,7 +69,7 @@
                              { "mDataProp": "Name", "sWidth": "70px", "bAutoWidth": false, "bSortable": false, "sTitle": "<span class='datatables-check-all'>全选</span>", "sClass": "center", "mRender": function () { return "<input class='datatable-checks' type='checkbox' />"; } },
                              { "mDataProp": "DisplayName", "sWidth": "200px", "bSortable": false, "sTitle": "显示名称" },
                              { "mDataProp": "Name", "sWidth": "200px", "bSortable": false, "sTitle": "名称" },
-                             { "mDataProp": "Value", "sTitle": "值", "bSortable": false, "mRender": function (v) { if (v.length > 80) { return v.substring(0, 80) + '...'; } return v; } },
+                             { "mDataProp": "Value", "sTitle": "值", "bSortable": false, "mRender": function (v) { if (v  && v.length > 80) { return v.substring(0, 80) + '...'; } return v; } },
                              { "mDataProp": "Description", "sWidth": "200px", "bSortable": false, "sTitle": "说明" },
 
                 ],

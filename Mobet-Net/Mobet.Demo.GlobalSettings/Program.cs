@@ -28,10 +28,8 @@ namespace Mobet.Demo.GlobalSettings
         {
             StartupConfig.RegisterDependency(cfg =>
             {
-                cfg.UseGlobalSettings(x =>
-                {
-                    x.Providers.Add<ResourcesGlobalSettingProvider>();
-                });
+                cfg.GlobalSettingsConfiguration.Providers.Add<ResourcesGlobalSettingProvider>();
+               
                 cfg.UseDataAccessEntityFramework(x =>
                 {
                     x.DefaultNameOrConnectionString = "Mobet.Authorization";

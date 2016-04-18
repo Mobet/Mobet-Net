@@ -21,16 +21,15 @@ using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Extensions;
 using Mobet.Utils;
 using Mobet.Runtime.Security;
+using Mobet.Net.Mail;
 
 namespace Mobet.Services
 {
     public class UserService : UserServiceBase, IUserService
     {
-        public IUserRepository UserRepository { get; set; }
-
-        public ICacheManager CacheManager { get; set; }
-
-        public IUnitOfWorkManager UnitOfWorkManager { get; set; }
+        private readonly IUserRepository userRepository;
+        private readonly ICacheManager cacheManager;
+        private readonly IUnitOfWorkManager unitOfWorkManager;
 
         public ILocalizationManager LocalizationManager { get; set; }
 
@@ -42,9 +41,9 @@ namespace Mobet.Services
         /// <param name="unitOfWorkManager"></param>
         public UserService(IUserRepository userRepository, ICacheManager cacheManager, IUnitOfWorkManager unitOfWorkManager)
         {
-            UserRepository = userRepository;
-            CacheManager = cacheManager;
-            UnitOfWorkManager = unitOfWorkManager;
+            this.userRepository = userRepository;
+            this.cacheManager = cacheManager;
+            this.unitOfWorkManager = unitOfWorkManager;
             LocalizationManager = NullLocalizationManager.Instance;
         }
 
@@ -56,7 +55,7 @@ namespace Mobet.Services
         public UserGetPagingResponse GetPaging(UserGetPagingRequest request)
         {
             int total = 0;
-            var models = UserRepository.Models
+            var models = userRepository.Models
                             .WhereIf(!string.IsNullOrEmpty(request.Name), x => x.Name == request.Name)
                             .OrderBy(x => request.Sorting)
                             .Paging(request.PageIndex, request.PageSize, out total);
@@ -71,7 +70,7 @@ namespace Mobet.Services
         /// <returns></returns>
         public UserCreateResponse Create(UserCreateRequest request)
         {
-            if (UserRepository.Any(x => x.Telphone == request.Telphone))
+            if (userRepository.Any(x => x.Telphone == request.Telphone))
             {
                 return new UserCreateResponse
                 {
@@ -83,7 +82,7 @@ namespace Mobet.Services
             model.Salt = Guid.NewGuid().ToString().ToUpper();
             model.Subject = Guid.NewGuid().ToString().ToUpper();
             model.Password = CryptoManager.EncryptMD5(request.Password + model.Salt).ToUpper();
-            UserRepository.Add(model);
+            userRepository.Add(model);
             return new UserCreateResponse
             {
                 Result = true,
@@ -100,7 +99,48 @@ namespace Mobet.Services
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// 设置用户密码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UserSetPasswordResponse SetPassword(UserSetPasswordRequest request)
+        {
+            var model = userRepository.Find(request.Id.TryInt(0));
 
+            if (model == null)
+            {
+                return new UserSetPasswordResponse(false, "未知用户");
+            }
+
+            if (model.Password != CryptoManager.EncryptMD5(request.OldPassword + model.Salt).ToUpper())
+            {
+                return new UserSetPasswordResponse(false, "原密码错误");
+            }
+
+            model.Password = CryptoManager.EncryptMD5(request.Password + model.Salt).ToUpper();
+
+            userRepository.UpdateProperty(model, x => new { x.Password });
+
+            return new UserSetPasswordResponse(true, "密码修改成功");
+        }
+        /// <summary>
+        /// 设置用户邮箱
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UserSetEmailResponse SetEmail(UserSetEmailRequest request)
+        {
+            var model = userRepository.Find(request.Id.TryInt(0));
+
+            if (model == null)
+            {
+                return new UserSetEmailResponse(false, "未知用户");
+            }
+            userRepository.UpdateProperty(model, x => new { x.Email });
+
+            return new UserSetEmailResponse(true, "邮箱修改成功");
+        }
         /// <summary>
         /// 使用手机号注册
         /// </summary>
@@ -123,7 +163,7 @@ namespace Mobet.Services
         /// <returns></returns>
         public UserGetProfileDataResponse GetUserProfileData(UserGetProfileDataRequest request)
         {
-            var model = UserRepository.FirstOrDefault(x => x.Subject == request.UserId);
+            var model = userRepository.FirstOrDefault(x => x.Subject == request.UserId);
             if (model == null)
             {
                 return new UserGetProfileDataResponse();
@@ -138,11 +178,11 @@ namespace Mobet.Services
         /// <returns></returns>
         public override Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            using (var uow = UnitOfWorkManager.Begin())
+            using (var uow = unitOfWorkManager.Begin())
             {
                 // issue the claims for the user
                 string subject = context.Subject.GetSubjectId();
-                var model = UserRepository.FirstOrDefault(x => x.Subject == subject);
+                var model = userRepository.FirstOrDefault(x => x.Subject == subject);
                 if (model != null)
                 {
                     var user = model.MapTo<Models.User>();
@@ -165,9 +205,9 @@ namespace Mobet.Services
         /// <returns></returns>
         public override Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
-            using (var uow = UnitOfWorkManager.Begin())
+            using (var uow = unitOfWorkManager.Begin())
             {
-                var model = UserRepository.FirstOrDefault(x => x.Telphone == context.UserName || x.Email == context.UserName);
+                var model = userRepository.FirstOrDefault(x => x.Telphone == context.UserName || x.Email == context.UserName);
 
                 if (model != null && model.Password == CryptoManager.EncryptMD5(context.Password + model.Salt).ToUpper())
                 {

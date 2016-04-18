@@ -32,7 +32,7 @@ namespace Mobet.Web.SignalR.Hubs
             var client = new OnlineClient(
                 Context.ConnectionId,
                 GetIpAddressOfClient(),
-                AppSession.UserAccount
+                AppSession.UserId
                 );
 
             Logger.Debug("A client is connected: " + client);

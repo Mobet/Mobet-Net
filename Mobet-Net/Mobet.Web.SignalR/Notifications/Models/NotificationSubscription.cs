@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
-using Mobet.Domain.Models;
-using Mobet.Domain.Models.Audited;
+using Mobet.Domain.Entities.Audited;
 
 namespace Mobet.Web.SignalR.Notifications.Models
 {

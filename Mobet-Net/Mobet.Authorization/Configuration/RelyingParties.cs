@@ -25,7 +25,7 @@ namespace Mobet.Authorization.Configuration
 
                     ClaimMappings = new Dictionary<string,string>
                     {
-                        { "sub", ClaimTypes.NameIdentifier },
+                        { "id", ClaimTypes.NameIdentifier },
                         { "given_name", ClaimTypes.Name },
                         { "email", ClaimTypes.Email }
                     }
@@ -40,7 +40,7 @@ namespace Mobet.Authorization.Configuration
 
                     ClaimMappings = new Dictionary<string, string>
                     {
-                        { "sub", ClaimTypes.NameIdentifier },
+                        { "id", ClaimTypes.NameIdentifier },
                         { "name", ClaimTypes.Name },
                         { "email", ClaimTypes.Email }
                     }

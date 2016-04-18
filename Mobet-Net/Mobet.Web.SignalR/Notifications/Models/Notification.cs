@@ -1,5 +1,4 @@
-﻿using Mobet.Domain.Models;
-using Mobet.Domain.Models.Audited;
+﻿using Mobet.Domain.Entities.Audited;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

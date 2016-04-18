@@ -45,10 +45,6 @@ namespace Mobet.GlobalSettings
         /// Clear cache.
         /// </summary>
         Task ClearGlobalSettingCacheAsync();
-        /// <summary>
-        /// Clear cache.
-        /// </summary>
-        Task ClearGlobalSettingCacheAsync(string name);
 
     }
 }

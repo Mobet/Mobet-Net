@@ -2,7 +2,7 @@
 
 }
 <!DOCTYPE html>
-<html>
+<html ng-app="passport">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -23,15 +23,16 @@
                 </div>
                 <div class="n-account-area-box">
                     <div class="n-account-area clearfix">
-                        <div class="na-info">
-                            <p class="na-name">穆轻寒</p>
-                            <p class="na-num">1052654699</p>
-                        </div>
                         <div class="na-img-area fl-l">
                             <div class="na-img-bg-area">
                                 <img src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p01ipyFBOr98/GOF2ZyTtU5ejqs_320.jpg">
                             </div>
+                            <em class="na-edit"></em>
                         </div>
+                        @*<div class="na-info">
+                            <p class="na-name">穆轻寒</p>
+                            <p class="na-num">1052654699</p>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -40,48 +41,45 @@
                 <div class="n-main-nav clearfix">
                     <ul class="c_b">
                         <li>
-                            @Html.ActionLink("帐号安全", "security", "account")
+                            <a href="/Account/Security">帐号安全</a>
                             <em class="n-nav-corner"></em>
                         </li>
                         <li>
-                            @Html.ActionLink("个人信息", "profile", "account")
+                            <a href="/Account/Profile">个人信息</a>
                             <em class="n-nav-corner"></em>
                         </li>
                         <li>
-                            @Html.ActionLink("登录设备", "drivers", "account")
+                            <a href="/Account/Permissions">绑定授权</a>
                             <em class="n-nav-corner"></em>
                         </li>
                         <li>
-                            @Html.ActionLink("绑定授权", "permissions", "core")
-                            <em class="n-nav-corner"></em>
-                        </li>
-                        <li>
-                            @Html.ActionLink("服务", "oauth2", "services")
+                            <a href="/Account/Services">服务</a>
                             <em class="n-nav-corner"></em>
                         </li>
                     </ul>
                 </div>
-                @RenderBody()
+                <div class="n-frame" ui-view>
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>
 
-    @* footer layout *@ 
+    @* footer layout *@
     <div class="n-footer">
         <div class="nf-link-area clearfix">
             <ul class="lang-select-list">
                 <li><a class="lang-select-li current" href="javascript:void(0)" data-lang="zh-CN">简体</a>|</li>
                 <li><a class="lang-select-li" href="javascript:void(0)" data-lang="zh_TW">繁体</a>|</li>
                 <li><a class="lang-select-li" href="javascript:void(0)" data-lang="en">English</a></li>
-
-                |
                 <li><a class="a_critical" href="#" target="_blank"><em></em>常见问题</a></li>
 
             </ul>
         </div>
         <p class="nf-intro"><span>公司版权所有-京ICP备10046444-<a class="beianlink beian-record-link" target="_blank" href="#"><span><img src="http://www.beian.gov.cn/file/ghs.png"></span>京公网安备11010802020134号</a>-京ICP证110507号</span></p>
     </div>
-    @Html.RenderScript("resources/plugins/jquery-2.1.1/jquery.2.1.1.min.js")
-    @RenderSection("scripts", required: false)
+    <toaster-container toaster-options="{'time-out': 2000}"></toaster-container>
+    @Html.RenderPluginScripts()
+    @Scripts.Render("~/biz/scripts")
 </body>
 </html>

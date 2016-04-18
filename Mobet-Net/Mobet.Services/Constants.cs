@@ -96,11 +96,16 @@ namespace Mobet.Services
 
         public static class CacheNames
         {
-            public const string MessageCaptcha = "AUTHORIZATION:MESSAGE_CODE:{0}_{1}_{2}";
+            public const string MessageCaptcha = "AUTHORIZATION:MESSAGE_CAPTCHA_CODE:{0}_{1}_{2}";
+            public const string EmailCaptcha = "AUTHORIZATION:EMAIL_CAPTCH_CODE:{0}_{1}_{2}";
         }
 
-        public static class CookieNames {
-            public const string Captcha = "__mobet.signup.captcha";
+        public static class CookieNames
+        {
+            public const string CaptchaSignup = "__mobet.signup.captcha";
+
+            public const string CaptchSetPassword = "__mobet.passport.setpassword.captch";
+
         }
 
 
@@ -110,22 +115,16 @@ namespace Mobet.Services
             {
                 public const string Domain = "Settings.Resources.Domain";
             }
-
-            public static class Email
-            {
-                public const string MailSMTP = "Settings.Email.SMTP";
-                public const string MailUserName = "Settings.Email.UserName";
-                public const string MailPassword = "Settings.Email.Password";
-                public const string MailPort = "Settings.Email.Port";
-            }
+            
             public static class Authorization
             {
                 public const string Domain = "Settings.Authorization.Domain";
                 public const string CaptchaAddress = "Settings.Authorization.CaptchaAddress";
-                
+
             }
 
-            public static class Message {
+            public static class Message
+            {
                 public const string MessageContentTemplate = "Settings.Message.ContentTemplate";
                 public const string MessageSeverUrl = "Settings.Message.SeverUrl";
                 public const string MessageDeptType = "Settings.Message.DeptType";

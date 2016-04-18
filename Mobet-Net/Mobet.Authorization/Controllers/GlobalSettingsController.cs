@@ -47,7 +47,7 @@ namespace Mobet.Authorization.Controllers
         public async Task<JsonResult> AddOrUpdate(GlobalSetting data)
         {
             await GlobalSettingManager.AddOrUpdateSettingAsync(data);
-            await GlobalSettingManager.ClearGlobalSettingCacheAsync(data.Name);
+            await GlobalSettingManager.ClearGlobalSettingCacheAsync();
 
             return Json(new MvcAjaxResponse("保存成功"));
         }

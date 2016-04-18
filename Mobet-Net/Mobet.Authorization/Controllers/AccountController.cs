@@ -16,9 +16,9 @@ using Mobet.Authorization.Controllers.Shared;
 using Mobet.Web.Models;
 
 using Constants = Mobet.Services.Constants;
+using IUserService = Mobet.Services.Services.IUserService;
 using Mobet.Runtime.Security;
 using Mobet.Services.Services;
-using Mobet.Services.Requests.Message;
 using System.Threading.Tasks;
 using Mobet.Caching;
 using Mobet.Services;
@@ -27,20 +27,26 @@ using Mobet.AutoMapper;
 using Mobet.Runtime.Session;
 using System.Threading;
 using Newtonsoft.Json;
+using IdentityServer3.Core.Services;
+
+using System.Web.Http.Owin;
+using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Configuration.Hosting;
+using Mobet.Services.Requests.Captcha;
 
 namespace Mobet.Authorization.Controllers
 {
     public class AccountController : BaseController
     {
-        public ICacheManager CacheManager { get; set; }
-        public IMessageService MessageService { get; set; }
-        public IUserService UserService { get; set; }
+        private readonly ICacheManager cacheManager;
+        private readonly ICaptchaService captchaService;
+        private readonly IUserService userService;
 
-        public AccountController(IMessageService messageService, ICacheManager cacheManager, IUserService userService)
+        public AccountController(ICaptchaService messageService, ICacheManager cacheManager, IUserService userService)
         {
-            MessageService = messageService;
-            CacheManager = cacheManager;
-            UserService = userService;
+            this.captchaService = messageService;
+            this.cacheManager = cacheManager;
+            this.userService = userService;
         }
         public ActionResult Index()
         {
@@ -72,9 +78,14 @@ namespace Mobet.Authorization.Controllers
         {
             return this.View(model);
         }
+        /// <summary>
+        /// 绑定授权
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult Permissions(ClientPermissionsViewModel model)
         {
-            return this.View(model);
+            return View(model);
         }
         public virtual ActionResult Error(Web.Models.ErrorViewModel model)
         {
@@ -84,8 +95,10 @@ namespace Mobet.Authorization.Controllers
         [HttpGet]
         public ActionResult GetCaptcha()
         {
-            return File(Captcha.GetBytes(Constants.CookieNames.Captcha), @"image/jpeg");
+            return File(Runtime.Cookie.Captcha.GetBytes(Constants.CookieNames.CaptchaSignup), @"image/jpeg");
         }
+
+
 
         [HttpPost]
         public async Task<JsonResult> ValidateCaptchaAndSendMessageCode(string telphone, string captcha)
@@ -94,15 +107,17 @@ namespace Mobet.Authorization.Controllers
             {
                 return Json(new MvcAjaxResponse(false, "无效的手机号码"));
             }
-            if (CryptoManager.DecryptDES(CookieManager.GetCookieValue(Constants.CookieNames.Captcha)) != captcha)
+
+            if (CryptoManager.DecryptDES(CookieManager.GetCookieValue(Constants.CookieNames.CaptchaSignup)) != captcha)
             {
                 return Json(new MvcAjaxResponse(false, "错误的验证码"));
             }
 
-            var response = await MessageService.MessageCaptchaSendAsync(new MessageCaptchaSendRequest
+            var response = await captchaService.MessageCaptchaSendAsync(new MessageCaptchaSendRequest
             {
-                MessageCaptcha = Mobet.Services.MessageCaptcha.Register,
-                Telphone = telphone
+                Captcha = Mobet.Services.MessageCaptcha.Register,
+                Telphone = telphone,
+                ExpiredTime = 30
             });
 
             return Json(new MvcAjaxResponse(response.Result, response.Message));
@@ -111,7 +126,7 @@ namespace Mobet.Authorization.Controllers
         [HttpPost]
         public JsonResult ValidateMessageCaptcha(string captcha, string telphone)
         {
-            if (CacheManager.Get<string>(string.Format(Constants.CacheNames.MessageCaptcha, MessageCaptcha.Register, telphone, captcha)) != captcha)
+            if (this.cacheManager.Get<string>(string.Format(Constants.CacheNames.MessageCaptcha, Mobet.Services.MessageCaptcha.Register, telphone, captcha)) != captcha)
             {
                 return Json(new MvcAjaxResponse(false, "短信验证码无效"));
             }
@@ -125,7 +140,7 @@ namespace Mobet.Authorization.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = UserService.RegisterByTelphone(model.MapTo<UserRegisterByTelphoneRequest>());
+                var response = userService.RegisterByTelphone(model.MapTo<UserRegisterByTelphoneRequest>());
                 if (response.Result)
                 {
                     return Redirect("/core/" + IdentityServer3.Core.Constants.RoutePaths.Login + "?signin=" + signin);
@@ -139,7 +154,7 @@ namespace Mobet.Authorization.Controllers
         [HttpPost]
         public JsonResult GetUserProfileData()
         {
-            var model = UserService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId });
+            var model = userService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId });
             return Json(new MvcAjaxResponse(model));
         }
     }

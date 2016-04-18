@@ -32,6 +32,8 @@ using Mobet.Events.Modules;
 using Mobet.Localization.Configuration;
 using Mobet.Localization.Modules;
 using Mobet.Runtime.Session;
+using Mobet.Net.Mail.Configuration;
+using Mobet.Net.Mail;
 
 namespace Mobet.Configuration.Startup
 {
@@ -53,6 +55,10 @@ namespace Mobet.Configuration.Startup
         /// 全局设置配置
         /// </summary>
         public IGlobalSettingsConfiguration GlobalSettingsConfiguration { get;set; }
+        /// <summary>
+        /// 本地化配置
+        /// </summary>
+        public ILocalizationConfiguration LocalizationConfiguration { get; set; }
 
         public StartupConfiguration()
         {
@@ -61,11 +67,15 @@ namespace Mobet.Configuration.Startup
             IocManager.Instance.AddConventionalRegistrar(new EventBusConventionalRegistras());
 
             IocManager.Instance.RegisterIfNot<ICacheManager, NetCacheManager>();
+
             IocManager.Instance.RegisterIfNot<IUnitOfWorkDefaultOptionsConfiguration, UnitOfWorkDefaultOptionsConfiguration>();
             IocManager.Instance.RegisterIfNot<ILocalizationConfiguration, LocalizationConfiguration>();
             IocManager.Instance.RegisterIfNot<IGlobalSettingsConfiguration, GlobalSettingsConfiguration>();
+            IocManager.Instance.RegisterIfNot<IEmailSettingConfiguration, EmailSettingConfiguration>();
+
             IocManager.Instance.RegisterIfNot<IGlobalSettingManager, GlobalSettingManager>();
             IocManager.Instance.RegisterIfNot<IGlobalSettingStore, SimpleGlobalSettingStore>(DependencyLifeStyle.Transient);
+
             IocManager.Instance.RegisterIfNot<IAppSession, AppClaimsSession>(DependencyLifeStyle.Transient);
 
 
@@ -76,6 +86,10 @@ namespace Mobet.Configuration.Startup
 
             UnitOfWorkDefaultOptionsConfiguration = IocManager.Instance.Resolve<IUnitOfWorkDefaultOptionsConfiguration>();
             GlobalSettingsConfiguration = IocManager.Instance.Resolve<IGlobalSettingsConfiguration>();
+            LocalizationConfiguration = IocManager.Instance.Resolve<ILocalizationConfiguration>();
+
+
+            GlobalSettingsConfiguration.Providers.Add<EmailSettingProvider>();
         }
 
     }
@@ -88,23 +102,6 @@ namespace Mobet.Configuration.Startup
         {
             IocManager.Instance.RegisterWithParameter<ILoggerFactory, Log4netFactory>("configFile", configFile);
             IocManager.Instance.RegisterModule(new LoggingModule());
-            return bootstrap;
-        }
-
-        public static StartupConfiguration UseGlobalSettings(this StartupConfiguration bootstrap, Action<IGlobalSettingsConfiguration> invoke = null)
-        {
-            if (invoke != null)
-            {
-                invoke(IocManager.Instance.Resolve<IGlobalSettingsConfiguration>());
-            }
-            return bootstrap;
-        }
-        public static StartupConfiguration UseLocalization(this StartupConfiguration bootstrap, Action<ILocalizationConfiguration> invoke = null)
-        {
-            if (invoke != null)
-            {
-                invoke(IocManager.Instance.Resolve<ILocalizationConfiguration>());
-            }
             return bootstrap;
         }
         public static StartupConfiguration RegisterWebMvcApplication(this StartupConfiguration bootstrap, params IModule[] modules)

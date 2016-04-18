@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Mobet.Authorization.Controllers.Shared
 {
-    public class DataTablesParam<TEntity> where TEntity : class
+    public class DataTablesParam<TEntity> where TEntity : class, new()
     {
         public DataTablesParam()
         {
@@ -15,7 +15,7 @@ namespace Mobet.Authorization.Controllers.Shared
             this.Search = new List<string>();
             this.Order = new List<string>();
 
-            this.Data = default(TEntity);
+            this.Data = new TEntity();
         }
 
         public TEntity Data { get; set; }
