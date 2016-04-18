@@ -53,6 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201603171038031_01.cs" />
+    <Compile Include="Migrations\201603171038031_01.Designer.cs">
+      <DependentUpon>201603171038031_01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603180256356_02.cs" />
+    <Compile Include="Migrations\201603180256356_02.Designer.cs">
+      <DependentUpon>201603180256356_02.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201604010411158_03.cs" />
     <Compile Include="Migrations\201604010411158_03.Designer.cs">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
@@ -69,6 +77,73 @@
     <Compile Include="Migrations\201604080907265_06.Designer.cs">
       <DependentUpon>201604080907265_06.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201502141840113_InitialCreate.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201502141840113_InitialCreate.Designer.cs">
+      <DependentUpon>201502141840113_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201502272058115_v1_2_0.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201502272058115_v1_2_0.Designer.cs">
+      <DependentUpon>201502272058115_v1_2_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201508121544453_v2_0_0.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201508121544453_v2_0_0.Designer.cs">
+      <DependentUpon>201508121544453_v2_0_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201511200152416_v2_2_0.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201511200152416_v2_2_0.Designer.cs">
+      <DependentUpon>201511200152416_v2_2_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201512191738558_v2_3_0.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201512191738558_v2_3_0.Designer.cs">
+      <DependentUpon>201512191738558_v2_3_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\201601182229205_v2_4_0.cs" />
+    <Compile Include="Migrations\ClientConfiguration\201601182229205_v2_4_0.Designer.cs">
+      <DependentUpon>201601182229205_v2_4_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClientConfiguration\Configuration.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201502141840136_InitialCreate.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201502141840136_InitialCreate.Designer.cs">
+      <DependentUpon>201502141840136_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\OperationalConfiguration\201504070214592_v2_0_0.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201504070214592_v2_0_0.Designer.cs">
+      <DependentUpon>201504070214592_v2_0_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\OperationalConfiguration\201511200152558_v2_2_0.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201511200152558_v2_2_0.Designer.cs">
+      <DependentUpon>201511200152558_v2_2_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\OperationalConfiguration\201512191739129_v2_3_0.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201512191739129_v2_3_0.Designer.cs">
+      <DependentUpon>201512191739129_v2_3_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\OperationalConfiguration\201601182229361_v2_4_0.cs" />
+    <Compile Include="Migrations\OperationalConfiguration\201601182229361_v2_4_0.Designer.cs">
+      <DependentUpon>201601182229361_v2_4_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\OperationalConfiguration\Configuration.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201502141840088_InitialCreate.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201502141840088_InitialCreate.Designer.cs">
+      <DependentUpon>201502141840088_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ScopeConfiguration\201504070215165_v2_0_0.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201504070215165_v2_0_0.Designer.cs">
+      <DependentUpon>201504070215165_v2_0_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ScopeConfiguration\201511200152080_v2_2_0.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201511200152080_v2_2_0.Designer.cs">
+      <DependentUpon>201511200152080_v2_2_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ScopeConfiguration\201512191738380_v2_3_0.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201512191738380_v2_3_0.Designer.cs">
+      <DependentUpon>201512191738380_v2_3_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ScopeConfiguration\201601182228505_v2_4_0.cs" />
+    <Compile Include="Migrations\ScopeConfiguration\201601182228505_v2_4_0.Designer.cs">
+      <DependentUpon>201601182228505_v2_4_0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ScopeConfiguration\Configuration.cs" />
     <Compile Include="ModelsContainer.cs" />
     <Compile Include="Mappings\RoleMenusMapping.cs" />
     <Compile Include="Mappings\UserRolesMapping.cs" />
@@ -101,6 +176,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603171038031_01.resx">
+      <DependentUpon>201603171038031_01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603180256356_02.resx">
+      <DependentUpon>201603180256356_02.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604010411158_03.resx">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +194,57 @@
     <EmbeddedResource Include="Migrations\201604080907265_06.resx">
       <DependentUpon>201604080907265_06.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201502141840113_InitialCreate.resx">
+      <DependentUpon>201502141840113_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201502272058115_v1_2_0.resx">
+      <DependentUpon>201502272058115_v1_2_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201508121544453_v2_0_0.resx">
+      <DependentUpon>201508121544453_v2_0_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201511200152416_v2_2_0.resx">
+      <DependentUpon>201511200152416_v2_2_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201512191738558_v2_3_0.resx">
+      <DependentUpon>201512191738558_v2_3_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ClientConfiguration\201601182229205_v2_4_0.resx">
+      <DependentUpon>201601182229205_v2_4_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\OperationalConfiguration\201502141840136_InitialCreate.resx">
+      <DependentUpon>201502141840136_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\OperationalConfiguration\201504070214592_v2_0_0.resx">
+      <DependentUpon>201504070214592_v2_0_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\OperationalConfiguration\201511200152558_v2_2_0.resx">
+      <DependentUpon>201511200152558_v2_2_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\OperationalConfiguration\201512191739129_v2_3_0.resx">
+      <DependentUpon>201512191739129_v2_3_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\OperationalConfiguration\201601182229361_v2_4_0.resx">
+      <DependentUpon>201601182229361_v2_4_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ScopeConfiguration\201502141840088_InitialCreate.resx">
+      <DependentUpon>201502141840088_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ScopeConfiguration\201504070215165_v2_0_0.resx">
+      <DependentUpon>201504070215165_v2_0_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ScopeConfiguration\201511200152080_v2_2_0.resx">
+      <DependentUpon>201511200152080_v2_2_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ScopeConfiguration\201512191738380_v2_3_0.resx">
+      <DependentUpon>201512191738380_v2_3_0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ScopeConfiguration\201601182228505_v2_4_0.resx">
+      <DependentUpon>201601182228505_v2_4_0.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\数据迁移说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

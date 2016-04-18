@@ -1,0 +1,12 @@
+﻿
+//执行以下命令开启IdentityServer数据迁移
+
+Enable-Migrations -MigrationsDirectory Migrations\ClientConfiguration -ContextTypeName ClientConfigurationDbContext
+Enable-Migrations -MigrationsDirectory Migrations\ScopeConfiguration -ContextTypeName ScopeConfigurationDbContext
+Enable-Migrations -MigrationsDirectory Migrations\OperationalConfiguration -ContextTypeName OperationalDbContext
+
+//执行一下命令初始化IdentityServer数据迁移
+
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ClientConfiguration.Configuration
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ScopeConfiguration.Configuration
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.OperationalConfiguration.Configuration
