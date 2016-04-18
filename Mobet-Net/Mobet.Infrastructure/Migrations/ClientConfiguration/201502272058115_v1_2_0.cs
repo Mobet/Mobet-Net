@@ -1,4 +1,4 @@
-namespace SelfHost.Migrations.ClientConfiguration
+namespace Mobet.Infrastructure.Migrations.ClientConfiguration
 {
     using System;
     using System.Data.Entity.Migrations;

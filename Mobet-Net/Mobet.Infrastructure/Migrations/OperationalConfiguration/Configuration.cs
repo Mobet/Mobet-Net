@@ -1,4 +1,4 @@
-namespace SelfHost.Migrations.OperationalConfiguration
+namespace Mobet.Infrastructure.Migrations.OperationalConfiguration
 {
     using System;
     using System.Data.Entity;

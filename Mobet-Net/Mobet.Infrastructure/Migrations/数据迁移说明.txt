@@ -7,6 +7,6 @@ Enable-Migrations -MigrationsDirectory Migrations\OperationalConfiguration -Cont
 
 //执行一下命令初始化IdentityServer数据迁移
 
-Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ClientConfiguration.Configuration
-Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ScopeConfiguration.Configuration
-Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.OperationalConfiguration.Configuration
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ClientConfiguration.Configuration -ConnectionStringName IdSvr3Config
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.ScopeConfiguration.Configuration -ConnectionStringName IdSvr3Config
+Update-Database -ConfigurationTypeName Mobet.Infrastructure.Migrations.OperationalConfiguration.Configuration -ConnectionStringName IdSvr3Config
