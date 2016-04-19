@@ -2,6 +2,7 @@
 using Mobet.Authorization.Models;
 using Mobet.Authorization.Models.Passport;
 using Mobet.Caching;
+using Mobet.Extensions;
 using Mobet.Net.Mail;
 using Mobet.Runtime.Cookie;
 using Mobet.Runtime.Security;
@@ -52,6 +53,9 @@ namespace Mobet.Authorization.Controllers
         /// <returns></returns>
         public ActionResult Security(PassportSecurityViewModel model)
         {
+            var user = userService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId.TryInt(0) }).Model ?? new Mobet.Services.Models.User();
+            model.Email = user.Email;
+            model.Telphone = user.Telphone;
             return View(model);
         }
         /// <summary>
@@ -137,7 +141,7 @@ namespace Mobet.Authorization.Controllers
             {
                 return Json(new MvcAjaxResponse(false, "邮件验证码无效"));
             }
-            var response = userService.SetEmail(new UserSetEmailRequest { Email = email });
+            var response = userService.SetEmail(new UserSetEmailRequest { Id = AppSession.UserId, Email = email });
             return Json(new MvcAjaxResponse(response.Result, response.Message));
         }
 

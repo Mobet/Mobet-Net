@@ -38,6 +38,7 @@ namespace Mobet.Infrastructure
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<GlobalSetting> GlobalSettings { get; set; }
+        
 
     }
 }

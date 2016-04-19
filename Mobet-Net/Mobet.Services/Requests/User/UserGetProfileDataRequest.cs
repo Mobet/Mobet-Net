@@ -13,7 +13,7 @@ namespace Mobet.Services.Requests.User
         /// 用户Id
         /// </summary>
         [Required]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
     }
 
     public class UserGetProfileDataResponse

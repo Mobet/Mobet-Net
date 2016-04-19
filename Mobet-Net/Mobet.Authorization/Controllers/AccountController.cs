@@ -33,6 +33,7 @@ using System.Web.Http.Owin;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Configuration.Hosting;
 using Mobet.Services.Requests.Captcha;
+using Mobet.Extensions;
 
 namespace Mobet.Authorization.Controllers
 {
@@ -154,7 +155,7 @@ namespace Mobet.Authorization.Controllers
         [HttpPost]
         public JsonResult GetUserProfileData()
         {
-            var model = userService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId });
+            var model = userService.GetUserProfileData(new UserGetProfileDataRequest { UserId = AppSession.UserId.TryInt(0) });
             return Json(new MvcAjaxResponse(model));
         }
     }

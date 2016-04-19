@@ -73,14 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201603171038031_01.cs" />
-    <Compile Include="Migrations\201603171038031_01.Designer.cs">
-      <DependentUpon>201603171038031_01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603180256356_02.cs" />
-    <Compile Include="Migrations\201603180256356_02.Designer.cs">
-      <DependentUpon>201603180256356_02.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201604010411158_03.cs" />
     <Compile Include="Migrations\201604010411158_03.Designer.cs">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
@@ -196,12 +188,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603171038031_01.resx">
-      <DependentUpon>201603171038031_01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603180256356_02.resx">
-      <DependentUpon>201603180256356_02.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604010411158_03.resx">
       <DependentUpon>201604010411158_03.cs</DependentUpon>
     </EmbeddedResource>

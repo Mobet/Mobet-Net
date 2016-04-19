@@ -69,37 +69,6 @@
         });
     }).controller('EmailDetailController', function ($scope, $modalInstance, data, $http, $timeout) {
         $scope.model = {};
-
-        $scope.save = function () {
-            //if ($scope.model.OldPassword == "" || $scope.model.OldPassword == undefined) {
-            //    $('.err_tip').text("请输入原密码").show();
-            //    return false;
-            //}
-            //if ($scope.model.Password == undefined || $scope.model.Password == "" || !/^[\@@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,22}$/.test($scope.model.Password)) {
-            //    $('.err_tip').text("密码长度8~16位，数字、字母、字符至少包含两种").show();
-            //    return false;
-            //}
-            //if ($scope.model.ConfirmPassword == "" || $scope.model.ConfirmPassword == undefined) {
-            //    $('.err_tip').text("请输入确认密码").show();
-            //    return false;
-            //}
-            //if ($scope.model.Password != $scope.model.ConfirmPassword) {
-            //    $('.err_tip').text("两次输入的密码不一致").show();
-            //    return false;
-            //}
-            //if ($scope.model.Captcha == "" || $scope.model.Captcha == undefined) {
-            //    $('.err_tip').text("请输入验证码").show();
-            //    return false;
-            //}
-            //$http.post('/Passport/SetPassword', $scope.model).success(function (data) {
-            //    if (data.Result) {
-            //        $modalInstance.close($scope.model);
-            //    } else {
-            //        $('.err_tip').text(data.Message).show();
-            //    }
-            //});
-
-        };
         $scope.close = function () {
             $modalInstance.dismiss('canceled');
         };
@@ -200,11 +169,10 @@
 
                 if ($(this).hasClass('success')) {
                     $modalInstance.dismiss('canceled');
+                    window.location.reload();
                 }
                 $('.err_tip').text('').hide();
             });
-
-
         });
     });
 })();

@@ -20,7 +20,7 @@ namespace Mobet.Infrastructure.Migrations
                         LabelCss = c.String(maxLength: 50),
                         LabelText = c.String(maxLength: 50),
                         Description = c.String(maxLength: 250),
-                        Version = c.Binary(),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         IsDeleted = c.Boolean(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                     })

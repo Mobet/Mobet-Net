@@ -45,6 +45,8 @@
             controller: 'GlobalSettingsController',
             templateUrl: '/GlobalSettings/Index'
         });
+
+
         loadingBarProvider.includeSpinner = false;
 
         $httpProvider.interceptors.push(['$q', function ($q) {

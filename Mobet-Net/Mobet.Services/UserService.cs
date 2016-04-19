@@ -137,6 +137,7 @@ namespace Mobet.Services
             {
                 return new UserSetEmailResponse(false, "未知用户");
             }
+            model.Email = request.Email;
             userRepository.UpdateProperty(model, x => new { x.Email });
 
             return new UserSetEmailResponse(true, "邮箱修改成功");
@@ -163,7 +164,7 @@ namespace Mobet.Services
         /// <returns></returns>
         public UserGetProfileDataResponse GetUserProfileData(UserGetProfileDataRequest request)
         {
-            var model = userRepository.FirstOrDefault(x => x.Subject == request.UserId);
+            var model = userRepository.FirstOrDefault(x => x.Id == request.UserId);
             if (model == null)
             {
                 return new UserGetProfileDataResponse();
