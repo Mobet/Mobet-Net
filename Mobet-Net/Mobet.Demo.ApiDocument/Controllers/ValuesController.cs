@@ -7,6 +7,9 @@ using System.Web.Http;
 
 namespace Mobet.Demo.ApiDocument.Controllers
 {
+    /// <summary>
+    /// 例子|提供Resultful风格API例子
+    /// </summary>
     [Authorize]
     public class ValuesController : ApiController
     {

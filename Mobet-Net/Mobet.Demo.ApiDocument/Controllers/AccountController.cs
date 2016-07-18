@@ -19,6 +19,9 @@ using Mobet.Demo.ApiDocument.Results;
 
 namespace Mobet.Demo.ApiDocument.Controllers
 {
+    /// <summary>
+    /// 用户账户|提供用户账户管理服务
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

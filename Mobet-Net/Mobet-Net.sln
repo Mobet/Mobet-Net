@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet", "Mobet\Mobet.csproj", "{37846D25-21EE-4D5C-9F3E-62A5D2E988A9}"
 EndProject
@@ -52,6 +52,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.Email", "Mobet.Demo.Email\Mobet.Demo.Email.csproj", "{2045F2C3-FB36-4BF8-898F-27A7D66A703C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.EntityFramework", "..\..\IdentityServer3.EntityFramework\Source\Core.EntityFramework\Core.EntityFramework.csproj", "{D4C0430D-3B41-422A-B1A6-BA6C68400FF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobet.Demo.ApiDocument", "Mobet.Demo.ApiDocument\Mobet.Demo.ApiDocument.csproj", "{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,6 +194,12 @@ Global
 		{D4C0430D-3B41-422A-B1A6-BA6C68400FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C0430D-3B41-422A-B1A6-BA6C68400FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4C0430D-3B41-422A-B1A6-BA6C68400FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.AzureWebSites|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.AzureWebSites|Any CPU.Build.0 = Release|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD3603D-40C7-4AAC-A8B6-8C4013FAA545}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

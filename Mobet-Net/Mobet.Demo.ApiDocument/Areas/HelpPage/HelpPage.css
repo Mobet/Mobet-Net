@@ -73,56 +73,35 @@
 .help-page .header-tab .header-tab-panel li { padding: 0 20px 18px; float: left; color: #ffffff; cursor: pointer; font-size: 14px; filter: alpha(opacity=100); opacity: 0.5; }
 .help-page .header-tab .header-tab-panel li.active { border-bottom: 3px solid #ffffff; padding-bottom: 15px; filter: alpha(opacity=100); opacity: 1; }
 
-.content-wrapper .mod { width: 340px; margin-right: 40px;  margin-bottom: 55px; }
-.content-wrapper .mod-title { font-size: 22px; font-weight: normal; margin-top: -5px; margin-bottom: 40px; }
-.content-wrapper .mod-list { list-style: none; margin: 0px; padding: 0px; }
-.content-wrapper .mod-list li { padding: 18px 0; border-bottom: 1px solid #dddddd; }
-.content-wrapper .mod-list li a { font-size: 14px; color: #0089cd; }
 
-.content-wrapper .tab-document { clear: both; }
+.content-wrapper .mod { width: 340px; margin-right: 40px; float: left; }
 
-.content-wrapper .tab-category { clear: both; }
+.content-wrapper .tab-document { clear: both; min-height:400px; }
+.content-wrapper .tab-document .mod-doc .mod-doc-title { font-size: 22px; font-weight: normal; margin-top: -5px; margin-bottom: 40px; }
+.content-wrapper .tab-document .mod-doc ul { list-style: none; margin: 0px; padding: 0px; }
+.content-wrapper .tab-document .mod-doc ul li { padding: 18px 0; border-bottom: 1px solid #dddddd; }
+.content-wrapper .tab-document .mod-doc ul li a { font-size: 14px; color: #0089cd; }
 
-.content-wrapper .tab-tools { clear: both; }
-.content-wrapper .tab-tools ul { list-style: none; margin: 0px; padding: 0px; height: 160px; width:1000px;  margin-left: -40px; }
-.content-wrapper .tab-tools ul li { float: left; margin-left: 40px; }
-.content-wrapper .tab-tools ul li a { width: 158px; height: 158px; border: 1px solid #dddddd; display: block; text-align: center; color: #666666; font-size: 14px; text-decoration: none; }
-.content-wrapper .tab-tools ul li a .iconfont { margin-top: 45px; margin-bottom: 10px; font-size: 48px; line-height: 48px; display: inline-block; }
+.content-wrapper .tab-category {clear: both; min-height:400px; }
+.content-wrapper .tab-category .tab-category-item { padding: 18px 0; border-bottom: 1px solid #dddddd; float: left; margin-bottom: 0px; }
+.content-wrapper .tab-category .tab-category-item a { font-size: 14px; color: #0089cd; }
 
-@font-face {
-  font-family: 'iconfont1';
-  src: url('//at.alicdn.com/t/font_1442479091_8032231.eot');
-  src: url('//at.alicdn.com/t/font_1442479091_8032231.eot?#iefix') format('embedded-opentype'),
-   url('//at.alicdn.com/t/font_1442479091_8032231.woff') format('woff'), 
-   url('//at.alicdn.com/t/font_1442479091_8032231.ttf') format('truetype'), 
-   url('//at.alicdn.com/t/font_1442479091_8032231.svg#iconfont') format('svg');
-}
-@font-face {
-  font-family: 'iconfont2';
-  src: url('//at.alicdn.com/t/font_1443164965_6570427.eot');
-  src: url('//at.alicdn.com/t/font_1443164965_6570427.eot?#iefix') format('embedded-opentype'), 
-   url('//at.alicdn.com/t/font_1443164965_6570427.woff') format('woff'), 
-   url('//at.alicdn.com/t/font_1443164965_6570427.ttf') format('truetype'), 
-   url('//at.alicdn.com/t/font_1443164965_6570427.svg#iconfont') format('svg');
-}
+.content-wrapper .tab-tools { clear: both; min-height:400px; }
+.content-wrapper .tab-tools .mod-tool .mod-tool-title { font-size: 22px; font-weight: normal;  margin-bottom: 40px; }
+.content-wrapper .tab-tools .mod-tool ul { list-style: none; margin: 0px; padding: 0px; height: 160px; width: 1000px; margin-left: -40px; }
+.content-wrapper .tab-tools .mod-tool ul li { float: left; margin-left: 40px; }
+.content-wrapper .tab-tools .mod-tool ul li a { width: 158px; height: 158px; border: 1px solid #dddddd; display: block; text-align: center; color: #666666; font-size: 14px; text-decoration: none; }
+.content-wrapper .tab-tools .mod-tool ul li a .iconfont { margin-top: 45px; margin-bottom: 10px; font-size: 48px; line-height: 48px; display: inline-block; }
+
+
+@font-face { font-family: 'iconfont1'; src: url('//at.alicdn.com/t/font_1442479091_8032231.eot'); src: url('//at.alicdn.com/t/font_1442479091_8032231.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1442479091_8032231.woff') format('woff'), url('//at.alicdn.com/t/font_1442479091_8032231.ttf') format('truetype'), url('//at.alicdn.com/t/font_1442479091_8032231.svg#iconfont') format('svg'); }
+@font-face { font-family: 'iconfont2'; src: url('//at.alicdn.com/t/font_1443164965_6570427.eot'); src: url('//at.alicdn.com/t/font_1443164965_6570427.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1443164965_6570427.woff') format('woff'), url('//at.alicdn.com/t/font_1443164965_6570427.ttf') format('truetype'), url('//at.alicdn.com/t/font_1443164965_6570427.svg#iconfont') format('svg'); }
 .iconfont1,
-.iconfont {
-  font-family: "iconfont1" !important;
-  font-size: 16px;
-  font-style: normal;
-}
+.iconfont { font-family: "iconfont1" !important; font-size: 16px; font-style: normal; }
 .iconfont1.small,
-.iconfont.small {
-  font-size: 12px;
-}
+.iconfont.small { font-size: 12px; }
 .iconfont1.big,
-.iconfont.big {
-  font-size: 18px;
-}
+.iconfont.big { font-size: 18px; }
 .iconfont1.large,
-.iconfont.large {
-  font-size: 24px;
-}
-.iconfont1 {
-  font-family: "iconfont2" !important;
-}
+.iconfont.large { font-size: 24px; }
+.iconfont1 { font-family: "iconfont2" !important; }

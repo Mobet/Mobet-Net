@@ -17,8 +17,8 @@ namespace Mobet.Demo.ApiDocument.Areas.HelpPage
         {
             context.MapRoute(
                 "HelpPage_Default",
-                "Help/{action}/{apiId}",
-                new { controller = "Help", action = "Index", apiId = UrlParameter.Optional });
+                "help/{action}/{apiId}",
+                new { controller = "help", action = "index", apiId = UrlParameter.Optional });
 
             HelpPageConfig.Register(GlobalConfiguration.Configuration);
         }

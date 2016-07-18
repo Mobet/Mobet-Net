@@ -3,6 +3,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Mobet.Demo.ApiDocument.Areas.HelpPage.ModelDescriptions;
 using Mobet.Demo.ApiDocument.Areas.HelpPage.Models;
+using System.Web.Http.Description;
+using System.Linq;
+using System.Web.Http.Controllers;
 
 namespace Mobet.Demo.ApiDocument.Areas.HelpPage.Controllers
 {
@@ -29,6 +32,23 @@ namespace Mobet.Demo.ApiDocument.Areas.HelpPage.Controllers
         {
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
+        }
+
+        public ActionResult Category(string controllerName)
+        {
+
+            ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
+
+            IGrouping<HttpControllerDescriptor, ApiDescription> grouping = null;
+            foreach (var group in Configuration.Services.GetApiExplorer().ApiDescriptions.ToLookup(api => api.ActionDescriptor.ControllerDescriptor))
+            {
+                if (group.Key.ControllerName.ToLower() == controllerName)
+                {
+                    grouping = group;
+                    break;
+                }
+            }
+            return View(grouping);
         }
 
         public ActionResult Api(string apiId)

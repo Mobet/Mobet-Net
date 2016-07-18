@@ -38,19 +38,19 @@
         </div>
     </header>
     <section class="content-wrapper main-content clear-fix">
-        <div class="tab-document" style="display:block;">
+        <div class="tab-document" style="display:none;">
             <div class="mod mod-doc">
-                <h3 class="mod-title">基础文档</h3>
-                <ul class="mod-list">
+                <h3 class="mod-doc-title">基础文档</h3>
+                <ul>
                     <li><a href="#" target="_blank">用户授权</a></li>
                     <li><a href="#" target="_blank">SDK使用</a></li>
                     <li><a href="/doc/howtocallapi" target="_blank">API调用</a></li>
                     <li><a href="#" target="_blank">更多&gt;&gt;</a></li>
                 </ul>
             </div>
-            <div class="mod mod-rule">
-                <h3 class="mod-title">接入指南</h3>
-                <ul class="mod-list">
+            <div class="mod mod-doc">
+                <h3 class="mod-doc-title">接入指南</h3>
+                <ul>
                     <li><a href="" target="_blank">权限体系</a></li>
                     <li><a href="" target="_blank">环境说明</a></li>
                     <li><a href="" target="_blank">开发异常排查</a></li>
@@ -58,167 +58,18 @@
                 </ul>
             </div>
         </div>
-        <div class="tab-category" style="display:none;">
-            <div class="block-api-directory">
+        <div class="tab-category" style="display:block;">
+            <div class="tab-category-api-directory">
                 @foreach (var group in apiGroups)
                 {
-                        var index = 0;
-                        var builder1 = new StringBuilder();
-                        var builder2 = new StringBuilder();
-                        var builder3 = new StringBuilder();
-                        foreach (var api in Model.GetApis())
-                        {
-                            if (api.Key == "BaseApi") { continue; }
-
-                            var html = string.Format("<li><h3><a href='/doc/catalog?catalog_id={0}'>{1}</a></h3><p>{2}</p></li>"
-                                                    , api.Key
-                                                    , ViewBag.DocumentationProvider != null ? ViewBag.DocumentationProvider.GetDocumentation(group.Key)
-                                                            : "尚未添加文档描述"
-                                                    , 
-                                                    );
-                            if (index % 3 == 0)
-                            {
-                                builder1.Append(html);
-                            }
-                            if (index % 3 == 1)
-                            {
-                                builder2.Append(html);
-                            }
-                            if (index % 3 == 2)
-                            {
-                                builder3.Append(html);
-                            }
-
-                            index++;
-                        }
-                        <div class="mod">
-                            <ul class="list">@Html.Raw(builder1.ToString())</ul>
-                        </div>
-                        <div class="mod">
-                            <ul class="list">@Html.Raw(builder2.ToString())</ul>
-                        </div>
-                        <div class="mod mod-last">
-                            <ul class="list">@Html.Raw(builder3.ToString())</ul>
-                        </div>
                     @Html.DisplayFor(m => group, "ApiGroup")
                 }
-                <div class="mod">
-                    <ul class="mod-list">
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=AD">
-                                    广告
-                                </a>
-                            </h3><p>
-                                广告
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Bank">
-                                    银行
-                                </a>
-                            </h3><p>
-                                银行&amp;银行卡服务
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Feedback">
-                                    意见反馈
-                                </a>
-                            </h3><p>
-                                意见反馈
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Contract">
-                                    合同
-                                </a>
-                            </h3><p>
-                                合同服务
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mod">
-                    <ul class="mod-list">
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Other">
-                                    其它
-                                </a>
-                            </h3><p>
-                                提供其它服务
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Calc">
-                                    出借试算
-                                </a>
-                            </h3><p>
-                                出借试算服务
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Product">
-                                    产品
-                                </a>
-                            </h3><p>
-                                产品服务
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=GlobalSetting">
-                                    全局配置
-                                </a>
-                            </h3><p>
-                                全局配置
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mod mod-last">
-                    <ul class="mod-list">
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=Trade">
-                                    交易
-                                </a>
-                            </h3><p>
-                                交易服务
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=About">
-                                    关于
-                                </a>
-                            </h3><p>
-                                关于
-                            </p>
-                        </li>
-                        <li>
-                            <h3>
-                                <a href="/doc/catalog?catalog_id=User">
-                                    用户
-                                </a>
-                            </h3><p>
-                                提供用户相关服务
-                            </p>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
-        <div class="tab-tools" style="display:block;">
+        <div class="tab-tools" style="display:none;">
             <div class="mod mod-tool">
-                <h3 class="mod-title">常用工具</h3>
-                <ul class="icon-list">
+                <h3 class="mod-tool-title">常用工具</h3>
+                <ul class="mod-tool-icons">
                     <li>
                         <a href="/tools/test" target="_blank"><i class="iconfont iconfont1" data-iconf="&amp;#" data-iconb="xe603;"></i><br>API测试工具</a>
                     </li>
